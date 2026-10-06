@@ -1,6 +1,6 @@
 # Study 10 — Fireflies entry interface
 
-Status: first interface proposal; owner feedback pending. Created with built-in ImageGen on 2026-10-06 using Study 09 as atmosphere reference.
+Status: owner likes the composition and requests an axial-orbit input exploration. Created with built-in ImageGen on 2026-10-06 using Study 09 as atmosphere reference. Final UI remains open.
 
 ![Fireflies entry interface](10-entry-interface-fr.png)
 
@@ -14,7 +14,11 @@ French entry state, before word formation. A temporary Creation typographic word
 
 English invitation proposed for later comparison: Give a word to the night. Actual translation and language behavior remain to design.
 
-## Mentor review
+## Owner feedback
+
+The owner likes the entry and imagines more small fireflies literally orbiting the horizontal input line as an axis, with fewer ambient lights elsewhere if needed. This idea should be explored as a local 3D volume around the line, not merely an evenly spaced row beneath it. Exact trajectories and density remain open.
+
+## Mentor review of the generated image
 
 The input and submission are identifiable and the overall hierarchy is clear. The image generator increases the blue veil and some light intensity relative to the accepted atmosphere, which should be brought back toward Study 09. Small lights under the rule are too evenly distributed; intended motion should be irregular and organic. Creation is a typographic study, not a finalized logo. Focus, typing, submission transition, touch behavior, contrast during motion and responsive layout remain unvalidated.
 

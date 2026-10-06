@@ -50,3 +50,5 @@ Compare original studies of the same abstract summer-night composition with diff
 - [Study 09 — refined luminous hierarchy](studies/09-refined-luminous-hierarchy.md): owner-approved atmosphere baseline for interface design; precise rendering and word particle separation remain adjustable.
 
 - [Study 10 — entry interface](studies/10-entry-interface-fr.md): first French interface composition with the bottom-line input; owner feedback pending.
+
+- [Study 11 — input-axis fireflies](studies/11-input-axis-fireflies-fr.md): more local input activity and quieter surroundings; owner feedback pending.

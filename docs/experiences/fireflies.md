@@ -15,6 +15,8 @@ The new experience must preserve:
 
 The public website is bilingual French/English. The owner proposes a word-entry input expressed as a bottom line with a few small fireflies moving around it; see [interface direction](../interface-direction.md). Exact input appearance and interaction remain to validate.
 
+After Study 10, the owner proposes concentrating more small fireflies in literal orbits around the input line as a horizontal axis, potentially reducing lights elsewhere in the entry state. The mentor supports exploring varied shallow-volume orbits while protecting the typing area. Exact motion is not finalized or implemented.
+
 The owner selected an abstract rather than realistic direction, with a nocturnal atmosphere that gives the fireflies' light its context. Detailed art direction, choreography, and interaction rules remain open. The original assets or implementation have not been reviewed.
 
 ## Proposed experience promise

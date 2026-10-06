@@ -40,6 +40,12 @@ Develop the entry-state interface against Fireflies Study 09, the accepted atmos
 
 **Mentor recommendation:** explore a fine subdued ivory line, a readable persistent invitation/label, and standard editable text and caret. A few tiny fireflies can wander near the line with irregular timing and short pauses rather than constantly orbit in synchronized loops. Keep them clear of the letters and quiet enough to support reading.
 
+**Owner feedback on Study 10:** the owner likes the entry composition and proposes more fireflies literally orbiting the input's horizontal line as an axis, with fewer scattered lights elsewhere if necessary. The earlier recommendation against regular orbiting should not exclude this direction: the concern was synchronized spinner-like motion, not axial orbits themselves.
+
+**Revised mentor proposal:** treat the line as a horizontal axis in a shallow 3D volume. Small fireflies circle it in narrow elliptical paths at varied positions along its length, passing above/below and in front/behind the axis. Vary radius, phase and speed rather than create one synchronized ring. Use restrained depth-dependent size and focus differences. Do not draw orbit tracks. Keep the text region clear and preserve a legible static line. Concentrate more visual life near the input and reduce ambient lights specifically in the entry state; the post-submission scene can become more populated again. None of these exact trajectories or population values is finalized.
+
+This revision supersedes the earlier preference for wandering alone as the input's local movement. It is a design exploration, not a rendered or motion-validated result. A future still can show the volume around the line; orbital movement itself requires an animation study or prototype, to be authorized separately before implementation.
+
 On focus, consider a restrained increase in line contrast and local firefly attention. During typing, avoid continually reforming particle letters in a way that makes editing harder. On submission, consider those few fireflies initiating the larger swarm's formation. These gestures are proposals; detailed choreography remains open.
 
 Keep submission discoverable with an explicit action whose label/visual form is still to design, plus keyboard submission. Maintain an understandable text-entry control, visible focus, readable text, and reduced-motion behavior; the precise accessibility implementation will be defined later.
@@ -57,3 +63,5 @@ Example invitation copy for discussion only: French "Confiez un mot à la nuit";
 ## Visual proposals
 
 [Study 10 — French entry state](../moodboard/fireflies/studies/10-entry-interface-fr.md) explores the word input, brand typography and shared controls. Exact layout, copy, control inventory and logo are not approved. The atmosphere should remain anchored to Study 09 despite the generated mockup's increased veil and light intensity.
+
+[Study 11 — input-axis fireflies](../moodboard/fireflies/studies/11-input-axis-fireflies-fr.md) explores the local volume and quieter ambient population. It only partly conveys depth around the axis; actual orbital motion remains to evaluate in an authorized animation study. Owner feedback pending.
