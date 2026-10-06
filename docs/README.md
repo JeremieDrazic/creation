@@ -10,6 +10,8 @@ This documentation is the persistent project context. Discussion is in French; d
 4. [Naming](naming.md): selected name, rationale, and earlier naming exploration.
 5. [References](research/references.md): source links and possible applications.
 
+6. [Moodboard](../moodboard/README.md): visual references and evolving art direction.
+
 ## Status conventions
 
 - **Confirmed**: explicitly requested or accepted by the owner.
