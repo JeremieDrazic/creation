@@ -47,4 +47,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 - [Study 08 — restrained foreground light](studies/08-restrained-foreground-light.md): dimmer large near lights with interface composition in mind; owner feedback pending.
 
-- [Study 09 — refined luminous hierarchy](studies/09-refined-luminous-hierarchy.md): targeted intermediate-light and particle-word refinement; owner feedback pending.
+- [Study 09 — refined luminous hierarchy](studies/09-refined-luminous-hierarchy.md): owner-approved atmosphere baseline for interface design; precise rendering and word particle separation remain adjustable.
+
+- [Study 10 — entry interface](studies/10-entry-interface-fr.md): first French interface composition with the bottom-line input; owner feedback pending.

@@ -13,6 +13,8 @@ The new experience must preserve:
 - Choreography that works without music and supports interaction.
 - Music-reactive choreography.
 
+The public website is bilingual French/English. The owner proposes a word-entry input expressed as a bottom line with a few small fireflies moving around it; see [interface direction](../interface-direction.md). Exact input appearance and interaction remain to validate.
+
 The owner selected an abstract rather than realistic direction, with a nocturnal atmosphere that gives the fireflies' light its context. Detailed art direction, choreography, and interaction rules remain open. The original assets or implementation have not been reviewed.
 
 ## Proposed experience promise
@@ -96,4 +98,4 @@ The owner finds Study 08's intermediate-distance fireflies too luminous. Propose
 
 The owner accepts these lighting refinements and the recommendation to separate the word particles more clearly. Exact intensity values and a revised visual remain unvalidated. The [shared adaptive interface direction](../interface-direction.md) is accepted in principle by the owner; exact layout and controls remain open.
 
-[Study 09](../../moodboard/fireflies/studies/09-refined-luminous-hierarchy.md) refines intermediate-light brightness and word particle separation before interface composition. Some generated connecting smears remain. Owner feedback pending.
+[Study 09](../../moodboard/fireflies/studies/09-refined-luminous-hierarchy.md) is accepted by the owner as the atmosphere baseline for interface design. Preserve its deep blue, discreet veil, subdued intermediate lights, and soft near lights. Some generated connecting smears remain; exact rendering, motion, responsive composition, and interface contrast are not finalized.

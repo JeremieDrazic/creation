@@ -1,6 +1,6 @@
 # Project collaboration
 
-- Discuss the project with the owner in French. Write code, comments, and project documentation in English. The language of the public website is undecided.
+- Discuss the project with the owner in French. Write code, comments, and project documentation in English. The public website is bilingual French/English.
 - Read `docs/README.md`, `docs/project-brief.md`, and `docs/decisions.md` before project work. Read the relevant experience and research documents for the current task.
 - Maintain Markdown documentation as work progresses: capture confirmed requirements, proposals, open questions, research sources, and decisions. Do not silently promote proposals to decisions. Record superseded decisions explicitly.
 - Work as a mentor: explain meaningful creative and technical tradeoffs and support the owner's learning.

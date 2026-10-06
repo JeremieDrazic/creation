@@ -18,17 +18,19 @@
 - **Fireflies Study 07:** the owner accepts exploring the proposed proximity-blur refinement and requests its visual result. The generated study is not yet approved.
 - **Fireflies luminosity:** Study 07 is too luminous to the owner. Reduce foreground light intensity while retaining the explored proximity blur. Study 08 still has overly luminous intermediate lights according to the owner. The owner mentions surrounding "UP", interpreted as UI; interface layout remains open.
 - **Fireflies intermediate lights:** the owner finds the intermediate-distance fireflies in Study 08 too luminous and requests senior design guidance. Mentor recommends reducing their sustained brightness and halo spread, keeping only occasional brighter individuals, and assessing the particle word and interface as part of the same visual hierarchy. This recommendation is not yet a final rendering specification.
-- **Fireflies Study 09:** owner-authorized targeted refinement of intermediate luminosity and word particle separation before interface composition. Generated result awaits owner feedback; atmosphere is not yet finalized.
+- **Fireflies atmosphere baseline:** the owner accepts Study 09 as the atmosphere baseline for interface design. Preserve deep enveloping blue, a discreet blue veil, the C light family, subdued varied intermediate lights, and large softly blurred near lights. This validates the direction, not exact rendering values. Word particle separation, motion, responsive composition, and interface contrast remain to refine.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 - **Fireflies lighting refinement:** the owner accepts reducing most intermediate lights' brightness, tightening halos, varying intensities, preserving soft near lights, and separating the word particles more clearly. These are accepted design directions; exact values and the resulting visual are not yet validated.
 - **Interface direction:** the owner accepts one recognizable Creation foundation with experience-specific visual adaptation and entry rituals. Exact controls, layout, typography and implementation remain open.
+- **Public website language:** bilingual French/English, confirmed by the owner. Code and documentation remain English. This supersedes the previously unresolved website-language choice.
+- **Fireflies input exploration:** the owner accepts exploring an input represented by its bottom line with a few small fireflies around it, including the proposed quiet entry behavior, readable labeling, visible focus and discoverable submission. Exact appearance and choreography are not yet validated. Study 10 is the first entry-interface visual proposal; owner feedback pending.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.
 - **Project priorities:** personal artistic work, flagship portfolio piece, learning.
 - **Visitor role:** observe, play, discover, transform, and gently perturb a living world.
 - **Founding experience:** Fireflies. Preserve the entered word, its readability, music, interactive choreography without music, and music-reactive choreography. Art direction and atmosphere will be redesigned collaboratively.
 - **Schedule:** unhurried personal project; no fixed deadline.
-- **Language and continuity:** discuss in French; code and document in English; maintain persistent Markdown context. Public website language is not decided.
+- **Language and continuity:** discuss in French; code and document in English; maintain persistent Markdown context. The public website is bilingual French/English.
 - **Reference:** draw inspiration from The Nature of Code. This does not select p5.js or the book's demonstration architecture.
 
 ## Open

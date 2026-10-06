@@ -1,6 +1,6 @@
 # Creation documentation
 
-This documentation is the persistent project context. Discussion is in French; documentation and code are in English. The public website language remains open.
+This documentation is the persistent project context. Discussion is in French; documentation and code are in English. The public website is bilingual French/English.
 
 ## Reading order
 

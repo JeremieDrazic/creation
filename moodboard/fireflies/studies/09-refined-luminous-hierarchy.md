@@ -1,6 +1,6 @@
 # Study 09 — refined luminous hierarchy
 
-Status: exploratory; owner feedback pending. Created with built-in ImageGen on 2026-10-06, editing Study 08.
+Status: accepted by the owner as the atmosphere baseline for interface design. Created with built-in ImageGen on 2026-10-06, editing Study 08. Exact rendering values and final interface composition remain open.
 
 ![Refined luminous hierarchy](09-refined-luminous-hierarchy.png)
 
@@ -8,7 +8,11 @@ Status: exploratory; owner feedback pending. Created with built-in ImageGen on 2
 
 Reduce most intermediate fireflies' brightness and halo spread; vary their intensities; retain large restrained proximity-blurred near lights; separate word particles more clearly. Preserve deep blue, the discreet veil, the C light family and layered richness. The owner authorized one further targeted image before interface composition. This does not approve the resulting image.
 
-## Mentor review
+## Owner decision
+
+Use this atmosphere as the baseline for designing the interface. This acceptance does not finalize motion, responsive composition, interface contrast, or the remaining smears between word particles.
+
+## Mentor review of the generated image
 
 Intermediate lights are more subdued and the word remains the visual focus. Some horizontal smears between word particles persist despite the prompt, so particle separation is only partially achieved. The generated still does not establish numeric brightness reductions. The mentor recommends using this as a candidate atmosphere baseline for interface composition, leaving final lighting and particle separation open. Motion, responsive layout, readability with controls, and performance remain unvalidated.
 

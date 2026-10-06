@@ -33,6 +33,7 @@ The visitor observes, plays, gently perturbs and transforms a living world, disc
 - Use The Nature of Code as an inspiration and learning reference.
 - The final name must be poetic, evoke living nature, and work in French and English.
 - Conversation: French. Code and documentation: English. Maintain project knowledge in Markdown.
+- Public website: bilingual French/English, confirmed by the owner. Translation and language-selection behavior remain to design.
 
 ## Agreed process
 
@@ -51,7 +52,7 @@ The visitor observes, plays, gently perturbs and transforms a living world, disc
 
 ## Open cross-project questions
 
-- Public website language and visual direction.
+- Shared visual direction and bilingual language-selection behavior.
 - Collection navigation and whether the journey is free or guided.
 - Which experiences belong in the first public release.
 - Mobile support scope, target devices/browsers, accessibility, and reduced-motion behavior.
@@ -60,4 +61,3 @@ The visitor observes, plays, gently perturbs and transforms a living world, disc
 - 2D/3D modes and their artistic value relative to production cost.
 - Asset budget, learning priorities, and technical familiarity.
 - Infrastructure, stack, delivery workflow, and objective quality gates.
-
