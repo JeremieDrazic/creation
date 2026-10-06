@@ -1,6 +1,6 @@
 # Study 06 — discreet blue veil and fuller foreground
 
-Status: exploratory; owner feedback pending. Created with built-in ImageGen on 2026-10-06, editing Study 05.
+Status: owner considers this version better; foreground refinement remains open. Created with built-in ImageGen on 2026-10-06, editing Study 05.
 
 ![Discreet veil and fuller foreground](06-discreet-veil-fuller-foreground.png)
 
@@ -12,7 +12,15 @@ The foreground still feels too empty. The owner requests more near lights and as
 
 Retain the deep dark blue and C light family. Add a restrained recessed blue atmospheric veil and a richer population at near and intermediate-near distances. Keep the sample particle word readable.
 
-## Mentor review
+## Owner feedback on this study
+
+This is better. The owner likes the larger foreground fireflies and proximity blur from the early nebula version. This preference concerns near-light size and focus, not approval of the earlier background.
+
+## Proposed next refinement
+
+Keep the current dark-blue and discreet-veil direction, and restore several larger softly defocused near lights. Vary focus continuously across distances, avoid a symmetrical luminous border, and keep the word legible. The blur should communicate proximity, while a local halo communicates emitted light; these are distinct visual properties. The precise treatment remains a proposal.
+
+## Mentor review of the generated image
 
 The scene has more intermediate and nearby lights, with subtle blue texture behind them. The two large lower lights still create symmetry, and the veil remains a visual treatment to assess with the owner. Exact foreground density, distribution, halo softness and atmospheric intensity are not finalized. This still is not a performance or motion demonstration.
 

@@ -41,4 +41,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 - [Study 05 — richer foreground](studies/05-richer-foreground.md): more nearby lights; owner still finds the scene too empty and requests a discreet nebula test.
 
-- [Study 06 — discreet veil and fuller foreground](studies/06-discreet-veil-fuller-foreground.md): owner-requested atmosphere and density exploration; feedback pending.
+- [Study 06 — discreet veil and fuller foreground](studies/06-discreet-veil-fuller-foreground.md): considered better by the owner; restore the larger proximity-blurred near lights from the early nebula version in a future exploration.
+
+- [Study 07 — foreground proximity blur](studies/07-foreground-proximity-blur.md): larger defocused near lights; owner feedback pending.

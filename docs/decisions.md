@@ -14,7 +14,8 @@
 - **Fireflies background exploration:** retain deep nocturnal blue. The initial absolute no-nebula constraint is superseded for experimentation: the owner now requests a discreet nebula test. The pronounced nebula in Study 02 remains rejected, and no final atmospheric treatment is approved. Study 03 was rejected as insufficiently deep and too flat.
 - **Fireflies depth feedback:** strengthen deep nocturnal blue and spatial depth. The owner supports the darker depth direction of Study 04 and requests more foreground fireflies.
 - **Fireflies foreground:** restore a richer nearby population while preserving the darker blue background and word readability. Study 05 still feels too empty to the owner; increase near and intermediate-near presence. Exact density and arrangement remain open.
-- **Fireflies Study 06:** explores a discreet blue veil and fuller foreground at the owner's request. Feedback pending.
+- **Fireflies Study 06:** the owner considers this version better and recalls preferring the larger, proximity-blurred foreground fireflies in the early nebula version. Preserve this preference independently of the background treatment; exact foreground composition and final scene remain open.
+- **Fireflies Study 07:** the owner accepts exploring the proposed proximity-blur refinement and requests its visual result. The generated study is not yet approved.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.

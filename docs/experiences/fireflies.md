@@ -86,4 +86,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 [Study 05](../../moodboard/fireflies/studies/05-richer-foreground.md) restores more nearby fireflies while retaining the darker background. The owner still finds the foreground too empty and requests a discreet nebula test.
 
-[Study 06](../../moodboard/fireflies/studies/06-discreet-veil-fuller-foreground.md) explores a discreet blue veil and a fuller foreground. Owner feedback pending.
+[Study 06](../../moodboard/fireflies/studies/06-discreet-veil-fuller-foreground.md) explores a discreet blue veil and a fuller foreground. The owner considers it better and prefers the larger proximity-blurred foreground lights from the early nebula version. The final scene remains open.
+
+[Study 07](../../moodboard/fireflies/studies/07-foreground-proximity-blur.md) visualizes the requested larger defocused near lights with the Study 06 background. Owner feedback pending; the final intensity and color balance are open.
