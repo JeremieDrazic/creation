@@ -9,7 +9,6 @@ This documentation is the persistent project context. Discussion is in French; d
 3. [Fireflies](experiences/fireflies.md): founding experience requirements and design proposals.
 4. [Naming](naming.md): selected name, rationale, and earlier naming exploration.
 5. [References](research/references.md): source links and possible applications.
-
 6. [Moodboard](../moodboard/README.md): visual references and evolving art direction.
 
 ## Status conventions

@@ -73,3 +73,7 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 - 2D/3D treatment and whether a mode switch adds artistic value.
 - Exact visual direction, palette, typography, logo, and soundscape.
 - Performance acceptance criteria and representative devices.
+
+## Visual studies
+
+[Study 01](../../moodboard/fireflies/studies/01-summer-night-palette-triptych.md) compares three generated palette explorations. No variant is selected. Mentor review suggests reducing large foreground bokeh and preserving more separation between letter particles in a future iteration.

@@ -29,4 +29,6 @@ This is an accepted exploration direction, not a final palette or rendering spec
 
 Compare original studies of the same abstract summer-night composition with different balances of warm ivory, pale gold, and green-gold. Include a readable particle word, distant lights, and sparse foreground lights. Judge atmosphere, halo softness, depth, density, and legibility before selecting exact colors.
 
-No original concept study has been produced yet.
+## Original concept studies
+
+- [Study 01 — summer-night palette comparison](studies/01-summer-night-palette-triptych.md): AI-generated A/B/C triptych; owner feedback pending.
