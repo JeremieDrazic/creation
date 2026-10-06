@@ -43,4 +43,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 - [Study 06 — discreet veil and fuller foreground](studies/06-discreet-veil-fuller-foreground.md): considered better by the owner; restore the larger proximity-blurred near lights from the early nebula version in a future exploration.
 
-- [Study 07 — foreground proximity blur](studies/07-foreground-proximity-blur.md): larger defocused near lights; owner feedback pending.
+- [Study 07 — foreground proximity blur](studies/07-foreground-proximity-blur.md): larger defocused near lights; owner finds luminosity too strong.
+
+- [Study 08 — restrained foreground light](studies/08-restrained-foreground-light.md): dimmer large near lights with interface composition in mind; owner feedback pending.

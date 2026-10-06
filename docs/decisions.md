@@ -16,6 +16,7 @@
 - **Fireflies foreground:** restore a richer nearby population while preserving the darker blue background and word readability. Study 05 still feels too empty to the owner; increase near and intermediate-near presence. Exact density and arrangement remain open.
 - **Fireflies Study 06:** the owner considers this version better and recalls preferring the larger, proximity-blurred foreground fireflies in the early nebula version. Preserve this preference independently of the background treatment; exact foreground composition and final scene remain open.
 - **Fireflies Study 07:** the owner accepts exploring the proposed proximity-blur refinement and requests its visual result. The generated study is not yet approved.
+- **Fireflies luminosity:** Study 07 is too luminous to the owner. Reduce foreground light intensity while retaining the explored proximity blur. Study 08 awaits feedback. The owner mentions surrounding "UP", interpreted as UI; interface layout remains open.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.

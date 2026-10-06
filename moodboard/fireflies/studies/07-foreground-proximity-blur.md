@@ -1,12 +1,16 @@
 # Study 07 — foreground proximity blur
 
-Status: exploratory; owner feedback pending. Created using built-in ImageGen on 2026-10-06, editing Study 06.
+Status: owner rejects excessive luminosity; proximity blur direction retained for exploration. Created using built-in ImageGen on 2026-10-06, editing Study 06.
 
 ![Foreground proximity blur](07-foreground-proximity-blur.png)
 
 ## Request
 
 The owner accepts exploring the proposed combination and asks to see the actual result: retain the dark-blue discreet-veil background and restore larger softly defocused near fireflies, while preserving readable particle text and intermediate-distance lights.
+
+## Owner feedback on this study
+
+The foreground is too luminous. The owner reminds us that interface elements will also surround the experience ("UP", interpreted as UI).
 
 ## Mentor review
 
