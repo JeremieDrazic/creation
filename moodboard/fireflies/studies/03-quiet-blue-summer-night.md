@@ -1,12 +1,16 @@
 # Study 03 — quiet blue summer night
 
-Status: exploratory; owner feedback pending. Created on 2026-10-06 with built-in ImageGen, editing Study 02.
+Status: rejected by the owner as insufficiently deep and too flat. Created on 2026-10-06 with built-in ImageGen, editing Study 02.
 
 ![Quiet blue summer night](03-quiet-blue-summer-night.png)
 
 ## Confirmed feedback
 
 The owner says Study 02 moves in the right direction for blue, but explicitly rejects nebula effects. Retain the C light family and the deep-blue direction; remove clouds and streaks.
+
+## Owner feedback on this study
+
+The blue is not deep enough and the scene feels flat. The no-nebula constraint still applies.
 
 ## Mentor review
 

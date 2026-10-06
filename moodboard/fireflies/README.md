@@ -35,4 +35,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 - [Study 02 — deeper blue](studies/02-deeper-blue-summer-night.md): blue direction supported; nebula treatment rejected.
 
-- [Study 03 — quiet blue summer night](studies/03-quiet-blue-summer-night.md): nebula effects removed; owner feedback pending.
+- [Study 03 — quiet blue summer night](studies/03-quiet-blue-summer-night.md): nebula effects removed, but rejected as too flat and insufficiently deep.
+
+- [Study 04 — deeper nocturnal space](studies/04-deeper-nocturnal-space.md): darker blue and stronger light depth cues; owner feedback pending.

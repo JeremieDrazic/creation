@@ -80,4 +80,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 [Study 02](../../moodboard/fireflies/studies/02-deeper-blue-summer-night.md) explores C with deeper blue; The owner supports the blue direction but rejects the nebula treatment.
 
-[Study 03](../../moodboard/fireflies/studies/03-quiet-blue-summer-night.md) removes nebula-like clouds and streaks in favor of a quiet blue backdrop. Owner feedback pending.
+[Study 03](../../moodboard/fireflies/studies/03-quiet-blue-summer-night.md) removes nebula-like clouds and streaks in favor of a quiet blue backdrop. The owner rejects its insufficient depth and flat appearance.
+
+[Study 04](../../moodboard/fireflies/studies/04-deeper-nocturnal-space.md) explores darker blue tonal structure and stronger light depth cues. Owner feedback pending.
