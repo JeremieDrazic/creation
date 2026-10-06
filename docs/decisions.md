@@ -11,6 +11,7 @@
 - **Fireflies night:** an abstract summer night, with a deep, enveloping blue.
 - **Fireflies exploration direction:** the owner accepts the proposed depth layers and warm ivory/pale gold/subtle green-gold family as a starting point to refine visually. Exact palette, intensity, and density remain open.
 - **Fireflies palette selection:** C from Study 01 is preferred by the owner, with more deep blue requested. Study 02 is exploratory and not approved.
+- **Fireflies background constraint:** retain the deeper blue direction of Study 02, but no nebula-like clouds or streaks. Study 03 explores a smooth quiet blue background; owner feedback pending.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.

@@ -1,12 +1,16 @@
 # Study 02 — direction C with deeper blue
 
-Status: exploratory; owner feedback pending. Generated using built-in ImageGen on 2026-10-06, editing Study 01.
+Status: blue direction supported by the owner; nebula treatment rejected. Generated using built-in ImageGen on 2026-10-06, editing Study 01.
 
 ![Direction C with deeper blue](02-deeper-blue-summer-night.png)
 
 ## Confirmed feedback on Study 01
 
 The owner prefers C, but requests more deep enveloping blue to characterize a summer night. C is the selected palette direction; exact colors, density, bloom, and atmosphere remain adjustable.
+
+## Owner feedback on this study
+
+The deeper blue moves in the right direction, but there must be no nebula. The overall image is not approved.
 
 ## Intended change
 

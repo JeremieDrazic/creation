@@ -78,4 +78,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 [Study 01](../../moodboard/fireflies/studies/01-summer-night-palette-triptych.md) compares three generated palette explorations. The owner prefers C and requests a stronger deep-blue atmosphere. Mentor review suggests reducing large foreground bokeh and preserving more separation between letter particles in a future iteration.
 
-[Study 02](../../moodboard/fireflies/studies/02-deeper-blue-summer-night.md) explores C with deeper blue; owner feedback pending.
+[Study 02](../../moodboard/fireflies/studies/02-deeper-blue-summer-night.md) explores C with deeper blue; The owner supports the blue direction but rejects the nebula treatment.
+
+[Study 03](../../moodboard/fireflies/studies/03-quiet-blue-summer-night.md) removes nebula-like clouds and streaks in favor of a quiet blue backdrop. Owner feedback pending.
