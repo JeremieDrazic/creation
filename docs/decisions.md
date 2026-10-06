@@ -12,7 +12,8 @@
 - **Fireflies exploration direction:** the owner accepts the proposed depth layers and warm ivory/pale gold/subtle green-gold family as a starting point to refine visually. Exact palette, intensity, and density remain open.
 - **Fireflies palette selection:** C from Study 01 is preferred by the owner, with more deep blue requested. Study 02 is exploratory and not approved.
 - **Fireflies background constraint:** retain the deeper blue direction of Study 02, but no nebula-like clouds or streaks. Study 03 was rejected as insufficiently deep and too flat.
-- **Fireflies depth feedback:** strengthen deep nocturnal blue and spatial depth without reintroducing a nebula. Study 04 is an unapproved exploration of darker blue tones and more differentiated light distances.
+- **Fireflies depth feedback:** strengthen deep nocturnal blue and spatial depth without reintroducing a nebula. The owner supports the darker depth direction of Study 04 and requests more foreground fireflies.
+- **Fireflies foreground:** restore a richer nearby population while preserving the darker blue background and word readability. Exact density and arrangement remain open; Study 05 awaits feedback.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.

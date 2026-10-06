@@ -82,4 +82,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 [Study 03](../../moodboard/fireflies/studies/03-quiet-blue-summer-night.md) removes nebula-like clouds and streaks in favor of a quiet blue backdrop. The owner rejects its insufficient depth and flat appearance.
 
-[Study 04](../../moodboard/fireflies/studies/04-deeper-nocturnal-space.md) explores darker blue tonal structure and stronger light depth cues. Owner feedback pending.
+[Study 04](../../moodboard/fireflies/studies/04-deeper-nocturnal-space.md) explores darker blue tonal structure and stronger light depth cues. The owner says it is better but requests more foreground fireflies.
+
+[Study 05](../../moodboard/fireflies/studies/05-richer-foreground.md) restores more nearby fireflies while retaining the darker background. Owner feedback pending.

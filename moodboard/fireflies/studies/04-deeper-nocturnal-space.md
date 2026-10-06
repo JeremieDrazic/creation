@@ -1,12 +1,16 @@
 # Study 04 — deeper nocturnal space
 
-Status: exploratory; owner feedback pending. Created with built-in ImageGen on 2026-10-06, editing Study 03.
+Status: darker background direction supported; owner requests more foreground fireflies. Created with built-in ImageGen on 2026-10-06, editing Study 03.
 
 ![Deeper nocturnal space](04-deeper-nocturnal-space.png)
 
 ## Owner feedback on Study 03
 
 The blue is not deep enough and the result feels flat. The no-nebula constraint remains confirmed. A smooth blue field alone is not sufficient.
+
+## Owner feedback on this study
+
+The deeper result is better, but more foreground fireflies are desired for depth. The scene as a whole is not finalized.
 
 ## Proposed response
 

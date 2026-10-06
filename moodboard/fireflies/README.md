@@ -37,4 +37,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 - [Study 03 — quiet blue summer night](studies/03-quiet-blue-summer-night.md): nebula effects removed, but rejected as too flat and insufficiently deep.
 
-- [Study 04 — deeper nocturnal space](studies/04-deeper-nocturnal-space.md): darker blue and stronger light depth cues; owner feedback pending.
+- [Study 04 — deeper nocturnal space](studies/04-deeper-nocturnal-space.md): darker depth direction supported; more foreground fireflies requested.
+
+- [Study 05 — richer foreground](studies/05-richer-foreground.md): more nearby lights with the darker blue background; owner feedback pending.
