@@ -18,7 +18,7 @@ The image communicates blue nocturnal space, layered light, and a readable parti
 
 ## Owner feedback
 
-Pending. No variant has been selected.
+The owner prefers C and requests more deep blue to evoke an enveloping summer night. Exact rendering remains open.
 
 ## Generation prompt
 

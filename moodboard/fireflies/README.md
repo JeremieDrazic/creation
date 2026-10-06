@@ -31,4 +31,6 @@ Compare original studies of the same abstract summer-night composition with diff
 
 ## Original concept studies
 
-- [Study 01 — summer-night palette comparison](studies/01-summer-night-palette-triptych.md): AI-generated A/B/C triptych; owner feedback pending.
+- [Study 01 — summer-night palette comparison](studies/01-summer-night-palette-triptych.md): AI-generated A/B/C triptych; C preferred by the owner; more deep blue requested.
+
+- [Study 02 — deeper blue](studies/02-deeper-blue-summer-night.md): a refinement of C; owner feedback pending.

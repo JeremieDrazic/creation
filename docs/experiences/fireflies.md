@@ -76,4 +76,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 ## Visual studies
 
-[Study 01](../../moodboard/fireflies/studies/01-summer-night-palette-triptych.md) compares three generated palette explorations. No variant is selected. Mentor review suggests reducing large foreground bokeh and preserving more separation between letter particles in a future iteration.
+[Study 01](../../moodboard/fireflies/studies/01-summer-night-palette-triptych.md) compares three generated palette explorations. The owner prefers C and requests a stronger deep-blue atmosphere. Mentor review suggests reducing large foreground bokeh and preserving more separation between letter particles in a future iteration.
+
+[Study 02](../../moodboard/fireflies/studies/02-deeper-blue-summer-night.md) explores C with deeper blue; owner feedback pending.
