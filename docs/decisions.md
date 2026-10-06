@@ -11,9 +11,10 @@
 - **Fireflies night:** an abstract summer night, with a deep, enveloping blue.
 - **Fireflies exploration direction:** the owner accepts the proposed depth layers and warm ivory/pale gold/subtle green-gold family as a starting point to refine visually. Exact palette, intensity, and density remain open.
 - **Fireflies palette selection:** C from Study 01 is preferred by the owner, with more deep blue requested. Study 02 is exploratory and not approved.
-- **Fireflies background constraint:** retain the deeper blue direction of Study 02, but no nebula-like clouds or streaks. Study 03 was rejected as insufficiently deep and too flat.
-- **Fireflies depth feedback:** strengthen deep nocturnal blue and spatial depth without reintroducing a nebula. The owner supports the darker depth direction of Study 04 and requests more foreground fireflies.
-- **Fireflies foreground:** restore a richer nearby population while preserving the darker blue background and word readability. Exact density and arrangement remain open; Study 05 awaits feedback.
+- **Fireflies background exploration:** retain deep nocturnal blue. The initial absolute no-nebula constraint is superseded for experimentation: the owner now requests a discreet nebula test. The pronounced nebula in Study 02 remains rejected, and no final atmospheric treatment is approved. Study 03 was rejected as insufficiently deep and too flat.
+- **Fireflies depth feedback:** strengthen deep nocturnal blue and spatial depth. The owner supports the darker depth direction of Study 04 and requests more foreground fireflies.
+- **Fireflies foreground:** restore a richer nearby population while preserving the darker blue background and word readability. Study 05 still feels too empty to the owner; increase near and intermediate-near presence. Exact density and arrangement remain open.
+- **Fireflies Study 06:** explores a discreet blue veil and fuller foreground at the owner's request. Feedback pending.
 - **Moodboard:** maintain visual references and design notes in the repository under `moodboard/`.
 
 - **Emotional direction:** wonder, poetry, reverie, calm, softness, luminosity, organic life. This guides future interaction and visual decisions; it does not yet define an art direction.
@@ -35,3 +36,5 @@
 ## Superseded
 
 - `nature-of-code` was the initial workspace name and naming idea. Anima, Sylume, Luma, and Lumora were mentor proposals, never selected. Creation replaces those directions. The book remains a learning reference.
+
+- The absolute no-nebula constraint from the early Fireflies studies is reopened for a discreet treatment test at the owner's request. This does not validate the earlier pronounced nebula.

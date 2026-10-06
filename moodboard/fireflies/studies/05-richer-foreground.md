@@ -1,12 +1,16 @@
 # Study 05 — richer foreground
 
-Status: exploratory; owner feedback pending. Created with built-in ImageGen on 2026-10-06, editing Study 04.
+Status: owner requests more foreground presence and a discreet nebula test. Created with built-in ImageGen on 2026-10-06, editing Study 04.
 
 ![Richer foreground](05-richer-foreground.png)
 
 ## Owner feedback on Study 04
 
 The deeper background is better. The owner prefers more foreground fireflies, which also contribute to depth. Preserve the dark-blue direction and no-nebula constraint while restoring nearby lights.
+
+## Owner feedback on this study
+
+The foreground still feels too empty. Increase nearby fireflies and test a more discreet nebula. The final scene remains undecided.
 
 ## Mentor review
 

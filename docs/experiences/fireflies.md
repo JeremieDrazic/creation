@@ -23,7 +23,7 @@ Give a word to a living world; watch it become light, gently disturb it, and let
 
 **Confirmed:** an abstract summer night with a deep, enveloping blue. This decision applies to Fireflies; the overall collection palette remains undecided.
 
-**Proposed:** subtle differences between near-black blue in the distance and slightly more visible blue around the living forms. Use sparse layers of light and restrained atmospheric depth to suggest an enveloping space. Exact colors and any haze remain unconfirmed.
+**Proposed:** subtle differences between near-black blue in the distance and slightly more visible blue around the living forms. Use sparse layers of light and restrained atmospheric depth to suggest an enveloping space. Exact colors remain unconfirmed. A discreet blue nebula-like veil is now open for exploration at the owner's request; the earlier pronounced nebula remains rejected.
 
 **Light directions to compare:** warm ivory/gold for a tender contrast with the blue; pale green-gold for a stronger organic association; cool pearl for a more ethereal atmosphere. Mentor preference: explore warm ivory with a restrained gold halo first. Warm ivory, pale gold, and subtle green-gold are accepted for exploration; exact colors remain open.
 
@@ -84,4 +84,6 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 
 [Study 04](../../moodboard/fireflies/studies/04-deeper-nocturnal-space.md) explores darker blue tonal structure and stronger light depth cues. The owner says it is better but requests more foreground fireflies.
 
-[Study 05](../../moodboard/fireflies/studies/05-richer-foreground.md) restores more nearby fireflies while retaining the darker background. Owner feedback pending.
+[Study 05](../../moodboard/fireflies/studies/05-richer-foreground.md) restores more nearby fireflies while retaining the darker background. The owner still finds the foreground too empty and requests a discreet nebula test.
+
+[Study 06](../../moodboard/fireflies/studies/06-discreet-veil-fuller-foreground.md) explores a discreet blue veil and a fuller foreground. Owner feedback pending.
