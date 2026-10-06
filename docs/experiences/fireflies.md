@@ -91,3 +91,9 @@ All steps above are proposals, not validated functionality. Gesture mappings nee
 [Study 07](../../moodboard/fireflies/studies/07-foreground-proximity-blur.md) visualizes the requested larger defocused near lights with the Study 06 background. The owner finds luminosity too strong; the final intensity and color balance are open.
 
 [Study 08](../../moodboard/fireflies/studies/08-restrained-foreground-light.md) reduces foreground luminosity while retaining size and blur. The mentor interprets the owner's "UP" as surrounding UI; exact layout remains undecided and readability must be evaluated with actual controls and motion. Owner feedback pending.
+
+The owner finds Study 08's intermediate-distance fireflies too luminous. Proposed refinement: dim most of their steady illumination and reduce halo spread, retain varied intensities and occasional brighter individuals, then assess the word and future interface in a common visual hierarchy. Final settings and choreography are not selected.
+
+The owner accepts these lighting refinements and the recommendation to separate the word particles more clearly. Exact intensity values and a revised visual remain unvalidated. The [shared adaptive interface direction](../interface-direction.md) is accepted in principle by the owner; exact layout and controls remain open.
+
+[Study 09](../../moodboard/fireflies/studies/09-refined-luminous-hierarchy.md) refines intermediate-light brightness and word particle separation before interface composition. Some generated connecting smears remain. Owner feedback pending.

@@ -10,6 +10,7 @@ This documentation is the persistent project context. Discussion is in French; d
 4. [Naming](naming.md): selected name, rationale, and earlier naming exploration.
 5. [References](research/references.md): source links and possible applications.
 6. [Moodboard](../moodboard/README.md): visual references and evolving art direction.
+7. [Interface direction](interface-direction.md): proposed shared identity and experience-specific adaptation.
 
 ## Status conventions
 
@@ -18,4 +19,3 @@ This documentation is the persistent project context. Discussion is in French; d
 - **Open**: unresolved; do not assume an answer.
 
 Update the relevant documents after each substantive iteration. Keep enough rationale for future collaborators to understand a decision without the chat history. These documents summarize project knowledge rather than transcribe every message.
-

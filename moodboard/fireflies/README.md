@@ -46,3 +46,5 @@ Compare original studies of the same abstract summer-night composition with diff
 - [Study 07 — foreground proximity blur](studies/07-foreground-proximity-blur.md): larger defocused near lights; owner finds luminosity too strong.
 
 - [Study 08 — restrained foreground light](studies/08-restrained-foreground-light.md): dimmer large near lights with interface composition in mind; owner feedback pending.
+
+- [Study 09 — refined luminous hierarchy](studies/09-refined-luminous-hierarchy.md): targeted intermediate-light and particle-word refinement; owner feedback pending.

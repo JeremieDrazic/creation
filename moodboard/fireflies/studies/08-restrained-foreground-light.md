@@ -1,6 +1,6 @@
 # Study 08 — restrained foreground light
 
-Status: exploratory; owner feedback pending. Generated with built-in ImageGen on 2026-10-06, editing Study 07.
+Status: owner finds intermediate-distance fireflies too luminous; final balance remains open. Generated with built-in ImageGen on 2026-10-06, editing Study 07.
 
 ![Restrained foreground light](08-restrained-foreground-light.png)
 
@@ -12,7 +12,15 @@ Study 07 is too luminous. The owner reminds us that there will be surrounding "U
 
 Retain the large nearby fireflies and proximity blur, but substantially reduce their brightness and opacity so the blue remains visible and the word can take priority. Keep quiet areas for future interface composition without introducing unrequested controls or selecting a layout.
 
-## Mentor review
+## Owner feedback on this study
+
+Intermediate-distance fireflies are too luminous. The owner requests explicit senior design critique and recommendations.
+
+## Proposed luminous hierarchy
+
+Reduce the sustained brightness and halo spread of most intermediate lights. Keep their cores small and their intensities varied; allow occasional brighter presences rather than equally bright points everywhere. Preserve the large soft near lights without using strong brightness as the only depth cue. Review the particle word as well: it should remain legible without becoming a uniformly overexposed dotted sign. Evaluate the interface, word, and living scene together in a later composition. Motion and momentary pulses may support living behavior, but their exact choreography remains open.
+
+## Mentor review of the generated image
 
 The large soft lights are visibly dimmer and the word has more prominence. Foreground color remains mostly warm gold and can be adjusted. The image alone does not establish UI contrast or accessibility: evaluate with the actual interface, responsive compositions and moving lights. No exact numeric exposure reduction is verified from the generated image.
 
