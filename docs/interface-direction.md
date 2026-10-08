@@ -1,67 +1,33 @@
 # Interface direction
 
-Status: shared adaptive interface principle accepted by the owner. Details below remain mentor proposals; no specific layout, control inventory, or component technology is selected.
+## Confirmed foundation
 
-## Accepted principle
+One recognizable Creation UI adapts to each experience. Share typography, spacing, focus/control behavior and navigation grammar; allow local palette, artistic identity, motion and entry rituals. See [branding](branding.md) for Cormorant Garamond Light and the provisional C.
 
-One recognizable Creation interface system that adapts to each experience. Combine a shared navigation and control grammar with experience-specific entry rituals and interactions.
+Each experience has a direct URL and a discreet path back to Creation. The site is FR/EN; sound activation is voluntary and its choice is retained during the visit. Shared controls must remain discoverable and keyboard-accessible during contemplation. Layouts, supporting typography, public copy and exact control visibility remain to refine.
 
-## Shared foundation — proposed
+## Fireflies input and editing
 
-- Creation identity, typography hierarchy, spacing, focus treatment, and basic control behavior.
-- Consistent patterns for finding experiences, leaving the current scene, discovering help, and controlling sound where relevant.
-- A coherent interaction and motion language: pacing, restrained transitions, and feedback.
-- Familiar semantics and understandable controls across the collection, including keyboard and touch behavior.
+The input's fine bottom rule is a horizontal axis, not necessarily a control placed at the bottom of the viewport. Small lights orbit it in shallow depth, with varied phases, radii, speeds and positions. Pass above/below and in front/behind; draw no tracks. Protect letters, caret and controls; concentrate entry activity around the input.
 
-Specific control inventory and positions remain open. Use relevant controls only; an experience without sound does not need sound controls.
+Keep conventional editable typography and a clear label/submit action. Do not rebuild particle text per keystroke. Formation and later editing preserve one word's position, silhouette and perceived scale; see the [storyboard](experiences/fireflies-storyboard.md). During editing, gesture-driven scene perturbation is suspended while autonomous motion/ambient sound continue.
 
-## Adaptation — proposed
+## SVG icons and tokens
 
-- Each experience can have its own title, animated logo, accent palette, local material treatment, and motion signature.
-- Adapt interface contrast and surface treatment to the scene rather than applying identical colors everywhere.
-- Experience-specific interactions remain distinctive: Fireflies has a word-entry ritual; other experiences may invite a gesture or observation instead.
-- Keep shared controls recognizable even when their visual treatment changes.
+Hand-author shared SVG icons in packages/ui/icons. Use explicit exports, currentColor and a consistent optical weight/curve/end-cap language. Choose actual sizes and geometry by review against both scenes. Decorative icons are hidden from assistive technology; icon-only controls have accessible names. Preserve path identifiers required for purposeful animation.
 
-## Fireflies application — proposed
+packages/design-tokens owns shared semantic design values; experience artwork and simulation parameters stay local. Experience logos need not follow utility-icon geometry. No stock icon library is selected.
 
-Use a restrained Creation frame, a distinctive word-entry interaction, and contextual controls whose presence can evolve from entry to exploration. Explore a quieter interface during contemplation, with reliably discoverable controls and a clear exit. Exact layout, labels, visibility behavior, and input design require owner discussion and visual validation.
+## Accessibility
 
-## Learning and scalability rationale
+Keyboard navigation, visible focus, labels, contrast, reduced-motion treatment and usable error/retry states are required. Sound and motion cannot be the only means of understanding a control. Essential actions must not depend on hover. Design the mobile invitation separately from the interactive desktop experience.
 
-A shared foundation supports recognizable authorship, lower relearning effort, and reuse. Experience-specific rituals preserve artistic identity. Reuse should follow stable behavior and responsibilities; implementation boundaries will be decided in the architecture phase rather than imposed by these visual notes.
+Detailed interaction alternatives and reduced-motion visuals remain to design in their implementation increments. Reduced motion is independent of hardware quality.
 
-## Next design step — proposed
+## Loader — deferred
 
-Develop the entry-state interface against Fireflies Study 09, the accepted atmosphere baseline. Focus first on Creation's typographic presence, the invitation to enter a word, the word-entry interaction, and relevant surrounding controls. Exact controls and layout are not yet selected. The owner confirmed a bilingual French/English public website; code and documentation remain English.
+A polished Creation loader is required; its artwork/motion is deferred. No stagger, C reveal or breathing animation is approved.
 
-## Fireflies word-entry exploration
+Retain the approved [readiness strategy](runtime-contracts.md): a lightweight initial DOM/background before GPU readiness; outgoing scene stays usable during incoming preparation. A discreet waiting indicator may appear when useful, without a forced full-screen overlay or artificial minimum duration. Show measurable progress only when bounded work supports it; otherwise communicate preparation. Provide accessible status and retry; do not announce animation frames. No sound before audio consent.
 
-**Accepted exploration direction:** use a bottom-line input with a few small fireflies moving around the line. This describes the input's lower border, not a confirmed placement at the bottom of the viewport.
-
-**Mentor recommendation:** explore a fine subdued ivory line, a readable persistent invitation/label, and standard editable text and caret. A few tiny fireflies can wander near the line with irregular timing and short pauses rather than constantly orbit in synchronized loops. Keep them clear of the letters and quiet enough to support reading.
-
-**Owner feedback on Study 10:** the owner likes the entry composition and proposes more fireflies literally orbiting the input's horizontal line as an axis, with fewer scattered lights elsewhere if necessary. The earlier recommendation against regular orbiting should not exclude this direction: the concern was synchronized spinner-like motion, not axial orbits themselves.
-
-**Revised mentor proposal:** treat the line as a horizontal axis in a shallow 3D volume. Small fireflies circle it in narrow elliptical paths at varied positions along its length, passing above/below and in front/behind the axis. Vary radius, phase and speed rather than create one synchronized ring. Use restrained depth-dependent size and focus differences. Do not draw orbit tracks. Keep the text region clear and preserve a legible static line. Concentrate more visual life near the input and reduce ambient lights specifically in the entry state; the post-submission scene can become more populated again. None of these exact trajectories or population values is finalized.
-
-This revision supersedes the earlier preference for wandering alone as the input's local movement. It is a design exploration, not a rendered or motion-validated result. A future still can show the volume around the line; orbital movement itself requires an animation study or prototype, to be authorized separately before implementation.
-
-On focus, consider a restrained increase in line contrast and local firefly attention. During typing, avoid continually reforming particle letters in a way that makes editing harder. On submission, consider those few fireflies initiating the larger swarm's formation. These gestures are proposals; detailed choreography remains open.
-
-Keep submission discoverable with an explicit action whose label/visual form is still to design, plus keyboard submission. Maintain an understandable text-entry control, visible focus, readable text, and reduced-motion behavior; the precise accessibility implementation will be defined later.
-
-Example invitation copy for discussion only: French "Confiez un mot à la nuit"; English "Give a word to the night". Public copy is not approved.
-
-## Remaining questions
-
-- Is Creation's navigation a gallery, an atlas, a sequence, or another form?
-- Which controls are shared, and which appear only for particular experiences?
-- What remains visible during contemplation, and how are hidden controls discovered and reached?
-- Which typography and motion principles bind the collection?
-- How should the interface work on touch, keyboard, and reduced-motion settings?
-
-## Visual proposals
-
-[Study 10 — French entry state](../moodboard/fireflies/studies/10-entry-interface-fr.md) explores the word input, brand typography and shared controls. Exact layout, copy, control inventory and logo are not approved. The atmosphere should remain anchored to Study 09 despite the generated mockup's increased veil and light intensity.
-
-[Study 11 — input-axis fireflies](../moodboard/fireflies/studies/11-input-axis-fireflies-fr.md) explores the local volume and quieter ambient population. It only partly conveys depth around the axis; actual orbital motion remains to evaluate in an authorized animation study. Owner feedback pending.
+Loader design must not constrain the experience transition or become an expensive loading dependency itself.

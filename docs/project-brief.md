@@ -1,63 +1,37 @@
 # Creation — project brief
 
-Last updated: 2026-10-06.
+Updated October 8, 2026. The foundations below are confirmed.
 
-## Confirmed intent
+## Intent
 
-The project is named **Creation**, chosen by the owner as a tribute to the Creator.
+Creation honors the Creator through poetic interactive experiences of living nature. Its emotional vocabulary is wonder, poetry, reverie, calm, softness, luminosity and organic life.
 
-Create a poetic collection of interactive nature experiences with polished animation, beautiful 2D and/or 3D visuals, and multiple meaningful interactions. Awwwards and FWA are quality references, not the primary objective.
+Priorities: personal artistic work, flagship portfolio piece, and learning through making. Awwwards/FWA are craft references. The visitor observes, discovers, plays and gently perturbs a living world. There is no deadline.
 
-Emotional vocabulary: wonder, poetry, reverie, calm, softness, luminosity, and organic life.
+## V1 scope
 
-Goals, in priority order:
+- An experiential introductory homepage and Fireflies only. Fireflies is the founding experience, not the homepage.
+- A polished desktop release; mobile visitors receive an artistic invitation to desktop. Interactive mobile support remains a future possibility. Tablet classification is open.
+- French/English public UI. Discussion in French; code, comments and documentation in English.
+- Each experience has its own URL and supports direct entry. Shared Creation UI adapts to each experience; a discreet return to the homepage remains available.
+- Voluntary sound activation, remembered during the visit. Music, ambience and interaction sound design belong to the artistic work.
+- Accessibility and performance are first-class requirements. Target at least 60 fps on the agreed desktop matrix; exact devices, budgets and acceptance thresholds need measured validation.
+- Offer visitor-selectable lighter rendering/assets with a capability-informed initial recommendation and user override.
+- Host on the owner's existing Docker/Traefik VPS while preserving its other projects.
+- A modular monorepo and reusable foundations must make future experiences straightforward to add without creating a generic engine.
 
-1. A personal artistic work.
-2. A flagship portfolio project.
-3. Learning through making.
+## Design anchors
 
-The visitor observes, plays, gently perturbs and transforms a living world, discovers, and experiences wonder. Design each experience collaboratively with the owner.
+The [intro](experiences/intro.md) follows the approved celestial-veil image and complete Genesis 1:3. [Fireflies](experiences/fireflies.md) follows an abstract deep-blue summer night, living word formation, interactive reverie and generative musical response.
 
-## Confirmed scope and constraints
+[Cormorant Garamond Light 300 and a plain C](branding.md) provide the working identity. A definitive custom logo and loader artwork are deferred.
 
-- Fireflies is the founding experience, revisiting the owner's earlier Gobelins experiment.
-- Other initial subjects: luminous plankton, falling leaves, bird murmuration, and water moving through phosphorescent algae. Exact biological interpretation and experience mechanics are open.
-- Each experience should have its own name, visual identity, and stylized animated logo, within a coherent overall identity.
-- The project may include 2D and 3D; a visitor-selectable mode is under consideration.
-- Host on the owner's VPS. No access is needed during conceptual work.
-- The project will be public; polish and maintainability matter.
-- New experiences should be easy to add. Reuse appropriate technical foundations.
-- The owner requests at least 60 fps; supported devices and measurable acceptance criteria are unresolved.
-- WebRTC is a possible tool, not a selected feature or requirement.
-- This is an unhurried personal project. No release deadline or weekly time budget is set.
-- Use The Nature of Code as an inspiration and learning reference.
-- The final name must be poetic, evoke living nature, and work in French and English.
-- Conversation: French. Code and documentation: English. Maintain project knowledge in Markdown.
-- Public website: bilingual French/English, confirmed by the owner. Translation and language-selection behavior remain to design.
+## Future possibilities, outside current scope
 
-## Agreed process
+Luminous plankton, falling leaves, bird murmuration, phosphorescent algae/water and other nature subjects can be designed later. Visitor music, 2D/3D choices, WebRTC, persistence and multiplayer are possibilities, not V1 commitments. No current feature requires a custom API.
 
-1. Define functionality and experiences together, starting with Fireflies.
-2. Develop the shared and per-experience art direction precisely, using visual proposals and a collaborative moodboard. This can overlap with experience design.
-3. Discuss project architecture, deployment, and PR workflow.
-4. Select frontend/backend/API technologies and appropriate code standards.
-5. Implement and validate.
+## Process
 
-## Mentor proposals, not confirmed requirements
+Experience and visual design inform architecture, stack and standards. The assistant writes bounded implementation increments, then explains and reviews them with the experienced frontend owner. Dialogue and learning continue between increments. See [collaboration](collaboration.md) and [implementation sequence](implementation-plan.md).
 
-- Collection theme: how a multitude becomes alive.
-- Include mobile from conception, with touch-specific interaction and adaptive rendering quality.
-- Additional subjects: mycelium and dew.
-- Define performance targets on a representative device matrix rather than promise an unconditional minimum across all hardware.
-
-## Open cross-project questions
-
-- Shared visual direction and bilingual language-selection behavior.
-- Collection navigation and whether the journey is free or guided.
-- Which experiences belong in the first public release.
-- Mobile support scope, target devices/browsers, accessibility, and reduced-motion behavior.
-- Sound production, music source/licensing, and behavior without audio.
-- Whether sharing, exports, persistence, multiplayer, microphone, or camera serve an actual artistic purpose.
-- 2D/3D modes and their artistic value relative to production cost.
-- Asset budget, learning priorities, and technical familiarity.
-- Infrastructure, stack, delivery workflow, and objective quality gates.
+[The Nature of Code](research/references.md) remains a learning reference, not a production framework choice.

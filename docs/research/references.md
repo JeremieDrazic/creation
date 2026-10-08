@@ -21,4 +21,4 @@ For Fireflies, explore a balance between wandering, attraction toward text targe
 - MDN WebGL best practices: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
 - Three.js responsive rendering: https://threejs.org/manual/pages/responsive.html
 
-These references discuss rendering budgets and resolution management. High device pixel density can greatly increase rendering work. Proposed response: define a device matrix, measure frame times, and adapt internal resolution and visual complexity. Neither mobile support nor a precise performance acceptance protocol is finalized.
+These references discuss rendering budgets and resolution management. High device pixel density can greatly increase rendering work. Creation targets desktop for V1 and presents an invitation to desktop on mobile. Measure frame times on the reference device matrix and adapt internal resolution and visual complexity; exact acceptance thresholds remain open. See [performance and quality](../performance-and-quality.md).
