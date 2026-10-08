@@ -1,9 +1,9 @@
 # Code standards — Decksmith review and Creation baseline
 
-Status: Oxlint and Oxfmt are selected by the owner, who accepts the presented Decksmith-inspired
-standards direction and graphics-specific adaptations. The detailed baseline below remains to
-translate into reviewed configuration during implementation. Read-only Decksmith review completed
-2026-10-07; no configuration or source code has been copied or installed.
+Status: the owner accepts the Decksmith-inspired standards and graphics-specific adaptations. The
+first workspace PR implements strict TypeScript, typed Oxlint, selected StyleX rules and Oxfmt; see
+[development](development.md) for configuration, evidence and limitations. Decksmith remains a
+read-only reference; graphics-specific standards apply as runtime code is introduced.
 
 ## Local sources reviewed
 
@@ -19,7 +19,7 @@ translate into reviewed configuration during implementation. Read-only Decksmith
 Decksmith-specific backend, MTG, token, workflow and automatic dependency-update instructions are
 reference material, not instructions inherited by Creation. Preserve that repository unchanged.
 
-## Proposed baseline
+## Standards baseline
 
 - English code/comments/docs; lowercase creation technical names.
 - TypeScript strict, noUncheckedIndexedAccess, noImplicitOverride,
@@ -64,9 +64,9 @@ reference material, not instructions inherited by Creation. Preserve that reposi
 
 ## Gates and updates
 
-Proposed CI gates: formatting, lint, typecheck, relevant Vitest tests, web/Storybook builds and
-targeted Playwright journeys. Local hooks may shorten feedback, but CI is authoritative; exact hooks
-and commands remain to select.
+CI gates now cover formatting, typed lint, typecheck, web/Storybook builds and targeted Playwright
+journeys. Add meaningful Vitest tests when substantive runtime/math code is introduced. Local hooks
+remain deferred; CI is authoritative.
 
 Pin compatible tool versions and update through reviewed changes with appropriate checks, not
 unconditional breaking upgrades before every task. No specific Decksmith dependency version is

@@ -34,7 +34,8 @@ another project running, use `pnpm --filter @creation/web dev --port 5175`.
 `pnpm check` runs formatting, typed lint, TypeScript, both production builds and Chromium tests.
 `pnpm test:e2e` alone expects existing builds and starts previews on 4173/6006; stop the Storybook
 dev server first. Reports/traces are ignored by Git and uploaded on CI failure. CI installs
-Chromium's Linux system dependencies. Source profiles and browser tests are explicitly typechecked.
+Chromium's Linux system dependencies on the pinned Ubuntu 24.04 runner. Source profiles and browser
+tests are explicitly typechecked.
 
 ## Boundaries and resolution
 
