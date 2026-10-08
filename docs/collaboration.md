@@ -13,6 +13,11 @@ updates during sustained work.
 
 For each increment:
 
+Prepare and study one file at a time. Explain its purpose, contents and tradeoffs, then leave room
+for dialogue before proceeding to the next file. Do not deliver a large implementation or document
+dump for the owner to review afterward. Discuss internal package folder organization before adding
+more structure. A requested small correction may update its necessary configuration alongside it.
+
 1. Define the purpose, scope, relevant decisions and review evidence.
 2. Explain the unfamiliar concepts through their role in the project.
 3. Write the code and run meaningful checks.

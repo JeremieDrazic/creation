@@ -39,6 +39,12 @@ tests are explicitly typechecked.
 
 ## Boundaries and resolution
 
+Stories and tests are colocated with the component/file they exercise. Storybook discovers stories
+in their owning package rather than storing them in the host app. Playwright discovers colocated
+`.spec.ts` browser checks; the root Node profile typechecks them, separately from browser
+application profiles. The router excludes test/story files from generation. Internal folder
+conventions beyond this colocation rule remain to discuss before further implementation.
+
 | Layer         | Current responsibility                                                  |
 | ------------- | ----------------------------------------------------------------------- |
 | Root          | Exact catalog, one lockfile, lint/format policy, CI and browser tests.  |
@@ -113,9 +119,10 @@ Local probes also confirmed shared-token hot reload in both apps and actual reje
 unhandled promise and invalid StyleX property by lint. Temporary probes were removed. Storybook
 reports large development-tool chunks; its output is separate from the public web bundle.
 
-Study in order: catalog/linking → package exports/TypeScript → Turbo graph → StyleX compilation →
-route shell/localization → browser tests/CI. Trace a token or component from its owner to both apps.
-The next increment introduces the experience host while keeping frame work outside React state.
+Study one file at a time, with dialogue before the next. The topics are catalog/linking, exports and
+TypeScript, Turbo, StyleX, routes/localization, then tests/CI; they are not a bulk reading
+assignment. The next increment introduces the experience host while keeping frame work outside React
+state.
 
 ## Sources
 

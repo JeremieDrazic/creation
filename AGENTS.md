@@ -1,5 +1,8 @@
 # Project collaboration
 
+- Work file by file: explain and discuss each file before advancing. Agree internal package folder
+  conventions with the owner. Colocate stories and tests with their component or tested file.
+
 - Discuss the project with the owner in French. Write code, comments, and project documentation in
   English. The public website is bilingual French/English.
 - Read `docs/README.md`, `docs/project-brief.md`, and `docs/decisions.md` before project work. Read

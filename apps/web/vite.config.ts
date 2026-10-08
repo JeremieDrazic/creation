@@ -5,7 +5,11 @@ import { createStylexPlugin } from '@creation/config/vite/stylex';
 
 export default defineConfig(({ mode }) => ({
   plugins: [
-    tanstackRouter({ target: 'react', autoCodeSplitting: true }),
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+      routeFileIgnorePattern: '\\.(test|spec|stories)\\.',
+    }),
     createStylexPlugin(mode),
     react(),
   ],

@@ -19,6 +19,7 @@
     "@creation/design-tokens": "workspace:*"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
     "vite": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "@tanstack/router-plugin": "catalog:",

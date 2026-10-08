@@ -5,6 +5,11 @@ Concrete exports/contracts and budgets are established during implementation.
 
 ## Target structure
 
+Internal package folder conventions remain to discuss with the owner. Current flat source folders
+are provisional. Stories and tests live beside the component or file they exercise; Storybook hosts
+them without owning their source. Placement for future cross-module journeys is discussed
+explicitly.
+
 ```text
 apps/
   web/                  # Routes, shared shell, intro and Fireflies feature modules

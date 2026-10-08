@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const config: StorybookConfig = {
-  stories: ['../stories/**/*.stories.tsx'],
+  stories: ['../../../packages/ui/src/**/*.stories.tsx'],
   addons: [dirname(fileURLToPath(import.meta.resolve('@storybook/addon-a11y/package.json')))],
   framework: {
     name: dirname(fileURLToPath(import.meta.resolve('@storybook/react-vite/package.json'))),

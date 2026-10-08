@@ -5,6 +5,7 @@ packages:
 catalog:
   '@playwright/test': '1.63.0'
   '@storybook/addon-a11y': '10.6.1'
+  '@storybook/react': '10.6.1'
   '@storybook/react-vite': '10.6.1'
   '@stylexjs/eslint-plugin': '0.19.1'
   '@stylexjs/stylex': '0.19.1'
