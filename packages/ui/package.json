@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./button": "./src/button/Button.tsx",
+    "./button": "./src/button/button.tsx",
     "./global.css": "./src/styles/global.css"
   },
   "scripts": {

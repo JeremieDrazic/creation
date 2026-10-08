@@ -63,8 +63,9 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
 - Explicit package subpath exports and acyclic dependencies. Avoid aggregate imports that mix pure,
   DOM and graphics modules or eagerly load all experiences. Organize by feature/responsibility;
   colocate meaningful tests and UI stories.
-- PascalCase component files; kebab-case logic/directories; .test.ts/.test.tsx and .stories.tsx
-  conventions. Generated route files follow the router's requirements.
+- Kebab-case source filenames and directories, including components; .test.ts/.test.tsx and
+  .stories.tsx suffixes. React component identifiers remain PascalCase. Oxlint enforces source
+  filename casing; generated/framework files retain tool-required conventions.
 - Formatting aligned with actual Decksmith config: semicolons, single quotes, 2 spaces, width 100,
   ES5 trailing commas, parenthesized arrow arguments, LF and Markdown prose wrapping. Exclude
   generated code, build output, coverage and lockfiles as appropriate. Do not blindly copy

@@ -23,5 +23,7 @@
 - Preserve modularity, performance, visual quality, fluid interaction, and poetic coherence as core
   requirements. Choose concrete standards after the experience requirements are understood.
 
+- Use kebab-case source filenames and directories, including component files. React component
+  identifiers remain PascalCase. Generated/framework files follow tool conventions.
 - Use lowercase `creation` for technical names (folder, repository, and code identifiers).
   `Creation` is the display name.

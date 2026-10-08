@@ -95,7 +95,15 @@
     "typescript/no-unsafe-function-type": "error",
     "typescript/no-wrapper-object-types": "error",
     "typescript/use-unknown-in-catch-callback-variable": "error",
-    "typescript/ban-ts-comment": "error"
+    "typescript/ban-ts-comment": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "kebabCase": true
+        }
+      }
+    ]
   },
   "ignorePatterns": [
     "**/routeTree.gen.ts",

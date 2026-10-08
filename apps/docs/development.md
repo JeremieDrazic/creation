@@ -51,11 +51,11 @@ shallow nesting follow [the standards](standards.md).
 ```text
 apps/web/src/
   localization/i18n.ts
-  shell/Shell.tsx, Shell.test.ts
+  shell/shell.tsx, shell.test.ts
   routes/                 # Router-required route files
   main.tsx, routeTree.gen.ts
 packages/ui/src/
-  button/Button.tsx, Button.stories.tsx, Button.test.ts
+  button/button.tsx, button.stories.tsx, button.test.ts
   styles/global.css
 packages/design-tokens/src/colors.stylex.ts, controls.stylex.ts
 packages/config/
