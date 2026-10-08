@@ -3,5 +3,11 @@
 .env.*
 !.env.example
 node_modules/
+.turbo/
 dist/
+storybook-static/
 coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.vitepress/cache/

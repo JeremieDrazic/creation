@@ -1,0 +1,29 @@
+{
+  "name": "@creation/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./button": "./src/button/button.tsx",
+    "./global.css": "./src/styles/global.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:",
+    "@creation/design-tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@playwright/test": "catalog:",
+    "@storybook/react": "catalog:",
+    "storybook": "catalog:",
+    "react-dom": "catalog:",
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:",
+    "react": "catalog:",
+    "@types/react": "catalog:"
+  }
+}

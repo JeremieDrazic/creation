@@ -1,0 +1,117 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "react", "jsx-a11y", "import"],
+  "jsPlugins": [
+    {
+      "name": "stylex",
+      "specifier": "@stylexjs/eslint-plugin"
+    }
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/consistent-type-imports": "error",
+    "react/rules-of-hooks": "error",
+    "react/jsx-key": "error",
+    "react/button-has-type": "error",
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-proptypes": "error",
+    "jsx-a11y/label-has-associated-control": "error",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "stylex/valid-styles": "error",
+    "stylex/valid-shorthands": "error",
+    "stylex/no-unused": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "regex": "^@creation/[^/]+/src/",
+            "message": "Use a declared package export, not another package\u2019s implementation path."
+          },
+          {
+            "regex": "^(\\.\\./)+(packages|apps)/",
+            "message": "Cross workspace boundaries through declared package exports."
+          }
+        ],
+        "paths": [
+          {
+            "name": "react",
+            "importNames": ["useEffect", "useLayoutEffect"],
+            "message": "Effects synchronize external systems only. Explain that system in a narrowly scoped lint exception; prefer derived values or event handlers otherwise."
+          }
+        ]
+      }
+    ],
+    "no-use-before-define": "error",
+    "eqeqeq": "error",
+    "curly": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-debugger": "error",
+    "no-useless-catch": "error",
+    "import/no-self-import": "error",
+    "react/exhaustive-deps": "error",
+    "react/no-unknown-property": "error",
+    "react/jsx-no-target-blank": "error",
+    "react/no-unstable-nested-components": "error",
+    "react/no-danger": "error",
+    "react/no-array-index-key": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "react/no-children-prop": "error",
+    "jsx-a11y/anchor-has-content": "error",
+    "jsx-a11y/heading-has-content": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/no-redundant-roles": "error",
+    "jsx-a11y/no-autofocus": "error",
+    "jsx-a11y/click-events-have-key-events": "error",
+    "jsx-a11y/no-static-element-interactions": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/no-abusive-eslint-disable": "error",
+    "unicorn/error-message": "error",
+    "unicorn/no-invalid-remove-event-listener": "error",
+    "typescript/await-thenable": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-base-to-string": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/no-unnecessary-type-arguments": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/no-unsafe-unary-minus": "error",
+    "typescript/no-unsafe-function-type": "error",
+    "typescript/no-wrapper-object-types": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    "typescript/ban-ts-comment": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "kebabCase": true
+        }
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "**/routeTree.gen.ts",
+    "**/dist/**",
+    "**/storybook-static/**",
+    "**/test-results/**",
+    "**/playwright-report/**",
+    "**/.vitepress/cache/**",
+    "**/.vitepress/dist/**"
+  ]
+}

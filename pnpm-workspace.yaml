@@ -1,0 +1,52 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  '@playwright/test': '1.63.0'
+  '@storybook/addon-a11y': '10.6.1'
+  '@storybook/addon-vitest': '10.6.1'
+  '@vitest/browser': '5.0.3'
+  '@vitest/browser-playwright': '5.0.3'
+  '@vitest/runner': '4.1.11'
+  'vitest': '5.0.3'
+  'playwright': '1.63.0'
+  'vitepress': '1.6.4'
+  'postcss': '8.5.6'
+  'search-insights': '2.17.3'
+  '@storybook/react': '10.6.1'
+  '@storybook/react-vite': '10.6.1'
+  '@stylexjs/eslint-plugin': '0.19.1'
+  '@stylexjs/stylex': '0.19.1'
+  '@stylexjs/unplugin': '0.19.1'
+  '@tanstack/react-router': '1.170.41'
+  '@tanstack/router-plugin': '1.168.42'
+  '@types/node': '24.19.1'
+  '@types/react': '19.3.0'
+  '@types/react-dom': '19.3.0'
+  '@vitejs/plugin-react': '6.1.2'
+  'i18next': '26.4.2'
+  'oxfmt': '0.72.0'
+  'oxlint': '1.87.0'
+  'oxlint-tsgolint': '7.0.2003'
+  'react': '19.3.0'
+  'react-dom': '19.3.0'
+  'react-i18next': '17.0.16'
+  'storybook': '10.6.1'
+  'turbo': '2.11.7'
+  'typescript': '7.0.2'
+  'unplugin': '2.3.11'
+  'vite': '8.3.3'
+
+# Explicit workspace links and reproducible dependency resolution.
+nodeLinker: isolated
+hoist: false
+strictPeerDependencies: true
+autoInstallPeers: false
+saveExact: true
+catalogMode: strict
+engineStrict: true
+minimumReleaseAge: 2880
+minimumReleaseAgeStrict: true
+allowBuilds:
+  esbuild: true

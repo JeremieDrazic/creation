@@ -1,0 +1,20 @@
+{
+  "name": "@creation/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev --host 127.0.0.1 --port 5174",
+    "build": "vitepress build",
+    "preview": "vitepress preview --host 127.0.0.1 --port 4174",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "vitepress": "catalog:",
+    "postcss": "catalog:",
+    "search-insights": "catalog:",
+    "@creation/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "@playwright/test": "catalog:"
+  }
+}

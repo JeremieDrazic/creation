@@ -1,0 +1,47 @@
+# INACTIVE TEMPLATE. Activation requires the owner's explicit production approval.
+name: Deploy
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: creation-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if:
+      github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: creation-image
+          path: ${{ runner.temp }}/creation-release
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy the checked image
+        env:
+          RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
+          DEPLOY_HOST: ${{ secrets.CREATION_HOST }}
+          DEPLOY_USER: ${{ secrets.CREATION_USER }}
+          DEPLOY_KEY: ${{ secrets.CREATION_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.CREATION_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_SHA" =~ ^[a-f0-9]{40}$ ]]
+          SSH_DIR=$(mktemp -d)
+          trap 'rm -rf "$SSH_DIR"' EXIT
+          chmod 700 "$SSH_DIR"
+          printf '%s\n' "$DEPLOY_KEY" > "$SSH_DIR/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$SSH_DIR/known_hosts"
+          chmod 600 "$SSH_DIR/key" "$SSH_DIR/known_hosts"
+          ssh -i "$SSH_DIR/key" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$SSH_DIR/known_hosts" -o ConnectTimeout=15 \
+            -o ServerAliveInterval=15 -o ServerAliveCountMax=4 \
+            "$DEPLOY_USER@$DEPLOY_HOST" "deploy $RELEASE_SHA" \
+            < "$RUNNER_TEMP/creation-release/creation-image.tar.gz"

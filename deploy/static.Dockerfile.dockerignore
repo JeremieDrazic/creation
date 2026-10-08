@@ -1,0 +1,13 @@
+**
+!deploy/
+!deploy/nginx.conf
+!apps/
+!apps/web/
+!apps/web/dist/
+!apps/web/dist/**
+!apps/docs/
+!apps/docs/dist/
+!apps/docs/dist/**
+!apps/storybook/
+!apps/storybook/storybook-static/
+!apps/storybook/storybook-static/**

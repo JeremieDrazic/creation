@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "proseWrap": "always",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "pnpm-lock.yaml",
+    "**/routeTree.gen.ts",
+    "**/dist/**",
+    "**/storybook-static/**",
+    "**/test-results/**",
+    "**/playwright-report/**",
+    "moodboard/branding/typeface-study/fonts/*",
+    "**/.vitepress/cache/**"
+  ],
+  "sortImports": {
+    "internalPattern": ["@creation/"],
+    "groups": [
+      ["value-builtin", "type-builtin"],
+      ["value-external", "type-external"],
+      ["value-internal", "type-internal"],
+      ["value-parent", "type-parent", "value-sibling", "type-sibling", "value-index", "type-index"],
+      "unknown"
+    ],
+    "newlinesBetween": true,
+    "sortSideEffects": false
+  },
+  "jsdoc": {
+    "commentLineStrategy": "keep"
+  }
+}
