@@ -2,6 +2,8 @@
 
 - Work file by file: explain and discuss each file before advancing. Agree internal package folder
   conventions with the owner. Colocate stories and tests with their component or tested file.
+  Exception: the owner authorizes finishing the current scaffolding as a batch and delegates routine
+  technical standards. Resume file-by-file dialogue for subsequent implementation increments.
 
 - Discuss the project with the owner in French. Write code, comments, and project documentation in
   English. The public website is bilingual French/English.

@@ -17,5 +17,20 @@
     "**/test-results/**",
     "**/playwright-report/**",
     "moodboard/branding/typeface-study/fonts/*"
-  ]
+  ],
+  "sortImports": {
+    "internalPattern": ["@creation/"],
+    "groups": [
+      ["value-builtin", "type-builtin"],
+      ["value-external", "type-external"],
+      ["value-internal", "type-internal"],
+      ["value-parent", "type-parent", "value-sibling", "type-sibling", "value-index", "type-index"],
+      "unknown"
+    ],
+    "newlinesBetween": true,
+    "sortSideEffects": false
+  },
+  "jsdoc": {
+    "commentLineStrategy": "keep"
+  }
 }

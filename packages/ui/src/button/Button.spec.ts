@@ -8,6 +8,7 @@ test('shared StyleX styles and tokens survive both production builds', async ({ 
   await webButton.focus();
   await expect(webButton).toHaveCSS('outline-style', 'solid');
   await expect(webButton).toHaveCSS('outline-width', '2px');
+  await expect(webButton).toHaveCSS('outline-offset', '5px');
 
   await page.goto('http://127.0.0.1:6006/iframe.html?id=ui-button--default&viewMode=story');
   const storyButton = page.getByRole('button', { name: 'Laisser danser' });
@@ -15,4 +16,5 @@ test('shared StyleX styles and tokens survive both production builds', async ({ 
   await expect(storyButton).toHaveCSS('color', 'rgb(242, 238, 228)');
   await page.goto('http://127.0.0.1:6006/iframe.html?id=ui-button--disabled&viewMode=story');
   await expect(page.getByRole('button', { name: 'Laisser danser' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Laisser danser' })).toHaveCSS('opacity', '0.45');
 });

@@ -1,6 +1,6 @@
 import * as stylex from '@stylexjs/stylex';
 
-// Working UI values; graphics palettes and final typography belong to later increments.
+/** Working semantic UI variables; graphics palettes and final typography are defined separately. */
 export const theme = stylex.defineVars({
   background: '#061225',
   foreground: '#f2eee4',
@@ -9,4 +9,7 @@ export const theme = stylex.defineVars({
   controlPaddingBlock: '0.75rem',
   controlPaddingInline: '1.25rem',
   controlRadius: '999px',
+  controlFocusWidth: '2px',
+  controlFocusOffset: '5px',
+  controlDisabledOpacity: '0.45',
 });

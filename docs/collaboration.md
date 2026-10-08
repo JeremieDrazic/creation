@@ -13,6 +13,11 @@ updates during sustained work.
 
 For each increment:
 
+The owner authorizes completing the current workspace scaffolding in a batch and delegates routine
+technical standards, subject to later review. The file-by-file workflow below resumes after this
+scaffolding. Artistic choices and changes to scope remain topics for dialogue throughout the
+project.
+
 Prepare and study one file at a time. Explain its purpose, contents and tradeoffs, then leave room
 for dialogue before proceeding to the next file. Do not deliver a large implementation or document
 dump for the owner to review afterward. Discuss internal package folder organization before adding
@@ -24,9 +29,9 @@ more structure. A requested small correction may update its necessary configurat
 4. Review the result together, including visuals/motion or profiling where relevant.
 5. Update the documentation with current decisions and remaining work.
 
-Use routine implementation judgment within an agreed increment. Discuss changes to scope,
-architecture or artistic direction; do not turn every reversible edit into an approval request.
-Targeted exercises are optional, not compulsory.
+Use routine implementation judgment within an agreed increment. Explain architectural decisions and
+discuss changes to scope or artistic direction; do not turn every reversible edit into an approval
+request. Targeted exercises are optional, not compulsory.
 
 ## Git and publication
 

@@ -1,7 +1,9 @@
-import type { StorybookConfig } from '@storybook/react-vite';
-import { createStylexPlugin } from '@creation/config/vite/stylex';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import type { StorybookConfig } from '@storybook/react-vite';
+
+import { createStylexPlugin } from '@creation/config/vite/stylex';
 
 const config: StorybookConfig = {
   stories: ['../../../packages/ui/src/**/*.stories.tsx'],

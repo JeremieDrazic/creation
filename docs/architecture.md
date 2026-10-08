@@ -5,10 +5,11 @@ Concrete exports/contracts and budgets are established during implementation.
 
 ## Target structure
 
-Internal package folder conventions remain to discuss with the owner. Current flat source folders
-are provisional. Stories and tests live beside the component or file they exercise; Storybook hosts
-them without owning their source. Placement for future cross-module journeys is discussed
-explicitly.
+Each coherent module has a named folder with shallow nesting, following the confirmed
+[organization standards](standards.md#internal-organization--confirmed-principles). Stories and
+tests live beside their module; Storybook hosts them without owning their source. Required tool
+entry files retain their conventional locations. Establish each future package's concrete
+organization when its responsibilities become real.
 
 ```text
 apps/

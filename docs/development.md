@@ -42,8 +42,25 @@ tests are explicitly typechecked.
 Stories and tests are colocated with the component/file they exercise. Storybook discovers stories
 in their owning package rather than storing them in the host app. Playwright discovers colocated
 `.spec.ts` browser checks; the root Node profile typechecks them, separately from browser
-application profiles. The router excludes test/story files from generation. Internal folder
-conventions beyond this colocation rule remain to discuss before further implementation.
+application profiles. The router excludes test/story files from generation. Named module folders and
+shallow nesting follow [the standards](standards.md).
+
+```text
+apps/web/src/
+  localization/i18n.ts
+  shell/Shell.tsx, Shell.spec.ts
+  routes/                 # Router-required route files
+  main.tsx, routeTree.gen.ts
+packages/ui/src/
+  button/Button.tsx, Button.stories.tsx, Button.spec.ts
+  styles/global.css
+packages/design-tokens/src/theme/theme.stylex.ts
+packages/config/
+  tsconfig/               # Named browser/Node profiles
+  vite/stylex/stylex.ts
+```
+
+Public package subpaths stay stable as implementations move into these folders.
 
 | Layer         | Current responsibility                                                  |
 | ------------- | ----------------------------------------------------------------------- |
@@ -83,6 +100,11 @@ React hooks, cycles and selected accessibility rules are errors. JS plugins rema
 retain compiler/build checks. The native Button forwards React's constrained type with one explained
 rule suppression instead of duplicating the check at runtime.
 
+Oxfmt sorts Node, external, workspace and relative imports, keeping types with their source group;
+side-effect ordering is preserved. It also formats JSDoc. Oxlint rejects explicit workspace-source
+shortcuts; public export resolution is checked by TypeScript. Named constants, meaningful JSDoc,
+units, ownership and settings policy additionally require code review.
+
 TanStack generates `apps/web/src/routeTree.gen.ts`. Commit it so fresh checkouts can typecheck
 before Vite; never edit it manually. It is excluded from lint/format, not TypeScript checking. Run
 web build/dev after route changes and commit regeneration. Automatic route splitting is enabled.
@@ -116,10 +138,13 @@ or final artwork. Storybook includes the accessibility review addon; this is not
 accessibility audit of the future site.
 
 Local probes also confirmed shared-token hot reload in both apps and actual rejection of an
-unhandled promise and invalid StyleX property by lint. Temporary probes were removed. Storybook
-reports large development-tool chunks; its output is separate from the public web bundle.
+unhandled promise, invalid StyleX property and explicit private-source import by lint. Import-order
+probes verified grouping and preserved side-effect order. Token hot reload was rechecked after
+moving the modules into folders. Temporary probes were removed. Storybook reports large
+development-tool chunks; its output is separate from the public web bundle.
 
-Study one file at a time, with dialogue before the next. The topics are catalog/linking, exports and
+The owner authorizes finishing this scaffolding as a batch. Subsequent increments resume study one
+file at a time, with dialogue before the next. The topics are catalog/linking, exports and
 TypeScript, Turbo, StyleX, routes/localization, then tests/CI; they are not a bulk reading
 assignment. The next increment introduces the experience host while keeping frame work outside React
 state.

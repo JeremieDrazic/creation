@@ -1,6 +1,7 @@
-import * as stylex from '@stylexjs/stylex';
-import { theme } from '@creation/design-tokens/theme.stylex';
 import type { Preview } from '@storybook/react-vite';
+import * as stylex from '@stylexjs/stylex';
+
+import { theme } from '@creation/design-tokens/theme.stylex';
 import '@creation/ui/global.css';
 
 const styles = stylex.create({

@@ -28,8 +28,9 @@ duplicate TypeScript type annotations or add comments that merely repeat a symbo
 
 Import ordering is confirmed: Node built-ins, external libraries, workspace packages, then relative
 modules. Separate groups with a blank line and sort paths alphabetically within each group. Keep
-type imports alongside their source group. Preserve evaluation order for side-effect imports.
-Automatic sorting still needs to be configured and reviewed in the formatter increment.
+type imports alongside their source group. Preserve evaluation order for side-effect imports. Oxfmt
+enforces this ordering and formats JSDoc. Side-effect imports remain in evaluation order and can
+partition sorted groups. JSDoc completeness and usefulness remain review responsibilities.
 
 The pnpm catalog is already active: external dependencies use `catalog:`; internal packages use
 `workspace:*`. Versions are centralized in `pnpm-workspace.yaml`.
@@ -74,8 +75,8 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
   categories or redundant directory layers solely to fill an architectural template.
 - Keep required package/tool entry files at their expected locations. Generated/framework files
   follow their tool conventions.
-- Define the concrete tree for each package when working on it, through file-by-file dialogue. The
-  general principles do not preselect every package's future category folders.
+- The current scaffolding is organized as an authorized batch. Define future package trees during
+  their implementation, with file-by-file dialogue. The principles do not preselect future folders.
 
 ## Named constants — confirmed
 
@@ -96,7 +97,36 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
   meaning is self-evident. The goal is to eliminate unexplained behavior, not name every zero or
   create aliases for standard constants such as Math.PI.
 
-## Graphics-specific adaptations
+## Contracts and configuration
+
+- Prefer named exports for project modules. Default exports remain appropriate for tool-required
+  configuration, route conventions and Storybook metadata. Export intentional entry points through
+  package.json; no catch-all barrel eagerly importing experiences.
+- Import another package through its declared exports, never a relative path into its source.
+  Packages must not depend on application implementation. Oxlint blocks source-path shortcuts and
+  relative imports through workspace apps/packages folders; TypeScript resolves declared exports.
+  These checks complement dependency review rather than proving the entire architectural graph.
+- Use seconds for runtime time/durations and radians for angles. Browser APIs with milliseconds
+  convert at their boundary. Name dimensional values explicitly and document coordinate/color spaces
+  at conversions; avoid mixing CSS pixels, physical render pixels and normalized positions.
+- Assign one owner to each listener, timeline, subscription and disposable resource. Acquisition
+  must have a matching release path; cleanup must tolerate repeated calls. Borrowed shared renderer
+  resources remain owned by the host. React effects clean up their own subscriptions.
+- Treat cancellation as expected control flow, separately from failures. Propagate operational
+  failures to the owning boundary for recovery and useful visitor feedback; do not silently swallow
+  errors. A void promise is appropriate only when its failure handling is explicit or guaranteed by
+  a documented local contract. Preserve the original error cause without logging visitor input.
+- Separate immutable defaults, validated runtime settings and visitor preferences. The developer
+  palette updates settings through their owner, not exported constants or React state per frame.
+  Store only deliberately persistent preferences; define migration when storage is introduced.
+- In review, require accessible names, keyboard/focus behavior and reduced-motion consideration for
+  new controls. Async scene work must define behavior for stale results and interrupted navigation.
+
+Semantic constants use SCREAMING_SNAKE_CASE; CSS token keys and runtime setting fields retain
+descriptive camelCase APIs. Numerical thresholds, naming and JSDoc coverage remain reviewed rules,
+not blanket lint rules that flag ordinary CSS declarations, mathematical identities or assertions.
+
+## Runtime verification
 
 - Mutable vectors, typed arrays and uniforms are intentional in frame work. Do not impose immutable
   state patterns on particle simulation.

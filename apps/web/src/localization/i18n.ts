@@ -1,12 +1,17 @@
 import { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+export const DEFAULT_LANGUAGE = 'fr';
+const FALLBACK_LANGUAGE = 'en';
+const SUPPORTED_LANGUAGES = ['fr', 'en'];
+
+/** Application-owned translation instance, initialized from bundled resources before mounting. */
 export const i18n = createInstance();
 
 await i18n.use(initReactI18next).init({
-  lng: 'fr',
-  fallbackLng: 'en',
-  supportedLngs: ['fr', 'en'],
+  lng: DEFAULT_LANGUAGE,
+  fallbackLng: FALLBACK_LANGUAGE,
+  supportedLngs: SUPPORTED_LANGUAGES,
   interpolation: { escapeValue: false },
   resources: {
     fr: {
