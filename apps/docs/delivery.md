@@ -21,6 +21,22 @@ A development-time resource snapshot showed a small shared host: roughly two log
 RAM with limited spare capacity. Treat this as a planning observation, not a current health report;
 verify resources before deployment. Do not run unlimited preview containers or heavy builds there.
 
+## Confirmed public URLs
+
+- Experience website: https://creation.jerem.io/.
+- Storybook: https://creation.jerem.io/design-system/.
+- VitePress documentation: https://creation.jerem.io/docs/.
+
+Source documentation lives in apps/docs; keep the Markdown authoritative and add technical
+explanations there as the project develops. VitePress suits the current Markdown-first reference and
+can host future interactive examples. Its Vue dependencies belong only to docs, not the React site.
+Docusaurus's larger content/versioning ecosystem is not currently needed.
+
+Serve the three static builds independently. Match /docs/ and /design-system/ before the web SPA
+fallback, preserve their asset paths, redirect bare subpaths to trailing slashes, and avoid sharing
+service-worker scope. Storybook uses relative asset URLs; its preview validates the public mount.
+VitePress builds with base /docs/. No production deployment has occurred.
+
 ## Proposed deployment model
 
 - Static web assets with build-time per-route HTML metadata, served behind Traefik. No API service
@@ -38,7 +54,7 @@ external-network attachment.
 
 ## Before publishing the site
 
-Choose domain/DNS, routing/TLS conventions, serving/cache/error behavior, registry access, resource
-limits, preview strategy and health/rollout/rollback commands. Validate direct experience URLs and
-[social metadata](sharing.md). Do not infer server-mutation permission from read-only investigation
-or a repository push.
+Configure the confirmed domain/DNS, routing/TLS conventions, serving/cache/error behavior, registry
+access, resource limits, preview strategy and health/rollout/rollback commands. Validate direct
+experience URLs and [social metadata](sharing.md). Do not infer server-mutation permission from
+read-only investigation or a repository push.

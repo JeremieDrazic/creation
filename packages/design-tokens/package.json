@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./theme.stylex": "./src/theme/theme.stylex.ts"
+    "./colors.stylex": "./src/colors.stylex.ts",
+    "./controls.stylex": "./src/controls.stylex.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

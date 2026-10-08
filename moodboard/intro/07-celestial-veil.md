@@ -16,6 +16,6 @@ sprites/soft dust layers and a gesture intensity field are a plausible construct
 shader technique.
 
 The image's verse excerpt is superseded by complete Genesis 1:3 in the
-[intro specification](../../docs/experiences/intro.md). Current typography/provisional C follows
-[branding](../../docs/branding.md). Review exact rendering, interaction, verse layout and transition
-timing during implementation.
+[intro specification](../../apps/docs/experiences/intro.md). Current typography/provisional C
+follows [branding](../../apps/docs/branding.md). Review exact rendering, interaction, verse layout
+and transition timing during implementation.

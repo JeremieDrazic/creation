@@ -1,13 +1,13 @@
 import type { Preview } from '@storybook/react-vite';
 import * as stylex from '@stylexjs/stylex';
 
-import { theme } from '@creation/design-tokens/theme.stylex';
+import { colors } from '@creation/design-tokens/colors.stylex';
 import '@creation/ui/global.css';
 
 const styles = stylex.create({
   stage: {
-    backgroundColor: theme.background,
-    color: theme.foreground,
+    backgroundColor: colors.background,
+    color: colors.foreground,
     minHeight: '100vh',
     padding: '3rem',
   },

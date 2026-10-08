@@ -1,7 +1,7 @@
 # Creation documentation
 
 This is the current project reference, not a transcript of design exploration. Updated October
-8, 2026.
+9, 2026.
 
 ## Start here
 
@@ -20,7 +20,8 @@ This is the current project reference, not a transcript of design exploration. U
   loader.
 - [Branding](branding.md): Cormorant Garamond Light and provisional C sign.
 - [Sound design](sound-design.md): shared sonic vocabulary and mixing rules.
-- [Moodboard](../moodboard/README.md): retained visual targets and their limitations.
+- [Moodboard](https://github.com/JeremieDrazic/creation/blob/main/moodboard/README.md): retained
+  visual targets and their limitations.
 
 ## Engineering
 

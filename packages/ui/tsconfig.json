@@ -1,5 +1,5 @@
 {
   "extends": "@creation/config/tsconfig/browser",
   "include": ["src"],
-  "exclude": ["src/**/*.spec.ts"]
+  "exclude": ["src/**/*.test.ts"]
 }

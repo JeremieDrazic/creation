@@ -11,4 +11,4 @@ editable letters and controls unobstructed.
 The image only suggests orbits; it does not validate movement. Its veil/light intensity is stronger
 than the atmosphere baseline: defer to study 09 for rendering balance. Public copy, exact control
 layout and supporting typography are provisional. See
-[interface direction](../../../docs/interface-direction.md).
+[interface direction](../../../apps/docs/interface-direction.md).

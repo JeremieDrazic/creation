@@ -16,7 +16,8 @@
     "**/storybook-static/**",
     "**/test-results/**",
     "**/playwright-report/**",
-    "moodboard/branding/typeface-study/fonts/*"
+    "moodboard/branding/typeface-study/fonts/*",
+    "**/.vitepress/cache/**"
   ],
   "sortImports": {
     "internalPattern": ["@creation/"],

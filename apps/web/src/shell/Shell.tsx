@@ -1,12 +1,50 @@
 import * as stylex from '@stylexjs/stylex';
 import { Link, Outlet } from '@tanstack/react-router';
+// oxlint-disable-next-line no-restricted-imports -- Synchronizes the external document language with the active translation instance.
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { theme } from '@creation/design-tokens/theme.stylex';
+import { colors } from '@creation/design-tokens/colors.stylex';
 import { Button } from '@creation/ui/button';
 
 import { DEFAULT_LANGUAGE } from '../localization/i18n';
+
+const styles = stylex.create({
+  shell: {
+    minHeight: '100svh',
+    backgroundColor: colors.background,
+    color: colors.foreground,
+    display: 'flex',
+    flexDirection: 'column',
+    paddingBlockStart: 'clamp(1.5rem, 4vw, 4rem)',
+    paddingBlockEnd: 'clamp(1.5rem, 4vw, 4rem)',
+    paddingInlineStart: 'clamp(1.5rem, 4vw, 4rem)',
+    paddingInlineEnd: 'clamp(1.5rem, 4vw, 4rem)',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '1.5rem',
+    flexWrap: 'wrap',
+  },
+  brand: {
+    color: 'inherit',
+    fontFamily: 'Georgia, serif',
+    fontWeight: 400,
+    fontSize: '2.5rem',
+    textDecoration: 'none',
+  },
+  main: {
+    flexGrow: 1,
+    display: 'grid',
+    placeItems: 'center',
+    paddingBlock: '4rem',
+    textAlign: 'center',
+  },
+  navigation: { display: 'flex', gap: '2rem', color: colors.muted },
+  link: { color: 'inherit', textUnderlineOffset: '0.3em' },
+});
 
 /** Persistent DOM shell; route changes replace only its outlet. */
 export function Shell() {
@@ -49,40 +87,3 @@ export function NotFound() {
   const { t } = useTranslation();
   return <h1>{t('notFound')}</h1>;
 }
-
-const styles = stylex.create({
-  shell: {
-    minHeight: '100svh',
-    backgroundColor: theme.background,
-    color: theme.foreground,
-    display: 'flex',
-    flexDirection: 'column',
-    paddingBlockStart: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingBlockEnd: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingInlineStart: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingInlineEnd: 'clamp(1.5rem, 4vw, 4rem)',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '1.5rem',
-    flexWrap: 'wrap',
-  },
-  brand: {
-    color: 'inherit',
-    fontFamily: 'Georgia, serif',
-    fontWeight: 400,
-    fontSize: '2.5rem',
-    textDecoration: 'none',
-  },
-  main: {
-    flexGrow: 1,
-    display: 'grid',
-    placeItems: 'center',
-    paddingBlock: '4rem',
-    textAlign: 'center',
-  },
-  navigation: { display: 'flex', gap: '2rem', color: theme.muted },
-  link: { color: 'inherit', textUnderlineOffset: '0.3em' },
-});

@@ -19,6 +19,27 @@ read-only reference; graphics-specific standards apply as runtime code is introd
 Decksmith-specific backend, MTG, token, workflow and automatic dependency-update instructions are
 reference material, not instructions inherited by Creation. Preserve that repository unchanged.
 
+## React and declaration discipline
+
+Declare values and functions before their first use, enforced by no-use-before-define. Same-file
+StyleX declarations precede components. TypeScript also rejects unresolved identifiers; declared
+package dependencies and exports define module boundaries.
+
+Effects synchronize external systems only: DOM, event subscriptions, rendering/audio adapters. Never
+use effects for derived values, event-specific actions or chains of state updates. Prefer
+render-time calculation and event handlers; useSyncExternalStore is appropriate for external stores.
+Do not replace a valid effect with ref callbacks or manual subscriptions solely to lower the count.
+
+Direct useEffect/useLayoutEffect imports require an explained, narrowly scoped lint exception
+identifying the external system. exhaustive-deps stays enabled; exceptions never excuse omitted
+dependencies. Effect owners must define cleanup when acquiring resources. Reassess every effect in
+review; no arbitrary numerical quota or blanket ban.
+
+The correctness category already activates a family of rules. Additional explicit rules cover
+TypeScript promise/type safety, declaration order, React component stability, hook dependencies,
+ARIA and keyboard interactions. Decksmith is a reference; avoid its blanket restrictions on reduce,
+forEach or allocation patterns when they do not improve measured graphics code.
+
 ## Standards baseline
 
 English JSDoc is confirmed for public contracts and meaningful non-obvious behavior. Document units,
@@ -63,8 +84,8 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
 ## Internal organization — confirmed principles
 
 - Give each coherent module its own named folder: component, hook, utility or runtime
-  responsibility. Avoid flat source folders collecting unrelated modules. Closely related functions
-  may share a module.
+  responsibility. Token families are flat named files, an explicit owner-approved exception. Avoid
+  flat source folders collecting unrelated modules. Closely related functions may share a module.
 - Keep implementation, tests, stories, local styles and local types together in that folder. Extract
   shared code only when it has actual consumers outside its original module.
 - Keep nesting shallow. Prefer one or two meaningful organizational levels beneath src; add another
@@ -145,8 +166,10 @@ not blanket lint rules that flag ordinary CSS declarations, mathematical identit
 ## Gates and updates
 
 CI gates now cover formatting, typed lint, typecheck, web/Storybook builds and targeted Playwright
-journeys. Add meaningful Vitest tests when substantive runtime/math code is introduced. Local hooks
-remain deferred; CI is authoritative.
+journeys. Component tests live in colocated stories and run through Storybook’s Vitest addon in
+Chromium, including play assertions and accessibility checks. Colocated .test.ts/.test.tsx files
+cover non-component units and integration journeys. Add meaningful standalone Vitest projects when
+substantive runtime/math code is introduced. Local hooks remain deferred; CI is authoritative.
 
 Pin compatible tool versions and update through reviewed changes with appropriate checks, not
 unconditional breaking upgrades before every task. No specific Decksmith dependency version is
@@ -155,3 +178,6 @@ adopted merely by inspection.
 Sources: [Oxlint](https://oxc.rs/docs/guide/usage/linter),
 [type-aware linting](https://oxc.rs/docs/guide/usage/linter/type-aware),
 [Oxfmt](https://oxc.rs/docs/guide/usage/formatter). Reviewed 2026-10-07.
+
+React reference:
+[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect).

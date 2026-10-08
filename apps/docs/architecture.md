@@ -9,12 +9,14 @@ Each coherent module has a named folder with shallow nesting, following the conf
 [organization standards](standards.md#internal-organization--confirmed-principles). Stories and
 tests live beside their module; Storybook hosts them without owning their source. Required tool
 entry files retain their conventional locations. Establish each future package's concrete
-organization when its responsibilities become real.
+organization when its responsibilities become real. Token families are an explicit exception: use
+flat descriptive .stylex.ts files without a folder per family.
 
 ```text
 apps/
   web/                  # Routes, shared shell, intro and Fireflies feature modules
   storybook/            # UI, tokens, icons and interaction review
+  docs/                 # VitePress Markdown reference and technical explanations
   api/                  # Reserved; create only for a confirmed server requirement
 packages/
   experience-core/      # Small framework-independent lifecycle/input/capability contracts
@@ -25,7 +27,6 @@ packages/
   data-gui/             # Development watch/tweak palette and metric adapters
   utils/                # Experience-independent pure, DOM and WebGL helpers
   config/               # Shared tooling configuration
-docs/
 moodboard/
 ```
 

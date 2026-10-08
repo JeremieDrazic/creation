@@ -17,7 +17,9 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "test:e2e": "playwright test",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test:e2e"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test:components && pnpm test:e2e",
+    "dev:docs": "pnpm --filter @creation/docs dev",
+    "test:components": "pnpm --filter @creation/storybook test"
   },
   "devDependencies": {
     "turbo": "catalog:",

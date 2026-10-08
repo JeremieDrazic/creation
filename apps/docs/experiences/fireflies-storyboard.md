@@ -16,8 +16,8 @@ review with real motion/audio. This is not a track-authored choreography.
 | Continuation     | Stay, edit, choose another musical passage or leave.                                               | No forced completion screen, replay or next step.                                                                                                      |
 
 The atmosphere follows study 09, input composition study 11 and same-word states study 13 in the
-[moodboard](../../moodboard/fireflies/README.md). Still images do not validate movement or
-performance.
+[moodboard](https://github.com/JeremieDrazic/creation/blob/main/moodboard/fireflies/README.md).
+Still images do not validate movement or performance.
 
 ## Editing ritual — confirmed
 

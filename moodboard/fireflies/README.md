@@ -9,8 +9,8 @@
 - [Study 13 — single-word states](studies/13-single-word-states-fr.md): approved
   reverie/editing/music visual direction, one word at the same location/perceived scale.
 
-Use [the experience specification](../../docs/experiences/fireflies.md) and
-[storyboard](../../docs/experiences/fireflies-storyboard.md) for behavior; still images do not
+Use [the experience specification](../../apps/docs/experiences/fireflies.md) and
+[storyboard](../../apps/docs/experiences/fireflies-storyboard.md) for behavior; still images do not
 define fixed musical choreography or validate animation.
 
 ## Supplied particle reference

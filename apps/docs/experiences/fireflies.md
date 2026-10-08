@@ -6,9 +6,10 @@ working experience title. It has its own URL and is separate from Creation's hom
 ## Confirmed atmosphere
 
 An abstract summer night: deep enveloping blue, luminous organic life, calm and depth. Follow
-[atmosphere study 09](../../moodboard/fireflies/studies/09-refined-luminous-hierarchy.md),
-[input study 11](../../moodboard/fireflies/studies/11-input-axis-fireflies-fr.md) and
-[state study 13](../../moodboard/fireflies/studies/13-single-word-states-fr.md).
+[atmosphere study 09](https://github.com/JeremieDrazic/creation/blob/main/moodboard/fireflies/studies/09-refined-luminous-hierarchy.md),
+[input study 11](https://github.com/JeremieDrazic/creation/blob/main/moodboard/fireflies/studies/11-input-axis-fireflies-fr.md)
+and
+[state study 13](https://github.com/JeremieDrazic/creation/blob/main/moodboard/fireflies/studies/13-single-word-states-fr.md).
 
 Mix warm ivory, pale gold and subtle green-gold within depth layers. Keep distant/intermediate
 lights subdued, individual word particles distinct, and several larger dim proximity-blurred
@@ -16,7 +17,8 @@ foreground lights. A discreet blue veil supports depth without an obvious nebula
 space around text/UI. Exact color, density, brightness and focus values require motion/render
 review.
 
-The supplied [particle reference](../../moodboard/fireflies/references/01-luminous-particles.jpg)
+The supplied
+[particle reference](https://github.com/JeremieDrazic/creation/blob/main/moodboard/fireflies/references/01-luminous-particles.jpg)
 informs materials/depth only; its brightness, spiral, branding and exact colors are not selected.
 
 ## Word and interaction

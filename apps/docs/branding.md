@@ -11,8 +11,9 @@ name where recognition requires it. No flourish, letter cuts, botanical emblem o
 selected.
 
 Retained font and license:
-[Cormorant Garamond](../moodboard/branding/typeface-study/fonts/cormorant.ttf),
-[OFL](../moodboard/branding/typeface-study/fonts/cormorant-OFL.txt). Source:
+[Cormorant Garamond](https://github.com/JeremieDrazic/creation/blob/main/moodboard/branding/typeface-study/fonts/cormorant.ttf),
+[OFL](https://github.com/JeremieDrazic/creation/blob/main/moodboard/branding/typeface-study/fonts/cormorant-OFL.txt).
+Source:
 [official Google Fonts files](https://github.com/google/fonts/tree/main/ofl/cormorantgaramond),
 retrieved October 8, 2026.
 

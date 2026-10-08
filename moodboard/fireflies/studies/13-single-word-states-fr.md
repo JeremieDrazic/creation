@@ -18,5 +18,5 @@ multitude, not a predefined wave choreography.
   specification.
 
 Static images do not validate formation, input orbits, audio reaction or interaction suspension
-during editing. See [the storyboard](../../../docs/experiences/fireflies-storyboard.md) for
-authoritative behavior and [branding](../../../docs/branding.md) for the real font.
+during editing. See [the storyboard](../../../apps/docs/experiences/fireflies-storyboard.md) for
+authoritative behavior and [branding](../../../apps/docs/branding.md) for the real font.

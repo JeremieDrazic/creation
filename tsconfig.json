@@ -1,4 +1,9 @@
 {
   "extends": "./packages/config/tsconfig/node.json",
-  "include": ["playwright.config.ts", "apps/web/src/**/*.spec.ts", "packages/ui/src/**/*.spec.ts"]
+  "include": [
+    "playwright.config.ts",
+    "apps/web/src/**/*.test.ts",
+    "packages/ui/src/**/*.test.ts",
+    "apps/docs/.vitepress/**/*.test.ts"
+  ]
 }

@@ -17,12 +17,12 @@ Audio, organized in a pnpm/Turborepo monorepo.
 
 ## Project guide
 
-See [local development and the first increment](docs/development.md) for setup, commands and review
-order. The current pages are temporary placeholders; artwork and runtime follow.
+See [local development and the first increment](apps/docs/development.md) for setup, commands and
+review order. The current pages are temporary placeholders; artwork and runtime follow.
 
-Start with [the documentation index](docs/README.md) and
-[the implementation sequence](docs/implementation-plan.md). The [moodboard](moodboard/README.md)
-retains the useful visual targets.
+Start with [the documentation index](apps/docs/index.md) and
+[the implementation sequence](apps/docs/implementation-plan.md). The
+[moodboard](moodboard/README.md) retains the useful visual targets.
 
 Discussion is in French; code and documentation are in English. The site is bilingual
 French/English. The assistant prepares code, then the owner and assistant study and refine it

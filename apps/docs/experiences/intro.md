@@ -3,9 +3,10 @@
 ## Confirmed direction
 
 Creation's homepage is an interactive experience, distinct from Fireflies.
-[Celestial-veil study 07](../../moodboard/intro/07-celestial-veil.md) is the specific visual target:
-darkness, deep ink-blue, layered fine stellar dust, depth and illumination under gesture. It
-contains no fireflies, particle word, bright nucleus, realistic landscape or earthly mist.
+[Celestial-veil study 07](https://github.com/JeremieDrazic/creation/blob/main/moodboard/intro/07-celestial-veil.md)
+is the specific visual target: darkness, deep ink-blue, layered fine stellar dust, depth and
+illumination under gesture. It contains no fireflies, particle word, bright nucleus, realistic
+landscape or earthly mist.
 
 Preserve the image's composition, colors, density and illuminated-state balance. The veil arrives
 very discreetly and beautifully; text also enters with animation. Refine the implementation for

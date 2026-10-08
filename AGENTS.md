@@ -7,13 +7,13 @@
 
 - Discuss the project with the owner in French. Write code, comments, and project documentation in
   English. The public website is bilingual French/English.
-- Read `docs/README.md`, `docs/project-brief.md`, and `docs/decisions.md` before project work. Read
-  the relevant experience and research documents for the current task.
+- Read `apps/docs/index.md`, `apps/docs/project-brief.md`, and `apps/docs/decisions.md` before
+  project work. Read the relevant experience and research documents for the current task.
 - Maintain concise current Markdown references: capture confirmed requirements, proposals, open
   questions, research sources, and useful decision rationale. Do not silently promote proposals to
   decisions. Remove stale alternatives instead of accumulating a conversation transcript.
 - Work as a senior mentor for an advanced frontend developer: prepare bounded code increments, then
-  explain, study and refine them with the owner. Read `docs/collaboration.md` for the working
+  explain, study and refine them with the owner. Read `apps/docs/collaboration.md` for the working
   agreement and publication scope.
 - Follow the agreed sequence: experience design, visual direction, architecture and delivery
   workflow, stack and standards, implementation. Do not begin product implementation before the

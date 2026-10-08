@@ -18,6 +18,7 @@ The dependency catalog and lockfile are authoritative for installed versions.
 | i18next + react-i18next         | FR/EN UI localization.                                           |
 | lil-gui                         | Adapter behind the development-only data-gui package.            |
 | Storybook, React/Vite           | apps/storybook; UI/tokens/icons and interaction review.          |
+| VitePress                       | apps/docs; Markdown technical reference at /docs/.               |
 | Vitest + Playwright             | Meaningful math/runtime tests and browser journeys.              |
 | Oxlint + Oxfmt                  | Linting and formatting, with explicit TypeScript checking.       |
 
