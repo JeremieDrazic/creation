@@ -21,6 +21,19 @@ reference material, not instructions inherited by Creation. Preserve that reposi
 
 ## Standards baseline
 
+English JSDoc is confirmed for public contracts and meaningful non-obvious behavior. Document units,
+coordinate spaces, ownership, cancellation, side effects and cleanup where relevant. Use descriptive
+@param, @returns, @throws, @remarks or @example tags when they help explain the contract; do not
+duplicate TypeScript type annotations or add comments that merely repeat a symbol's name.
+
+Import ordering is confirmed: Node built-ins, external libraries, workspace packages, then relative
+modules. Separate groups with a blank line and sort paths alphabetically within each group. Keep
+type imports alongside their source group. Preserve evaluation order for side-effect imports.
+Automatic sorting still needs to be configured and reviewed in the formatter increment.
+
+The pnpm catalog is already active: external dependencies use `catalog:`; internal packages use
+`workspace:*`. Versions are centralized in `pnpm-workspace.yaml`.
+
 - English code/comments/docs; lowercase creation technical names.
 - TypeScript strict, noUncheckedIndexedAccess, noImplicitOverride,
   noPropertyAccessFromIndexSignature, isolatedModules and verbatimModuleSyntax where compatible with
@@ -45,6 +58,43 @@ reference material, not instructions inherited by Creation. Preserve that reposi
 - Audit StyleX-specific lint coverage with the pinned Oxlint/JS-plugin support. Do not promise that
   every ESLint ecosystem rule is a drop-in replacement. Preserve required checks with supported
   tooling rather than silent omissions or ad hoc patches.
+
+## Internal organization — confirmed principles
+
+- Give each coherent module its own named folder: component, hook, utility or runtime
+  responsibility. Avoid flat source folders collecting unrelated modules. Closely related functions
+  may share a module.
+- Keep implementation, tests, stories, local styles and local types together in that folder. Extract
+  shared code only when it has actual consumers outside its original module.
+- Keep nesting shallow. Prefer one or two meaningful organizational levels beneath src; add another
+  only when it clarifies a real responsibility. This is a guideline, not a rigid depth limit.
+- Use descriptive kebab-case folder names. Retain descriptive filenames; avoid making every file
+  index.ts or splitting a readable module into many tiny files.
+- Each directory must group real code or communicate a responsibility. Do not create empty
+  categories or redundant directory layers solely to fill an architectural template.
+- Keep required package/tool entry files at their expected locations. Generated/framework files
+  follow their tool conventions.
+- Define the concrete tree for each package when working on it, through file-by-file dialogue. The
+  general principles do not preselect every package's future category folders.
+
+## Named constants — confirmed
+
+- Replace unexplained literals encoding configuration, thresholds, timing or behavior with named
+  constants in SCREAMING_SNAKE_CASE. Names explain their purpose; include units where helpful, such
+  as MUSIC_FADE_DURATION_SECONDS or MAX_RENDER_PIXEL_RATIO.
+- Keep constants in the owning module when only that module needs them. Introduce a constants.ts
+  file inside its responsibility folder when multiple local files need them or a coherent set
+  deserves its own file. Extract to a shared owner only for genuinely shared meaning.
+- Do not collect unrelated values in a global constants file or reuse a constant solely because two
+  values happen to be numerically equal. Shared UI values remain owned by design-tokens.
+- Uppercase names apply to semantic constants, not every const declaration. Instances, working
+  variables and runtime state keep descriptive camelCase names.
+- Adjustable settings have named immutable defaults and explicit runtime configuration fields. The
+  development palette changes runtime settings, not exported constants; avoid duplicate values with
+  competing owners.
+- Give structural literals and mathematical identities their natural representation when their
+  meaning is self-evident. The goal is to eliminate unexplained behavior, not name every zero or
+  create aliases for standard constants such as Math.PI.
 
 ## Graphics-specific adaptations
 
