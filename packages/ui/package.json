@@ -1,0 +1,25 @@
+{
+  "name": "@creation/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./button": "./src/Button.tsx",
+    "./global.css": "./src/global.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:",
+    "@creation/design-tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:",
+    "react": "catalog:",
+    "@types/react": "catalog:"
+  }
+}

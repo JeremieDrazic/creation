@@ -1,0 +1,31 @@
+{
+  "name": "@creation/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json"
+  },
+  "dependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@tanstack/react-router": "catalog:",
+    "@stylexjs/stylex": "catalog:",
+    "i18next": "catalog:",
+    "react-i18next": "catalog:",
+    "@creation/ui": "workspace:*",
+    "@creation/design-tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@tanstack/router-plugin": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "@creation/config": "workspace:*"
+  }
+}

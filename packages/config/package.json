@@ -1,0 +1,21 @@
+{
+  "name": "@creation/config",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./tsconfig/base": "./tsconfig/base.json",
+    "./tsconfig/browser": "./tsconfig/browser.json",
+    "./tsconfig/node": "./tsconfig/node.json",
+    "./vite/stylex": "./vite/stylex.ts"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "unplugin": "catalog:",
+    "vite": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

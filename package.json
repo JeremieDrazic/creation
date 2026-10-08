@@ -1,0 +1,32 @@
+{
+  "name": "creation",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": ">=24.13.0 <25",
+    "pnpm": "12.10.1"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @creation/web dev",
+    "dev:storybook": "pnpm --filter @creation/storybook dev",
+    "build": "turbo run build",
+    "typecheck": "tsc --noEmit && turbo run typecheck",
+    "lint": "oxlint --type-aware --deny-warnings .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "test:e2e": "playwright test",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "oxfmt": "catalog:",
+    "@stylexjs/eslint-plugin": "catalog:",
+    "@playwright/test": "catalog:"
+  }
+}

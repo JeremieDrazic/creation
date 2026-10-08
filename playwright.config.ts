@@ -1,0 +1,21 @@
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/browser',
+  forbidOnly: Boolean(process.env['CI']),
+  retries: process.env['CI'] ? 1 : 0,
+  reporter: [['list'], ['html', { open: 'never' }]],
+  use: { browserName: 'chromium', trace: 'retain-on-failure' },
+  webServer: [
+    {
+      command: 'pnpm --filter @creation/web preview',
+      url: 'http://127.0.0.1:4173',
+      reuseExistingServer: false,
+    },
+    {
+      command: 'pnpm --filter @creation/storybook preview',
+      url: 'http://127.0.0.1:6006',
+      reuseExistingServer: false,
+    },
+  ],
+});
