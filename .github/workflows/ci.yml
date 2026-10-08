@@ -30,6 +30,17 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm check
+      - name: Build and verify the serving image
+        run: |
+          docker build -f deploy/static.Dockerfile --build-arg RELEASE_SHA="$GITHUB_SHA" -t "creation-static:$GITHUB_SHA" .
+          bash deploy/release.test.sh
+          bash deploy/smoke-test.sh "creation-static:$GITHUB_SHA"
+          docker save "creation-static:$GITHUB_SHA" | gzip > "$RUNNER_TEMP/creation-image.tar.gz"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: creation-image
+          path: ${{ runner.temp }}/creation-image.tar.gz
+          retention-days: 7
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
