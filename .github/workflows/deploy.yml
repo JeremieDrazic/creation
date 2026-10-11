@@ -1,4 +1,3 @@
-# INACTIVE TEMPLATE. Activation requires the owner's explicit production approval.
 name: Deploy
 on:
   workflow_run:
@@ -15,6 +14,7 @@ jobs:
   deploy:
     if:
       github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+      && github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -40,7 +40,7 @@ jobs:
           printf '%s\n' "$DEPLOY_KEY" > "$SSH_DIR/key"
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$SSH_DIR/known_hosts"
           chmod 600 "$SSH_DIR/key" "$SSH_DIR/known_hosts"
-          ssh -i "$SSH_DIR/key" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+          ssh -i "$SSH_DIR/key" -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
             -o UserKnownHostsFile="$SSH_DIR/known_hosts" -o ConnectTimeout=15 \
             -o ServerAliveInterval=15 -o ServerAliveCountMax=4 \
             "$DEPLOY_USER@$DEPLOY_HOST" "deploy $RELEASE_SHA" \

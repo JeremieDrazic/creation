@@ -7,9 +7,9 @@ checks, visual previews and reproducible releases with rollback. No permanent de
 repository publication is separate from production deployment.
 
 The owner authorizes committing/publishing the cleaned conception work on October 8, 2026. Future
-implementation proceeds in bounded increments with review. The owner requests deployment ownership
-on October 9. Automatic production activation awaits explicit confirmation of the concrete workflow
-after an automatic approval review rejection.
+implementation proceeds in bounded increments with review. On October 11, the owner explicitly
+approves merging PR #1, provisioning the dedicated SSH key and activating validated main-branch
+deployments to the three public URLs, with Creation-only rollback.
 
 ## Hosting context
 
@@ -36,20 +36,20 @@ Docusaurus's larger content/versioning ecosystem is not currently needed.
 Serve the three static builds independently. Match /docs/ and /design-system/ before the web SPA
 fallback, preserve their asset paths, redirect bare subpaths to trailing slashes, and avoid sharing
 service-worker scope. Storybook uses relative asset URLs; its preview validates the public mount.
-VitePress builds with base /docs/. No production deployment has occurred.
+VitePress builds with base /docs/.
 
-## Prepared deployment — activation pending
+## Approved production deployment
 
 The assistant owns deployment setup and operation. The owner should focus on implementation and
-learning, not repeat infrastructure tasks. Production activation is pending explicit approval of:
+learning, not repeat infrastructure tasks. The approved production workflow is:
 
 - CI validates the source, builds the three sites, builds/smoke-tests a digest-pinned unprivileged
   Nginx image and uploads an immutable image artifact. No build runs on the shared VPS.
-- The inactive template deploy/workflow.example.yml listens only to successful push-to-main CI runs.
-  PR runs never deploy. Download the artifact from that exact run and deploy its commit SHA.
-- Create one dedicated SSH key, stored as CREATION_SSH_KEY, with host/user/verified known-host data
-  in GitHub secrets. Restrict its server-side authorized-key entry to the Creation release script,
-  with forwarding and interactive access disabled. Do not reuse Decksmith's deployment key.
+- The workflow .github/workflows/deploy.yml listens only to successful push-to-main CI runs. PR runs
+  never deploy. Download the artifact from that exact run and deploy its commit SHA.
+- A dedicated SSH key is stored as CREATION_SSH_KEY, with host/user/verified known-host data in
+  GitHub secrets. Restrict its server-side authorized-key entry to the Creation release script, with
+  forwarding and interactive access disabled. Do not reuse Decksmith's deployment key.
 - Only the creation Compose project changes. One static container joins the existing proxy network,
   uses existing websecure/le TLS conventions, publishes no host ports and caps memory/CPU/logging.
 - The release script serializes changes, verifies the image revision and container health, then
@@ -58,13 +58,14 @@ learning, not repeat infrastructure tasks. Production activation is pending expl
 - Retain the preceding image for explicit rollback. Compose may briefly interrupt requests during
   recreation; zero-downtime handover is not implemented. Existing projects/Traefik are untouched.
 
-The template is outside .github/workflows and therefore inactive. No production secrets, SSH keys or
-server files have been provisioned. No site is deployed. The DNS already points to the VPS; SSH
-access, architecture, shared proxy network and TLS resolver were verified read-only.
+The dedicated SSH access, GitHub secrets and project-owned server files are provisioned. DNS points
+to the VPS. The workflow activates when merged into main; successful main CI runs publish the
+checked artifact automatically.
 
 Local validation covers image startup under read-only/capability constraints, entry routes, subpath
-redirects, deep docs links and missing assets. Production TLS and automatic rollback still require
-server validation after approval. Existing artistic and social-metadata work remains deferred.
+redirects, deep docs links and missing assets. Release-script tests cover explicit rollback and
+restoration after health or HTTP failures. Each production release also validates TLS and the three
+public entry points. Existing artistic and social-metadata work remains deferred.
 
 ## Deployment model
 
@@ -85,7 +86,7 @@ networks and external-network attachment.
 
 ## Before publishing the site
 
-Configure the confirmed domain/DNS, routing/TLS conventions, serving/cache/error behavior, registry
-access, resource limits, preview strategy and health/rollout/rollback commands. Validate direct
-experience URLs and [social metadata](sharing.md). Do not infer server-mutation permission from
-read-only investigation or a repository push.
+Before publishing the finished artistic experience, validate direct experience URLs and
+[social metadata](sharing.md). Hosting, resource limits and release/rollback commands are
+established by the scaffold. Preview infrastructure remains a separate future decision. Do not infer
+additional server-mutation permission from read-only investigation or a repository push.
