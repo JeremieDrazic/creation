@@ -1,0 +1,24 @@
+@layer reset, base;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    font-family: system-ui, sans-serif;
+  }
+
+  body {
+    min-width: 320px;
+  }
+}

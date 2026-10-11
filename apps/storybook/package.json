@@ -1,0 +1,37 @@
+{
+  "name": "@creation/storybook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --host 127.0.0.1 --no-open --ci",
+    "build": "storybook build --disable-telemetry",
+    "preview": "vite preview --outDir storybook-static --host 127.0.0.1 --port 6006 --strictPort --base /design-system/",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@creation/ui": "workspace:*",
+    "@creation/design-tokens": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "storybook": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@storybook/addon-a11y": "catalog:",
+    "vite": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:",
+    "@creation/config": "workspace:*",
+    "@storybook/addon-vitest": "catalog:",
+    "@vitest/browser": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "@vitest/runner": "catalog:",
+    "vitest": "catalog:",
+    "playwright": "catalog:",
+    "@storybook/react": "catalog:"
+  }
+}

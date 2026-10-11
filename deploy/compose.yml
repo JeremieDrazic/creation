@@ -1,0 +1,33 @@
+name: creation
+services:
+  static:
+    image: ${CREATION_IMAGE:?Set the verified release image reference}
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 64
+    networks: [proxy]
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/healthz']
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: json-file
+      options: { max-size: '10m', max-file: '3' }
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: proxy
+      traefik.http.routers.creation.rule: Host(`creation.jerem.io`)
+      traefik.http.routers.creation.entrypoints: websecure
+      traefik.http.routers.creation.tls.certresolver: le
+      traefik.http.services.creation.loadbalancer.server.port: '8080'
+networks:
+  proxy:
+    external: true

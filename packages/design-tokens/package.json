@@ -1,0 +1,19 @@
+{
+  "name": "@creation/design-tokens",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./colors.stylex": "./src/colors.stylex.ts",
+    "./controls.stylex": "./src/controls.stylex.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

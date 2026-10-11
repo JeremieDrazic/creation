@@ -1,0 +1,4 @@
+{
+  "extends": "@creation/config/tsconfig/node",
+  "include": ["vite.config.ts"]
+}
