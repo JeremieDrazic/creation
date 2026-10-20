@@ -27,13 +27,43 @@ Performance and accessibility belong in every lot, not only the last. Each lot i
 tests, visual/motion evidence, explanation and documentation updates. No fixed schedule or
 production deployment is implied.
 
-## Next preparation
+## Current rendering milestone
 
-Review the workspace foundations together, then make minimal runtime contracts concrete as they
-become necessary rather than specifying every API in advance. Resolve artistic details in the lot
-that needs them: English scripture, audio licenses, gesture/text rules, budgets and deferred loader
-design.
+The minimal rendering foundation is implemented and reviewed incrementally with the owner:
 
-The provisional C and remaining logo work do not require further visual exploration before the
-workspace foundation. See [current decisions](decisions.md) for unresolved topics and
-[collaboration](collaboration.md) for the review process.
+- packages/rendering owns renderer initialization, the Three.js animation callback, frame time,
+  coalesced viewport changes and browser visibility subscriptions.
+- packages/utils supplies coded errors, DOM visibility/window helpers and independently tested async
+  primitives. The rendering loop needs no task queue or request tracker.
+- apps/web/src/runtime coordinates prepared experience instances, cancels obsolete preparation,
+  projects lifecycle status through a scoped Zustand store and attaches rendering to React.
+- RenderingCanvas creates a distinct canvas for each Effect setup, while normal route/locale changes
+  retain the shared Shell canvas. Startup cancellation and late-result disposal live in
+  attachRenderingRuntime, separate from the React component.
+- The static triangle remains temporary. It appears in development-only Shell validation, the
+  standalone rendering-probe page and Storybook, not the production web entry.
+
+Unit tests cover resource lifetime, time/viewport calculations, failures and interrupted
+preparation. Chromium Storybook tests cover the actual component/runtime with root StrictMode,
+resize and unmount/remount. Manual Chrome checks confirm one canvas DOM node survives route and
+locale changes. See [runtime contracts](runtime-contracts.md) and [session state](session-state.md)
+for current verification and limitations.
+
+## Next bounded objective
+
+The owner requested a PR for this work before intro implementation. Publication of this branch/PR is
+authorized; merging and deploying it require a separate instruction.
+
+After PR review, return to the approved intro reference and agree a first visible static celestial
+veil increment before coding. Implement the experience through IntroCreation with small reviewed
+additions; then develop motion and interactions. Future real scenes must establish artistic
+handover, residency, GPU recovery, audio behavior and measured quality budgets. Do not extend a
+generic runtime speculatively before a concrete need.
+
+Continuous native-window resize flashing/left-edge latency remains deferred by owner agreement.
+Functional resize tests do not prove smooth presented frames. Native WebGPU/device-matrix support,
+performance, memory and animated/audio continuity are not accepted yet.
+
+Resolve artistic details in the lot that needs them: English scripture, audio licenses, gesture/text
+rules, budgets and deferred loader design. See [current decisions](decisions.md) for unresolved
+topics and [collaboration](collaboration.md) for the file-by-file review boundary.

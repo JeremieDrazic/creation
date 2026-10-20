@@ -1,0 +1,33 @@
+{
+  "name": "@creation/rendering",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./frame-clock": "./src/frame-clock/frame-clock.ts",
+    "./frame-clock/errors": "./src/frame-clock/frame-clock-errors.ts",
+    "./rendering-host": "./src/rendering-host/rendering-host.ts",
+    "./rendering-host/errors": "./src/rendering-host/rendering-host-errors.ts",
+    "./rendering-loop": "./src/rendering-loop/rendering-loop.ts",
+    "./rendering-loop/errors": "./src/rendering-loop/rendering-loop-errors.ts",
+    "./rendering-session": "./src/rendering-session/rendering-session.ts",
+    "./rendering-session/errors": "./src/rendering-session/rendering-session-errors.ts",
+    "./rendering-viewport": "./src/rendering-viewport/rendering-viewport.ts",
+    "./rendering-viewport/errors": "./src/rendering-viewport/rendering-viewport-errors.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "three": "catalog:",
+    "@creation/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "@types/three": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

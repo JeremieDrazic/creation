@@ -10,4 +10,5 @@ coverage/
 playwright-report/
 test-results/
 *.tsbuildinfo
-.vitepress/cache/
+**/.vitepress/cache/
+**/debug-storybook.log

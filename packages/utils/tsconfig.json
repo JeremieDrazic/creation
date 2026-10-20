@@ -1,0 +1,8 @@
+{
+  "extends": "@creation/config/tsconfig/base",
+  "compilerOptions": {
+    "types": []
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "src/dom"]
+}

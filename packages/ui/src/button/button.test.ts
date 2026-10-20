@@ -7,7 +7,7 @@ test('shared StyleX styles and tokens survive both production builds', async ({ 
   await expect(webButton).toHaveCSS('color', 'rgb(242, 238, 228)');
 
   await page.goto(
-    'http://127.0.0.1:6006/design-system/iframe.html?id=ui-button--default&viewMode=story'
+    'http://127.0.0.1:4175/design-system/iframe.html?id=ui-button--default&viewMode=story'
   );
   const storyButton = page.getByRole('button', { name: 'Laisser danser' });
   await expect(storyButton).toHaveCSS('border-radius', '999px');

@@ -11,12 +11,12 @@ Discuss in French. Write code, comments and persistent documentation in English.
 FR/EN. Work in bounded increments, maintain dialogue between meaningful stages and give progress
 updates during sustained work.
 
-For each increment:
-
-The owner authorizes completing the current workspace scaffolding in a batch and delegates routine
-technical standards, subject to later review. The file-by-file workflow below resumes after this
-scaffolding. Artistic choices and changes to scope remain topics for dialogue throughout the
-project.
+Tooling and infrastructure proceed in coherent batches, with explanations of meaningful choices;
+they do not require file-by-file study. Experience implementation follows the process below,
+including navigation, localization, UI, interactions, graphics and audio. Selecting a library or
+confirming a feature requirement does not authorize implementing that feature without discussion.
+The initial route/localization placeholders already exist; review them when their feature is next
+addressed. Artistic choices and changes to scope remain topics for dialogue throughout the project.
 
 Prepare and study one file at a time. Explain its purpose, contents and tradeoffs, then leave room
 for dialogue before proceeding to the next file. Do not deliver a large implementation or document
@@ -33,6 +33,9 @@ Use routine implementation judgment within an agreed increment. Explain architec
 discuss changes to scope or artistic direction; do not turn every reversible edit into an approval
 request. Targeted exercises are optional, not compulsory.
 
+Summarize what tests verify and whether checks pass. Do not walk through test code unless the owner
+asks; file-by-file study focuses on implementation.
+
 ## Git and publication
 
 On October 8, the owner authorizes cleaning, committing and publishing the conception work. This
@@ -40,7 +43,72 @@ supersedes the earlier no-commit restriction for that work. Follow
 [the delivery workflow](delivery.md) for subsequent implementation increments; agree their scope
 before starting. No production deployment is authorized by repository publication.
 
+On October 20, the owner requests a PR containing the reviewed rendering foundation and related
+tooling/docs. Committing and publishing that branch/PR is authorized. This does not authorize
+merging it into main or deploying it; main CI triggers the approved automatic deployment workflow.
+
 ## Continuity
+
+### Bounded sessions
+
+Use one concrete objective per working session. Repository skills provide repeatable entry points:
+creation-session-start, creation-session-end and creation-session-dependencies. Select them from the
+app's slash menu or mention them with the $ prefix. Plain-language requests also work. Sessions can
+span several reviewed files; an objective must not silently expand into another subsystem. Session
+boundaries do not replace file-by-file dialogue for production experience code.
+
+At the start, or after any context reset:
+
+1. Read AGENTS.md, [session state](session-state.md), the brief, current decisions and the relevant
+   task documents. Load targeted references rather than the entire documentation tree.
+2. Verify branch, working tree and required tooling. Documentation is a handoff, not proof of the
+   current checkout or running processes. Do not silently update dependencies as session setup.
+3. Give a short briefing: verified state, proposed next objective, pending review and limitations.
+   Discuss the first file's responsibilities before implementation.
+
+At the end, or when the owner requests a handoff:
+
+1. Update the authoritative requirements, standards and contracts affected by the session. Keep
+   confirmed decisions distinct from proposals; capture useful corrected mistakes in their owning
+   technical document.
+2. Rewrite session-state.md with current branch/changes, implemented versus exploratory work,
+   verification evidence and limits, owner feedback, unresolved reviews and a concrete next step.
+   Keep only current state, not an accumulating transcript or duplicated design specifications.
+3. Report completion or remaining work accurately. Flag concepts worth revisiting when the owner
+   expressed uncertainty; learning exercises remain optional. Do not require a quiz to close.
+4. Provide a short restart instruction referencing the saved handoff. Do not commit, create a PR,
+   deploy or start another conversation merely because the session ends.
+
+### Dependency maintenance
+
+Include dedicated maintenance sessions rather than upgrading dependencies during every feature
+session. Default checkpoint: after five completed sessions since the previous review, or before a
+runtime milestone/PR when versions need verification. These are manual checkpoints, not scheduled
+automation; urgent compatibility/security fixes can justify an earlier review. Adjust cadence with
+the owner as the project develops.
+
+The maintenance skill reviews available versions, official migration notes and compatibility, then
+updates coherent groups through pnpm catalogs and the lockfile. Respect supply-chain controls. Run
+the complete project checks; graphics/UI upgrades also need relevant browser or visual evidence.
+Explain migrations and preserve experience-code dialogue. Record the review date, session counter,
+changes, deferred versions and verification limits in session-state.md and the owning technical
+docs. Maintenance does not imply automatic publication or deployment.
+
+### Fresh context in Codex
+
+End the session and save its handoff before starting a blank chat in the same Creation checkout. The
+app documents /new when available and Command+N for a new chat. /compact summarizes the current chat
+instead of starting fresh; /fork retains history. Repo skills appear in the slash selector; if
+discovery does not refresh, restart Codex and verify that the selected workspace is Creation. See
+the official [slash commands](https://learn.chatgpt.com/docs/reference/slash-commands),
+[keyboard commands](https://learn.chatgpt.com/docs/reference/commands) and
+[skill discovery](https://learn.chatgpt.com/docs/build-skills) references. App availability can
+vary.
+
+POCs and temporary test scenes must be labeled before presentation. They validate bounded behavior;
+their organization is not a production reference. Before real implementation, apply the agreed
+standards from the first draft and review responsibility boundaries with the owner. Do not promote
+the rendering probe wholesale into the production runtime.
 
 Maintain concise Markdown references rather than conversation transcripts. Distinguish confirmed
 decisions, proposals and open questions. Preserve useful rationale, resource/lifecycle contracts and

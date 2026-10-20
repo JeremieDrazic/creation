@@ -1,13 +1,40 @@
 import * as stylex from '@stylexjs/stylex';
 import { Link, Outlet } from '@tanstack/react-router';
 // oxlint-disable-next-line no-restricted-imports -- Synchronizes the external document language with the active translation instance.
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useStore } from 'zustand';
 
 import { colors } from '@creation/design-tokens/colors.stylex';
 import { Button } from '@creation/ui/button';
 
 import { DEFAULT_LANGUAGE } from '../localization/i18n';
+import { createRenderingRuntimeStore } from '../runtime/rendering-runtime-store/rendering-runtime-store';
+import type { CreationExperiencePreparationOptions } from '../types';
+
+// Temporary validation settings; production quality/time limits remain to be selected.
+const MAX_VALIDATION_PIXEL_RATIO = 2;
+const MAX_VALIDATION_FRAME_DELTA_SECONDS = 0.05;
+
+const DevelopmentRenderingCanvas = import.meta.env.DEV
+  ? lazy(async () => {
+      const { RenderingCanvas } = await import('../runtime/rendering-canvas/rendering-canvas');
+      return { default: RenderingCanvas };
+    })
+  : null;
+
+async function prepareValidationExperience(options: CreationExperiencePreparationOptions) {
+  const { RenderingProbeCreation } = await import('../rendering-probe/rendering-probe-creation');
+  return RenderingProbeCreation.prepare(options);
+}
+
+function readValidationPixelRatio(): number {
+  return Math.min(window.devicePixelRatio, MAX_VALIDATION_PIXEL_RATIO);
+}
+
+function reportRenderingError(error: unknown): void {
+  console.error('Rendering validation failed', error);
+}
 
 const styles = stylex.create({
   shell: {
@@ -44,11 +71,16 @@ const styles = stylex.create({
   },
   navigation: { display: 'flex', gap: '2rem', color: colors.muted },
   link: { color: 'inherit', textUnderlineOffset: '0.3em' },
+  validation: { marginBlockStart: '2rem' },
+  validationViewport: { height: '40svh', backgroundColor: '#000000' },
 });
 
 /** Persistent DOM shell; route changes replace only its outlet. */
 export function Shell() {
   const { t, i18n } = useTranslation();
+  const [renderingStore] = useState(createRenderingRuntimeStore);
+  const renderingStatus = useStore(renderingStore.statusStore);
+
   useEffect(() => {
     document.documentElement.lang = i18n.resolvedLanguage ?? DEFAULT_LANGUAGE;
   }, [i18n.resolvedLanguage]);
@@ -67,6 +99,23 @@ export function Shell() {
           {t('language')}
         </Button>
       </header>
+      {DevelopmentRenderingCanvas !== null && (
+        <aside aria-label="Temporary rendering validation" {...stylex.props(styles.validation)}>
+          <p>Temporary rendering validation — static triangle</p>
+          <output aria-label="Rendering status">{renderingStatus.status}</output>
+          <div {...stylex.props(styles.validationViewport)}>
+            <Suspense fallback={null}>
+              <DevelopmentRenderingCanvas
+                prepareInitialExperience={prepareValidationExperience}
+                readPixelRatio={readValidationPixelRatio}
+                maxDeltaSeconds={MAX_VALIDATION_FRAME_DELTA_SECONDS}
+                publishStatus={renderingStore.publishStatus}
+                onError={reportRenderingError}
+              />
+            </Suspense>
+          </div>
+        </aside>
+      )}
       <main {...stylex.props(styles.main)}>
         <Outlet />
       </main>
