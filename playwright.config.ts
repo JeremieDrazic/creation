@@ -3,7 +3,7 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: '.',
   testMatch: [
-    '**/apps/web/src/**/*.test.ts',
+    '**/apps/web/src/shell/shell.test.ts',
     '**/packages/ui/src/**/*.test.ts',
     '**/apps/docs/.vitepress/**/*.test.ts',
   ],
@@ -24,7 +24,7 @@ export default defineConfig({
     },
     {
       command: 'pnpm --filter @creation/storybook preview',
-      url: 'http://127.0.0.1:6006/design-system/',
+      url: 'http://127.0.0.1:4175/design-system/',
       reuseExistingServer: false,
     },
   ],

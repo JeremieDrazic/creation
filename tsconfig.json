@@ -1,9 +1,16 @@
 {
   "extends": "./packages/config/tsconfig/node.json",
+  "compilerOptions": {
+    "lib": ["ES2024", "DOM"]
+  },
   "include": [
     "playwright.config.ts",
     "apps/web/src/**/*.test.ts",
     "packages/ui/src/**/*.test.ts",
-    "apps/docs/.vitepress/**/*.test.ts"
+    "apps/docs/.vitepress/**/*.test.ts",
+    "packages/rendering/src/**/*.test.ts",
+    "packages/rendering/vitest.config.ts",
+    "packages/utils/src/**/*.test.ts",
+    "packages/utils/vitest.config.ts"
   ]
 }

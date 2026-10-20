@@ -1,0 +1,22 @@
+{
+  "name": "@creation/utils",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./async/request-tracker": "./src/async/request-tracker/request-tracker.ts",
+    "./async/task-queue": "./src/async/task-queue/async-task-queue.ts",
+    "./dom/get-element-window": "./src/dom/get-element-window/get-element-window.ts",
+    "./dom/page-visibility": "./src/dom/page-visibility/page-visibility-observer.ts",
+    "./errors/coded-errors": "./src/errors/coded-errors/coded-error.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.dom.json",
+    "test:unit": "vitest run"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@types/node": "catalog:"
+  }
+}

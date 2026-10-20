@@ -9,6 +9,7 @@ This is the current project reference, not a transcript of design exploration. U
 2. [Decisions](decisions.md): current choices and unresolved topics.
 3. [Implementation sequence](implementation-plan.md): next work and review boundaries.
 4. [Collaboration](collaboration.md): code-first senior mentorship and delivery permissions.
+5. [Session state](session-state.md): current checkout, review evidence and next-session handoff.
 
 ## Experience and design
 

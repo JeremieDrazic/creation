@@ -6,19 +6,28 @@
     "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
+    "test:unit": "vitest run"
   },
   "dependencies": {
+    "@creation/rendering": "workspace:*",
+    "@creation/utils": "workspace:*",
+    "three": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "@tanstack/react-router": "catalog:",
     "@stylexjs/stylex": "catalog:",
     "i18next": "catalog:",
     "react-i18next": "catalog:",
+    "zustand": "catalog:",
     "@creation/ui": "workspace:*",
     "@creation/design-tokens": "workspace:*"
   },
   "devDependencies": {
+    "@storybook/react": "catalog:",
+    "storybook": "catalog:",
+    "@types/three": "catalog:",
+    "vitest": "catalog:",
     "@playwright/test": "catalog:",
     "vite": "catalog:",
     "@vitejs/plugin-react": "catalog:",

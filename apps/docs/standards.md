@@ -40,6 +40,46 @@ TypeScript promise/type safety, declaration order, React component stability, ho
 ARIA and keyboard interactions. Decksmith is a reference; avoid its blanket restrictions on reduce,
 forEach or allocation patterns when they do not improve measured graphics code.
 
+## React API review — October 19, 2026
+
+React/react-dom were updated together from 19.3.0 to npm latest 19.3.1 in this focused review. React
+type packages remain 19.3.0; the patch does not introduce a new client API. Installation and
+verification evidence belong in development.md.
+
+The current createRoot/StrictMode entry and POC effect correctly synchronize an external renderer.
+Production integration must preserve cleanup/cancellation and distinct canvas ownership during
+StrictMode rehearsals. Keep the shared graphics host above route-specific UI. State changes notify
+React at lifecycle/status frequency; frame simulation and drawing remain outside React state.
+
+Use useEffectEvent only for non-reactive callbacks originating in an Effect, such as notifications
+that need current props without rebuilding the renderer. It is not an event-handler wrapper or a way
+to suppress real dependencies. Effect Events are omitted from dependency arrays and stay local to
+their owning component/Hook. A temporary lint audit confirmed pinned Oxlint accepts valid usage and
+rejects both a useEffectEvent dependency and invoking it from a button handler. Audit files were
+removed; no lint configuration/dependency change was necessary.
+
+useSyncExternalStore is appropriate when subscribing to runtime-owned shared status; snapshots must
+be immutable and retain identity until the status changes, with a stable subscription function.
+Honor the selected Zustand boundary when shared state is introduced instead of building a parallel
+store. Local UI state may still use useState. This does not preselect a new runtime-store API.
+
+React 19.3 stabilizes ViewTransition and Fragment refs. ViewTransition is a candidate for agreed DOM
+UI motion; Three.js scene choreography remains separately authored. Fragment refs do not replace a
+needed DOM container for imperative canvas insertion. Activity cleans up Effects when hidden: keep
+the shared renderer owner outside hidden route activities. It may later preserve experience UI state
+when that behavior is required. browser()/use(browser()) concerns server-rendering opt-out; the
+current Vite client application does not need it. Suspense/lazy can load React UI/code, but
+asynchronous renderer preparation performed by an Effect does not automatically activate Suspense.
+
+Sources: [React 19.3](https://react.dev/blog/2026/09/09/react-19-3),
+[19.3.1 release](https://github.com/react/react/releases/tag/v19.3.1),
+[useEffect](https://react.dev/reference/react/useEffect),
+[useEffectEvent](https://react.dev/reference/react/useEffectEvent),
+[useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore),
+[Activity](https://react.dev/reference/react/Activity),
+[StrictMode](https://react.dev/reference/react/StrictMode),
+[Suspense](https://react.dev/reference/react/Suspense).
+
 ## Standards baseline
 
 English JSDoc is confirmed for public contracts and meaningful non-obvious behavior. Document units,
@@ -57,12 +97,17 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
 `workspace:*`. Versions are centralized in `pnpm-workspace.yaml`.
 
 - English code/comments/docs; lowercase creation technical names.
+- Prefer explicit if guards over nullish assignment (??=), following the owner's readability
+  preference.
 - TypeScript strict, noUncheckedIndexedAccess, noImplicitOverride,
   noPropertyAccessFromIndexSignature, isolatedModules and verbatimModuleSyntax where compatible with
   the pinned toolchain. Separate browser/node profiles and retain an explicit typecheck gate.
 - Explicit package subpath exports and acyclic dependencies. Avoid aggregate imports that mix pure,
   DOM and graphics modules or eagerly load all experiences. Organize by feature/responsibility;
   colocate meaningful tests and UI stories.
+- Preserve Turborepo's generated AGENTS.md block verbatim using a narrow Markdown range-ignore
+  outside its managed markers. The rest of the project instructions remain formatted; do not disable
+  agent guidance or exclude the entire instruction file to resolve generated wrapping differences.
 - Kebab-case source filenames and directories, including components; .test.ts/.test.tsx and
   .stories.tsx suffixes. React component identifiers remain PascalCase. Oxlint enforces source
   filename casing; generated/framework files retain tool-required conventions.
@@ -93,10 +138,21 @@ The pnpm catalog is already active: external dependencies use `catalog:`; intern
   only when it clarifies a real responsibility. This is a guideline, not a rigid depth limit.
 - Use descriptive kebab-case folder names. Retain descriptive filenames; avoid making every file
   index.ts or splitting a readable module into many tiny files.
+- Standalone rendering utilities in src/utils use one folder per function, with folder and source
+  filename matching its kebab-case name (for example report-rendering-frame-failure). Colocate each
+  utility's test in that folder.
+- Production rendering utilities may depend on other utilities, shared root types and external
+  packages, but not implementation modules or their error constants. Pass caller-owned domain error
+  codes as arguments. Tests may import real implementations to verify integration.
 - Each directory must group real code or communicate a responsibility. Do not create empty
   categories or redundant directory layers solely to fill an architectural template.
 - Keep required package/tool entry files at their expected locations. Generated/framework files
   follow their tool conventions.
+- Shared package vocabulary may use a concise src/types.ts with meaningful JSDoc and a focused
+  ./types export, as agreed for rendering's shared contracts. This file must not depend on
+  implementation modules and uses type-only imports. This is an explicit exception to named module
+  folders. Module-specific options/interfaces remain in their owning module. Split shared types by
+  domain only when the file becomes difficult to navigate.
 - The current scaffolding is organized as an authorized batch. Define future package trees during
   their implementation, with file-by-file dialogue. The principles do not preselect future folders.
 
@@ -150,6 +206,20 @@ not blanket lint rules that flag ordinary CSS declarations, mathematical identit
 
 ## Runtime verification
 
+- Choose functions, closure-based factories or classes by responsibility and readability; create*
+  factories are not a universal project pattern. Pure calculations use ordinary functions. Small
+  stateful instances may use closures; classes are appropriate when they clarify an object's
+  behavior. Revisit responsibility boundaries when either form becomes difficult to understand.
+
+- Apply production code organization from the first draft of code intended for the product. Make
+  calculations pure where possible and declare helpers outside factories/components when they do not
+  require instance state. Pass dependencies explicitly. Keep closures for intentional ownership of
+  mutable resources/lifecycle state; do not simulate purity by hiding mutations in a helper.
+  Organize these responsibilities before review, without waiting for owner corrections. Keep local
+  helpers in their owning module; extraction into a shared module requires real reuse.
+- POCs and temporary test scenes are exploratory and are exempt from these production organization
+  requirements. Identify their temporary status and validation goal before presenting them so review
+  focuses on the intended experiment. Revisit organization before promoting them to production code.
 - Mutable vectors, typed arrays and uniforms are intentional in frame work. Do not impose immutable
   state patterns on particle simulation.
 - Reuse buffers/temporary math objects in measured hot paths; avoid unnecessary per-frame allocation

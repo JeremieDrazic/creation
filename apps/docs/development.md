@@ -1,8 +1,16 @@
 # Workspace foundations
 
+October 20 rendering-foundations PR validation: full pnpm check passes, including formatting, typed
+lint, workspace types, all three builds, 221 unit tests, 5 Chromium Storybook tests and 4 production
+browser journeys. Test previews use ports 4173/4174/4175 to preserve development servers. Generated
+VitePress caches and Storybook debug logs are ignored. The runtime contracts, implementation
+sequence and concise session handoff reflect the current reviewed work; this PR does not implement
+intro artwork or complete recovery/performance acceptance.
+
 The first implementation increment establishes a runnable workspace and verification gates. The web
 pages are temporary route placeholders, not the designed intro, Fireflies, mobile invitation or
-final typography. Graphics, audio and deployment follow in later increments.
+final typography. Initial deployment is complete; renderer foundations and the development-only POC
+are implemented on the current feature branch. Production graphics/audio follow separately.
 
 ## Local setup
 
@@ -22,10 +30,21 @@ correct its PATH priority before running scripts. `corepack pnpm install --froze
 bootstrap installation, but subprocesses calling `pnpm` must also resolve the pinned version. The
 project does not change machine-wide package managers automatically.
 
+Local repair verified October 13: the Homebrew pnpm 10.19.0 launcher attempted to switch to the
+pinned 12.10.1 but its cached executable was still a shebang-less placeholder, causing macOS
+ENOEXEC. The native 12.10.1 ARM64 binary was already present. With owner approval, running that
+cached pnpm package's official install.js replaced the placeholder launchers with the installed
+binary. pnpm --version now reports 12.10.1 and pnpm --filter @creation/web exec vite --version
+succeeds. No global Homebrew version, project dependency or lockfile changed. If the symptom recurs,
+inspect the cached executable before reinstalling; do not change project versions to bypass it.
+corepack pnpm --version also worked during diagnosis. corepack pnpm --filter @creation/web dev can
+start web directly when a global pnpm launcher shadows Corepack.
+
 ```sh
 pnpm dev:web
 pnpm dev:storybook
 pnpm dev:docs
+pnpm test:unit
 pnpm test:components
 pnpm check
 ```
@@ -34,19 +53,21 @@ Web uses port 5173; Storybook uses 6006; docs uses 5174 with the /docs/ base. Al
 and fail on occupied ports. To leave another project running, use
 `pnpm --filter @creation/web dev --port 5175`.
 
-`pnpm check` runs formatting, typed lint, TypeScript, three production builds, Storybook component
-tests and Chromium integration tests. `pnpm test:e2e` alone expects existing builds and starts
-previews on 4173/6006; stop the Storybook dev server first. Reports/traces are ignored by Git and
-uploaded on CI failure. CI installs Chromium's Linux system dependencies on the pinned Ubuntu 24.04
-runner. Source profiles and browser tests are explicitly typechecked.
+`pnpm check` runs formatting, typed lint, TypeScript, three production builds, runtime unit tests,
+Storybook component tests and Chromium integration tests. `pnpm test:e2e` alone expects existing
+builds and starts previews on 4173 (web), 4174 (docs) and 4175 (Storybook), leaving development
+servers running on their separate ports. Reports/traces are ignored by Git and uploaded on CI
+failure. CI installs Chromium's Linux system dependencies on the pinned Ubuntu 24.04 runner. Source
+profiles and browser tests are explicitly typechecked.
 
 ## Boundaries and resolution
 
 Stories and tests are colocated with the component/file they exercise. Storybook discovers stories
-in their owning package rather than storing them in the host app. Playwright discovers colocated
-`.test.ts` browser checks; the root Node profile typechecks them, separately from browser
-application profiles. The router excludes test/story files from generation. Named module folders and
-shallow nesting follow [the standards](standards.md).
+in packages/ui/src and apps/web/src rather than storing them in the host app. Its React framework
+enables root StrictMode, matching web development. Playwright discovers colocated `.test.ts` browser
+checks; the root Node profile typechecks them, separately from browser application profiles. The
+router excludes test/story files from generation. Named module folders and shallow nesting follow
+[the standards](standards.md).
 
 ```text
 apps/web/src/
@@ -78,7 +99,8 @@ motion files when actual values are needed; do not create empty categories.
 Use `workspace:*` internally and `catalog:` for centrally pinned external versions. All packages are
 private. Explicit source exports let Vite and TypeScript consume internal packages without an
 intermediate library build. Publication would require its own output/export strategy. Only packages
-with an actual responsibility are created; API/runtime/utils placeholders are absent.
+with an actual responsibility are created. Rendering now owns the initialized renderer; utils
+contains generic coded errors. No empty API or generic runtime package is created.
 
 pnpm uses isolated linking without hoisting, strict peer checks and one workspace lockfile. Only
 esbuild's dependency build script is allowed. New resolutions must be at least 48 hours old; strict
@@ -116,10 +138,36 @@ Runtime preparation/residency and artistic handovers belong to the next incremen
 
 ## Component tests and documentation
 
+The web Vitest project currently owns src/rendering-probe/**/*.test.ts. Playwright explicitly
+selects the shared shell's integration test file, so it does not execute these unit tests. Register
+future suites with their intended runner; both keep the .test filename convention and colocation.
+
+Runtime unit tests run with `pnpm test:unit` through package-owned Vitest configurations in Node.
+They remain colocated with their module and are distinct from Storybook component tests and
+Playwright integration checks. The root Node TypeScript profile checks these tests and their Vitest
+configuration; its ES2024 library matches the pinned Node 24 environment and its DOM types describe
+browser-boundary inputs. This does not change the ES2022 browser source target. Rendering tests mock
+only the Three.js boundary using [Vitest module mocks](https://vitest.dev/guide/mocking/modules);
+they do not validate a GPU backend. The root check command includes these tests, so CI runs them.
+
 Use pnpm test:components to run the Storybook Vitest browser project. Component assertions live in
 play functions in their existing stories; do not duplicate these in isolated React unit files.
 Playwright .test.ts checks retain integration responsibility, including extracted CSS across builds.
 The addon automatically provides preview annotations; no redundant global setup is needed.
+
+RenderingCanvas has two browsable stories under Runtime/RenderingCanvas: StaticTriangle uses the
+temporary static probe with the actual runtime/store, and PreparationFailure rejects preparation
+deliberately. Their play functions inspect state without clicking controls. LifecycleChecks keeps
+resize/rerender/unmount interactions in the automated suite with !dev/!autodocs tags, hidden from
+the sidebar. This prevents test actions from resizing/remounting the preview on opening/reload. Play
+tests verify readiness, stable canvas identity across interface rerenders/resize, buffer width after
+resize, two unmount/remount cycles, and error propagation. All 5 Storybook tests (including the
+existing Button stories) pass in Chromium with root StrictMode. These are browser
+component/integration tests, not unit tests of GPU implementation, visual pixel approval or
+performance acceptance. The 90 web unit tests remain separate. Storybook/web builds and targeted
+type/lint/format checks pass. Web declares its own Storybook development dependencies through the
+existing catalog; no dependency versions changed. The stories are absent from the production web
+entry. No owner development server was started; the automated test server ended normally.
 
 Documentation lives in apps/docs and builds with VitePress to apps/docs/dist at /docs/. Storybook
 production preview mounts at /design-system/ with relative assets. The preview tests check these
@@ -140,10 +188,12 @@ subpaths, not DNS, TLS or live Traefik configuration. See [delivery](delivery.md
 | Turbo                                   | 2.11.7                     |
 | Oxlint / tsgolint / Oxfmt               | 1.87.0 / 7.0.2003 / 0.72.0 |
 | Playwright                              | 1.63.0                     |
+| Three.js / types                        | 0.186.1 / 0.186.0          |
 | i18next / react-i18next                 | 26.4.2 / 17.0.16           |
 
-The catalog is authoritative. Three.js, GSAP, Zustand and lil-gui remain selected; install them when
-a relevant increment uses them rather than adding unused dependencies or placeholder unit tests.
+The catalog is authoritative. Three.js is installed for the rendering host and POC. GSAP, Zustand
+and lil-gui remain selected; install them when a relevant increment uses them rather than adding
+unused dependencies or placeholder unit tests.
 
 Vitest and browser adapters use 5.0.3, supported by Storybook 10.6.1. The addon’s declared
 @vitest/runner peer uses published 4.1.11 types; its range permits this. Vitest 5 no longer declares
@@ -184,3 +234,37 @@ state.
 
 Reviewed October 8, 2026. Decksmith was inspected read-only for catalogs, source boundaries, strict
 TypeScript and formatting; its domain-specific instructions were not adopted.
+
+## Focused React verification — October 19, 2026
+
+Checked the catalog, installed packages, official React API docs/release notes and npm dist-tags.
+React/react-dom 19.3.0 were one patch behind npm latest 19.3.1 (published October 14). Both catalog
+entries and the lockfile were updated together to 19.3.1; installed types remain 19.3.0. The
+official patch release concerns the React Server Components transport, not a new client API. No
+other catalog versions were changed by this update. Peer snapshot identifiers in the lockfile change
+accordingly. The existing rendering/Three.js workspace changes predate this focused dependency
+check.
+
+Registry reads and installation required network execution outside the sandbox after DNS failures.
+The pnpm 48-hour release-age policy was retained. No global tooling was updated and no development
+server was started. This is a focused React check, not a complete scheduled dependency session. The
+dependency-review checkpoint counter is unchanged.
+
+Pinned Oxlint was verified with three temporary API examples: valid useEffectEvent usage passes;
+including its function in Effect dependencies and invoking it from a button handler both fail.
+Temporary files were removed. No extra lint plugin was installed. Current effect/StrictMode usage
+and proposed production API choices are documented in [standards](standards.md).
+
+Full post-update pnpm check passed: formatting, typed lint, workspace types/builds, 195 unit tests,
+2 component tests and 4 Chromium journeys. Sources:
+[npm React latest](https://registry.npmjs.org/react/latest),
+[React 19.3.1 release](https://github.com/react/react/releases/tag/v19.3.1),
+[React 19.3 APIs](https://react.dev/blog/2026/09/09/react-19-3).
+
+October 19 runtime-status increment: added catalog-pinned Zustand 5.0.15 to web, the npm stable
+version verified on this date. Its React peer range supports React 19.3.1. No middleware or
+additional state library was added. The vanilla store exposes a read-only API compatible with
+Zustand useStore; React wiring remains separate. All 68 web tests, web TypeScript and targeted typed
+lint/formatting pass. Sources: [Zustand releases](https://github.com/pmndrs/zustand/releases),
+[vanilla store implementation](https://github.com/pmndrs/zustand/blob/main/src/vanilla.ts),
+[React subscription implementation](https://github.com/pmndrs/zustand/blob/main/src/react.ts).
