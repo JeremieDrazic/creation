@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test('shared StyleX styles and tokens survive both production builds', async ({ page }) => {
+test('StyleX styles survive the application and Storybook production builds', async ({ page }) => {
   await page.goto('http://127.0.0.1:4173/');
-  const webButton = page.getByRole('button');
-  await expect(webButton).toHaveCSS('border-radius', '999px');
-  await expect(webButton).toHaveCSS('color', 'rgb(242, 238, 228)');
+  const verse = page.getByRole('blockquote');
+  await expect(verse).toHaveCSS('font-family', '"Creation Cormorant Study", serif');
+  await expect(verse).toHaveCSS('font-weight', '300');
+  await expect(verse).toHaveCSS('color', 'rgb(242, 238, 228)');
 
   await page.goto(
     'http://127.0.0.1:4175/design-system/iframe.html?id=ui-button--default&viewMode=story'

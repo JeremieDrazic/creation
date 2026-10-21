@@ -37,11 +37,12 @@ The minimal rendering foundation is implemented and reviewed incrementally with 
   primitives. The rendering loop needs no task queue or request tracker.
 - apps/web/src/runtime coordinates prepared experience instances, cancels obsolete preparation,
   projects lifecycle status through a scoped Zustand store and attaches rendering to React.
-- RenderingCanvas creates a distinct canvas for each Effect setup, while normal route/locale changes
-  retain the shared Shell canvas. Startup cancellation and late-result disposal live in
-  attachRenderingRuntime, separate from the React component.
-- The static triangle remains temporary. It appears in development-only Shell validation, the
-  standalone rendering-probe page and Storybook, not the production web entry.
+- RenderingCanvas creates a distinct canvas for each Effect setup. Startup cancellation and
+  late-result disposal live in attachRenderingRuntime, separate from the React component. The
+  earlier Shell validation confirmed canvas retention across route/locale changes; that temporary
+  panel has now been removed for intro UI integration.
+- The static triangle remains temporary and accessible through the standalone rendering-probe page
+  and Storybook. No GPU experience is mounted in the application until real artwork is introduced.
 
 Unit tests cover resource lifetime, time/viewport calculations, failures and interrupted
 preparation. Chromium Storybook tests cover the actual component/runtime with root StrictMode,
@@ -51,11 +52,15 @@ for current verification and limitations.
 
 ## Next bounded objective
 
-The owner requested a PR for this work before intro implementation. Publication of this branch/PR is
-authorized; merging and deploying it require a separate instruction.
+The owner requested and merged [PR #2](https://github.com/JeremieDrazic/creation/pull/2) before
+intro implementation. Main CI and the configured automatic deployment succeeded on October 20.
 
-After PR review, return to the approved intro reference and agree a first visible static celestial
-veil increment before coding. Implement the experience through IntroCreation with small reviewed
+The reviewed intro UI now mounts on / with its temporary illuminated CSS backdrop. Old shell
+controls/triangle validation have been replaced; Fireflies remains a placeholder. Language and
+client-side navigation are connected. The owner deferred application sound integration to a separate
+PR; the control remains in stories and is currently omitted from the application. Review this
+integration and the dedicated ProjectResourceLink story, then agree the first visible celestial veil
+increment before coding. Implement the experience through IntroCreation with small reviewed
 additions; then develop motion and interactions. Future real scenes must establish artistic
 handover, residency, GPU recovery, audio behavior and measured quality budgets. Do not extend a
 generic runtime speculatively before a concrete need.

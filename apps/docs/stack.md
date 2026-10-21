@@ -58,7 +58,13 @@ experience-owned; any shared graphics value needs explicit unit/color conversion
 GSAP owns designated finite transition values. React, CSS and simulation must not compete for the
 same animated property. Integrate graphics motion with one rendering schedule; use the audio clock
 for precise sound scheduling. Live music choreography stays generative, not a track-authored
-timeline.
+timeline. The first implemented DOM motion is the intro experience-link arrow, using catalog-pinned
+GSAP 3.15.0, a component-owned effect, a finite paused timeline and a reduced-motion media context.
+The reusable createMotionPreferenceContext helper lives under web/src/utils/animation; individual
+animations retain their trajectories and owned-property cleanup. Language underlines use StyleX CSS
+transitions. Resource underlines use the shared createDirectionalUnderline helper with a finite GSAP
+scaleX pass, pointer-side direction and Tab/Shift+Tab direction. Active passes ignore new requests.
+Each resource anchor owns its effect/listener cleanup; reduced motion disables the pass.
 
 ## Audio and state
 
@@ -70,8 +76,8 @@ measured memory/latency choice.
 Use a scoped vanilla Zustand store with narrow React selectors. Route identity belongs to Router,
 locale to i18next and typing drafts to local UI. Runtime phase/residency facts remain authoritative
 in their owner; store snapshots only project them. No particles, FFT arrays, frame pointer samples,
-GPU objects or import-time renderer/AudioContext singleton in the store. Cross-visit persistence is
-unselected.
+GPU objects or import-time renderer/AudioContext singleton in the store. Cross-visit localStorage
+persistence is confirmed for sound preference and language; other persistent state is not selected.
 
 ## Tooling integration
 

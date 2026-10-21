@@ -17,6 +17,10 @@
     "@stylexjs/stylex": "catalog:"
   },
   "devDependencies": {
+    "gsap": "catalog:",
+    "i18next": "catalog:",
+    "react-i18next": "catalog:",
+    "zustand": "catalog:",
     "storybook": "catalog:",
     "@storybook/react-vite": "catalog:",
     "@storybook/addon-a11y": "catalog:",

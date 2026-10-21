@@ -1,0 +1,26 @@
+{
+  "introductionLabel": "Introduction à Creation",
+  "homeLabel": "Creation, accueil",
+  "discoverFireflies": "Découvrir Fireflies",
+  "languageSwitcher": {
+    "label": "Langue",
+    "frenchLabel": "FR, afficher en français",
+    "englishLabel": "EN, display in English"
+  },
+  "sound": {
+    "label": "Son",
+    "enabled": "activé",
+    "disabled": "désactivé"
+  },
+  "projectResources": {
+    "navigationLabel": "Ressources du projet",
+    "linkLabel": "{{label}}, nouvel onglet"
+  },
+  "verse": {
+    "language": "fr",
+    "opening": "Et Dieu dit alors :",
+    "command": "Que la lumière soit !",
+    "fulfillment": "Et la lumière fut.",
+    "reference": "Genèse 1:3 · BDS"
+  }
+}

@@ -3,8 +3,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 
-import { i18n } from './localization/i18n';
 import { routeTree } from './routeTree.gen';
+import { i18n } from './utils/localization/i18n';
 import '@creation/ui/global.css';
 
 const router = createRouter({ routeTree, defaultPreload: 'intent' });

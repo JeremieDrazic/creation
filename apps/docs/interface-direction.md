@@ -11,6 +11,22 @@ activation is voluntary and its choice is retained during the visit. Shared cont
 discoverable and keyboard-accessible during contemplation. Layouts, supporting typography, public
 copy and exact control visibility remain to refine.
 
+Language selection uses a saved localStorage preference first, then the first supported browser
+language (including regional variants such as fr-FR/en-US), then English. An explicit FR/EN change
+is remembered across reloads/visits and applies to all experiences. Detection and persistence belong
+to application localization; LanguageSwitcher displays the active language and requests changes.
+
+Application i18n now reads the canonical fr/en choice from creation.language-preference before
+initializing. Browser detection alone does not save a choice; later languageChanged events on the
+application instance do. Unsupported stored values are ignored rather than migrated. Storage
+read/write failures preserve usable localization and report the original error. Storybook clones
+have no persistence listener, so preview locale changes do not overwrite the application choice. The
+homepage's extracted LanguageSwitcher uses this connection. LanguageSwitcher keeps both FR/EN
+buttons focusable, uses stable native-language names and aria-pressed for the active choice, and
+preserves focus when switching. Its own code reads no storage. Storybook synchronizes component
+changes with the global locale toolbar through a preview-owned i18n listener, cleaned up when the
+preview changes/unmounts. Preview instances remain separate from application persistence.
+
 ## Fireflies input and editing
 
 The input's fine bottom rule is a horizontal axis, not necessarily a control placed at the bottom of

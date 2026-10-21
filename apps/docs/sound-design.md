@@ -31,6 +31,10 @@ purpose.
 
 ## Interaction and access rules
 
+- The owner confirmed localStorage persistence for the shared sound preference, across reloads and
+  later visits. First-time sound is off. Keep persistence outside the presentation button; intro and
+  other experiences share the preference. This supersedes retention limited to the current visit.
+  Remembered preference and browser playback readiness are distinct; actual audio remains deferred.
 - Respect the already confirmed voluntary sound activation. Do not attempt hover playback before
   sound is enabled; do not replay earlier hover events when audio becomes available.
 - Global sound-off silences interface sounds as well as ambient/music output, while retaining the
@@ -46,6 +50,14 @@ purpose.
   selected by this request.
 
 ## Audio architecture implications
+
+Application sound integration and preference persistence are deferred to a dedicated PR at the
+owner's request. The intro PR includes only the controlled SoundToggle component and an isolated
+React-state story. The application currently omits the sound control; no sound store/provider or
+playback is mounted. The confirmed persistence requirement above remains for the later increment.
+
+A prepared persistence implementation is retained locally for the dedicated increment; see the
+session handoff. It is not shipped behavior and needs review with the future audio integration.
 
 Expose separate logical buses for ambience, music and interface/transition effects, with one
 explicit audio-context owner. The music analyser must not include hover sounds or ambient audio;

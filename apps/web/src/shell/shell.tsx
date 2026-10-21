@@ -1,138 +1,61 @@
 import * as stylex from '@stylexjs/stylex';
 import { Link, Outlet } from '@tanstack/react-router';
 // oxlint-disable-next-line no-restricted-imports -- Synchronizes the external document language with the active translation instance.
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useStore } from 'zustand';
 
-import { colors } from '@creation/design-tokens/colors.stylex';
-import { Button } from '@creation/ui/button';
-
-import { DEFAULT_LANGUAGE } from '../localization/i18n';
-import { createRenderingRuntimeStore } from '../runtime/rendering-runtime-store/rendering-runtime-store';
-import type { CreationExperiencePreparationOptions } from '../types';
-
-// Temporary validation settings; production quality/time limits remain to be selected.
-const MAX_VALIDATION_PIXEL_RATIO = 2;
-const MAX_VALIDATION_FRAME_DELTA_SECONDS = 0.05;
-
-const DevelopmentRenderingCanvas = import.meta.env.DEV
-  ? lazy(async () => {
-      const { RenderingCanvas } = await import('../runtime/rendering-canvas/rendering-canvas');
-      return { default: RenderingCanvas };
-    })
-  : null;
-
-async function prepareValidationExperience(options: CreationExperiencePreparationOptions) {
-  const { RenderingProbeCreation } = await import('../rendering-probe/rendering-probe-creation');
-  return RenderingProbeCreation.prepare(options);
-}
-
-function readValidationPixelRatio(): number {
-  return Math.min(window.devicePixelRatio, MAX_VALIDATION_PIXEL_RATIO);
-}
-
-function reportRenderingError(error: unknown): void {
-  console.error('Rendering validation failed', error);
-}
+import { DEFAULT_LANGUAGE } from '../utils/localization/i18n';
 
 const styles = stylex.create({
   shell: {
     minHeight: '100svh',
-    backgroundColor: colors.background,
-    color: colors.foreground,
-    display: 'flex',
-    flexDirection: 'column',
-    paddingBlockStart: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingBlockEnd: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingInlineStart: 'clamp(1.5rem, 4vw, 4rem)',
-    paddingInlineEnd: 'clamp(1.5rem, 4vw, 4rem)',
+    backgroundColor: '#03090e',
+    color: '#f2eee4',
   },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '1.5rem',
-    flexWrap: 'wrap',
-  },
-  brand: {
-    color: 'inherit',
-    fontFamily: 'Georgia, serif',
-    fontWeight: 400,
-    fontSize: '2.5rem',
-    textDecoration: 'none',
-  },
-  main: {
-    flexGrow: 1,
+  fallback: {
+    minHeight: '100svh',
     display: 'grid',
-    placeItems: 'center',
-    paddingBlock: '4rem',
+    alignContent: 'center',
+    justifyItems: 'center',
+    gap: '1.5rem',
+    padding: '2rem',
     textAlign: 'center',
   },
-  navigation: { display: 'flex', gap: '2rem', color: colors.muted },
-  link: { color: 'inherit', textUnderlineOffset: '0.3em' },
-  validation: { marginBlockStart: '2rem' },
-  validationViewport: { height: '40svh', backgroundColor: '#000000' },
+  link: {
+    color: 'inherit',
+    textUnderlineOffset: '0.3em',
+    outlineColor: { default: 'transparent', ':focus-visible': '#e0cc9d' },
+    outlineStyle: 'solid',
+    outlineWidth: '2px',
+    outlineOffset: '6px',
+  },
 });
 
-/** Persistent DOM shell; route changes replace only its outlet. */
+/** Persistent page surface; each route owns its experience UI. */
 export function Shell() {
-  const { t, i18n } = useTranslation();
-  const [renderingStore] = useState(createRenderingRuntimeStore);
-  const renderingStatus = useStore(renderingStore.statusStore);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     document.documentElement.lang = i18n.resolvedLanguage ?? DEFAULT_LANGUAGE;
   }, [i18n.resolvedLanguage]);
 
   return (
-    <div {...stylex.props(styles.shell)}>
-      <header {...stylex.props(styles.header)}>
-        <Link to="/" {...stylex.props(styles.brand)}>
-          creation
-        </Link>
-        <Button
-          onClick={() => {
-            void i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr');
-          }}
-        >
-          {t('language')}
-        </Button>
-      </header>
-      {DevelopmentRenderingCanvas !== null && (
-        <aside aria-label="Temporary rendering validation" {...stylex.props(styles.validation)}>
-          <p>Temporary rendering validation — static triangle</p>
-          <output aria-label="Rendering status">{renderingStatus.status}</output>
-          <div {...stylex.props(styles.validationViewport)}>
-            <Suspense fallback={null}>
-              <DevelopmentRenderingCanvas
-                prepareInitialExperience={prepareValidationExperience}
-                readPixelRatio={readValidationPixelRatio}
-                maxDeltaSeconds={MAX_VALIDATION_FRAME_DELTA_SECONDS}
-                publishStatus={renderingStore.publishStatus}
-                onError={reportRenderingError}
-              />
-            </Suspense>
-          </div>
-        </aside>
-      )}
-      <main {...stylex.props(styles.main)}>
-        <Outlet />
-      </main>
-      <nav aria-label={t('home')} {...stylex.props(styles.navigation)}>
-        <Link to="/" {...stylex.props(styles.link)}>
-          {t('home')}
-        </Link>
-        <Link to="/fireflies" {...stylex.props(styles.link)}>
-          {t('fireflies')}
-        </Link>
-      </nav>
-    </div>
+    <main {...stylex.props(styles.shell)}>
+      <Outlet />
+    </main>
   );
 }
 
-/** Localized fallback retaining the shell's return navigation. */
+/** Localized fallback with an explicit way home, independent of experience controls. */
 export function NotFound() {
   const { t } = useTranslation();
-  return <h1>{t('notFound')}</h1>;
+
+  return (
+    <section {...stylex.props(styles.fallback)}>
+      <h1>{t('notFound')}</h1>
+      <Link to="/" {...stylex.props(styles.link)}>
+        {t('home')}
+      </Link>
+    </section>
+  );
 }

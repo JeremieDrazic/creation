@@ -18,6 +18,10 @@ const config: StorybookConfig = {
   core: { disableTelemetry: true },
   viteFinal(config, { configType }) {
     config.base = './';
+    config.optimizeDeps = {
+      ...config.optimizeDeps,
+      include: [...(config.optimizeDeps?.include ?? []), 'i18next', 'gsap', 'react-i18next'],
+    };
     config.plugins = [
       createStylexPlugin(configType === 'DEVELOPMENT' ? 'development' : 'production'),
       ...(config.plugins ?? []),
