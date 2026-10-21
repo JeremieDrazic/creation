@@ -4,7 +4,11 @@ export default defineConfig({
   test: {
     name: 'web-runtime',
     environment: 'node',
-    include: ['src/rendering-probe/**/*.test.ts', 'src/runtime/**/*.test.ts'],
+    include: [
+      'src/rendering-probe/**/*.test.ts',
+      'src/runtime/**/*.test.ts',
+      'src/utils/**/*.test.ts',
+    ],
     allowOnly: !process.env['CI'],
   },
 });

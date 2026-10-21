@@ -47,6 +47,10 @@ On October 20, the owner requests a PR containing the reviewed rendering foundat
 tooling/docs. Committing and publishing that branch/PR is authorized. This does not authorize
 merging it into main or deploying it; main CI triggers the approved automatic deployment workflow.
 
+The owner also requests the reviewed intro UI PR: commit/publish the intro composition, navigation,
+localization, interaction stories/utilities and related docs. Keep sound persistence/application
+integration for a separate PR. This authorizes the branch and PR, not merging or deployment.
+
 ## Continuity
 
 ### Bounded sessions

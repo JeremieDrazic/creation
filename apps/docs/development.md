@@ -71,7 +71,7 @@ router excludes test/story files from generation. Named module folders and shall
 
 ```text
 apps/web/src/
-  localization/i18n.ts
+  utils/localization/i18n.ts
   shell/shell.tsx, shell.test.ts
   routes/                 # Router-required route files
   main.tsx, routeTree.gen.ts
@@ -190,10 +190,15 @@ subpaths, not DNS, TLS or live Traefik configuration. See [delivery](delivery.md
 | Playwright                              | 1.63.0                     |
 | Three.js / types                        | 0.186.1 / 0.186.0          |
 | i18next / react-i18next                 | 26.4.2 / 17.0.16           |
+| GSAP                                    | 3.15.0                     |
+| Zustand                                 | 5.0.15                     |
 
-The catalog is authoritative. Three.js is installed for the rendering host and POC. GSAP, Zustand
-and lil-gui remain selected; install them when a relevant increment uses them rather than adding
-unused dependencies or placeholder unit tests.
+The catalog is authoritative. Three.js is installed for the rendering host and POC. Zustand powers
+runtime status; sound persistence is deferred to a dedicated PR. GSAP 3.15.0 was checked against npm
+and installed for the intro link animation, with the workspace's release-age policy unchanged. Web
+declares it at runtime; Storybook declares it for previews and prebundles it before tests. Its
+bundled types are used. lil-gui remains selected for a future increment; no unused dependency or
+placeholder test is needed.
 
 Vitest and browser adapters use 5.0.3, supported by Storybook 10.6.1. The addon’s declared
 @vitest/runner peer uses published 4.1.11 types; its range permits this. Vitest 5 no longer declares

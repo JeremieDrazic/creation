@@ -1,0 +1,26 @@
+{
+  "introductionLabel": "Introduction to Creation",
+  "homeLabel": "Creation, home",
+  "discoverFireflies": "Discover Fireflies",
+  "languageSwitcher": {
+    "label": "Language",
+    "frenchLabel": "FR, afficher en français",
+    "englishLabel": "EN, display in English"
+  },
+  "sound": {
+    "label": "Sound",
+    "enabled": "on",
+    "disabled": "off"
+  },
+  "projectResources": {
+    "navigationLabel": "Project resources",
+    "linkLabel": "{{label}}, new tab"
+  },
+  "verse": {
+    "language": "en",
+    "opening": "And God said,",
+    "command": "“Let there be light,”",
+    "fulfillment": "and there was light.",
+    "reference": "Genesis 1:3 · NIV"
+  }
+}
