@@ -20,6 +20,11 @@ owner now requests the intro PR: committing this bounded UI/localization/motion 
 publishing its branch/PR are authorized. Sound persistence/integration is explicitly excluded.
 Merging and production deployment are not authorized by this request.
 
+The intro is published in [PR #3](https://github.com/JeremieDrazic/creation/pull/3), targeting main
+from feat/intro-ui. Implementation commit: c5bf259. Full local checks passed before publication;
+check GitHub for current remote CI status. The owner retains merge review. Deferred sound work
+remains in the local stash recorded below and is excluded from the published branch.
+
 ## Current intro UI increment
 
 The owner accepted the static intro composition as a working basis and authorized component
