@@ -71,7 +71,7 @@ export const UnderlineKeyboard: Story = {
 
     const initialBounds = link.getBoundingClientRect();
     const underline = getUnderline(link);
-    await expect(readScale(underline)).toBe(0);
+    await waitFor(() => expect(readScale(underline)).toBe(0));
 
     await userEvent.tab();
     await expect(link).toHaveFocus();

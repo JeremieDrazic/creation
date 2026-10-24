@@ -95,16 +95,19 @@ export const ArrowMotion: Story = {
     }
 
     await expect(arrow.parentElement).toHaveStyle({ overflow: 'hidden', width: '26px' });
-    await userEvent.hover(link);
-    await waitFor(() => expect(readArrowOffset(arrow)).toBeGreaterThan(0));
-    await expect(text.getBoundingClientRect()).toMatchObject({
-      x: initialTextPosition.x,
-      y: initialTextPosition.y,
-      width: initialTextPosition.width,
-      height: initialTextPosition.height,
-    });
-    await waitFor(() => expect(readArrowOffset(arrow)).toBeLessThan(0));
-    await waitFor(() => expect(readArrowOffset(arrow)).toBeCloseTo(0, 3));
+    // Observe before triggering hover: waiting for the input action first can miss the short exit.
+    const observeArrowPass = async (): Promise<void> => {
+      await waitFor(() => expect(readArrowOffset(arrow)).toBeGreaterThan(0));
+      await expect(text.getBoundingClientRect()).toMatchObject({
+        x: initialTextPosition.x,
+        y: initialTextPosition.y,
+        width: initialTextPosition.width,
+        height: initialTextPosition.height,
+      });
+      await waitFor(() => expect(readArrowOffset(arrow)).toBeLessThan(0));
+      await waitFor(() => expect(readArrowOffset(arrow)).toBeCloseTo(0, 3));
+    };
+    await Promise.all([observeArrowPass(), userEvent.hover(link)]);
     await expect(text.getBoundingClientRect()).toMatchObject({
       x: initialTextPosition.x,
       y: initialTextPosition.y,
@@ -140,13 +143,14 @@ export const MotionCleanup: Story = {
       return;
     }
 
-    await userEvent.hover(link);
-    await waitFor(() => expect(readArrowOffset(arrow)).toBeGreaterThan(0));
-
-    if (parameters['finishMotionBeforeUnmount'] === true) {
-      await waitFor(() => expect(readArrowOffset(arrow)).toBeLessThan(0));
-      await waitFor(() => expect(readArrowOffset(arrow)).toBeCloseTo(0, 3));
-    }
+    const observeArrowPass = async (): Promise<void> => {
+      await waitFor(() => expect(readArrowOffset(arrow)).toBeGreaterThan(0));
+      if (parameters['finishMotionBeforeUnmount'] === true) {
+        await waitFor(() => expect(readArrowOffset(arrow)).toBeLessThan(0));
+        await waitFor(() => expect(readArrowOffset(arrow)).toBeCloseTo(0, 3));
+      }
+    };
+    await Promise.all([observeArrowPass(), userEvent.hover(link)]);
 
     await userEvent.click(canvas.getByRole('button', { name: 'Unmount link' }));
     await expect(link).not.toBeInTheDocument();

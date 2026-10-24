@@ -273,3 +273,11 @@ signaling. Visitor music does not itself imply upload.
 References: [render targets](https://threejs.org/manual/pages/rendertargets.html),
 [color management](https://threejs.org/manual/pages/color-management.html),
 [Turborepo structure](https://turborepo.dev/docs/crafting-your-repository/structuring-a-repository).
+
+## Shared grain calculations
+
+packages/utils now provides math/clamp-unit, color/assert-rgb-channels and
+color/srgb-channel-to-linear as focused exports with colocated tests. clampUnit bounds values to [0,
+1]; RGB validation requires three finite channels in [0, 255], including explicit sparse-array
+rejection; normalized sRGB conversion uses the numeric W3C transfer function. These utilities have
+no Three.js/browser dependency and do not mutate caller data.

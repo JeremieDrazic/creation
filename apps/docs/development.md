@@ -155,6 +155,13 @@ play functions in their existing stories; do not duplicate these in isolated Rea
 Playwright .test.ts checks retain integration responsibility, including extracted CSS across builds.
 The addon automatically provides preview annotations; no redundant global setup is needed.
 
+Storybook browser test files run sequentially. Under Vitest only, the shared StyleX compiler uses
+runtime style injection so assertions do not race asynchronous extracted-CSS refresh; its injector
+is explicitly preoptimized. Normal development and production builds keep extracted CSS, checked by
+production Playwright journeys. Short-motion tests start observing before awaiting the triggering
+interaction and wait for initial styles when needed. Three.js is explicitly declared in Storybook at
+the existing catalog version for shader-module preoptimization.
+
 RenderingCanvas has two browsable stories under Runtime/RenderingCanvas: StaticTriangle uses the
 temporary static probe with the actual runtime/store, and PreparationFailure rejects preparation
 deliberately. Their play functions inspect state without clicking controls. LifecycleChecks keeps
