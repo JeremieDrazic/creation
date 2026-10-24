@@ -10,12 +10,12 @@ import {
 export type RenderingRuntimeAttachment = Readonly<{
   /** Selects graphics, or remembers the latest selection until startup completes. */
   selectExperience: (prepareExperience: PrepareCreationExperience | null) => void;
-  /** Cancels startup and releases a ready or late runtime. Repeated calls are safe. */
-  detach: () => void;
+  /** Cancels startup and initiates runtime cleanup; errors reach onError. Repeated calls are safe. */
+  dispose: () => void;
 }>;
 
 /**
- * Starts a runtime on an existing canvas and immediately returns selection/detach commands. Owns
+ * Starts a runtime on an existing canvas and immediately returns selection/disposal commands. Owns
  * startup cancellation and disposal of ready or late results; the caller owns canvas DOM. Repeated
  * selection of the same preparation function is ignored. During startup only the latest request is
  * retained; it is applied after initial preparation completes, without restarting it. Callbacks
@@ -37,13 +37,13 @@ export function attachRenderingRuntime(
       const wasSuperseded =
         error instanceof CodedError &&
         error.code === EXPERIENCE_COORDINATOR_ERROR_CODES.PREPARATION_SUPERSEDED;
-      const wasDetached =
+      const wasDisposed =
         controller.signal.aborted &&
         (error === controller.signal.reason ||
           (error instanceof CodedError &&
             error.code === EXPERIENCE_COORDINATOR_ERROR_CODES.DISPOSED));
 
-      if (!wasSuperseded && !wasDetached) {
+      if (!wasSuperseded && !wasDisposed) {
         options.onError(error);
       }
     });
@@ -87,7 +87,7 @@ export function attachRenderingRuntime(
     }
   }
 
-  function detachRuntime(): void {
+  function dispose(): void {
     if (controller.signal.aborted) {
       return;
     }
@@ -101,5 +101,5 @@ export function attachRenderingRuntime(
 
   void startRuntime();
 
-  return { selectExperience, detach: detachRuntime };
+  return { selectExperience, dispose };
 }

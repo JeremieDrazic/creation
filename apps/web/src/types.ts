@@ -115,7 +115,7 @@ export interface ExperienceCoordinator {
    * method does not wait for them. Does not clear canvas pixels or dispose the borrowed renderer.
    * Repeated calls and calls after disposal do nothing when no experience remains.
    */
-  clearActiveExperience(): void;
+  removeActiveExperience(): void;
 
   /** Updates only the active instance. Call before renderActiveExperience in the session frame. */
   updateActiveExperience(frameTime: FrameTime): void;

@@ -725,14 +725,14 @@ test('releases a failed activation and retains both causes if cleanup fails too'
   });
 });
 
-test('clears active work once and can activate a later experience using the same renderer', async () => {
+test('removes active work once and can activate a later experience using the same renderer', async () => {
   const options = createPreparationOptions();
   const coordinator = new ExperienceCoordinator(options);
   const previous = createExperience();
   await coordinator.prepareAndActivateExperience(async () => previous);
 
-  coordinator.clearActiveExperience();
-  coordinator.clearActiveExperience();
+  coordinator.removeActiveExperience();
+  coordinator.removeActiveExperience();
   coordinator.updateActiveExperience({ deltaSeconds: 0.016, elapsedSeconds: 1 });
   coordinator.renderActiveExperience();
   coordinator.resizeActiveExperience(options.viewport);
@@ -752,7 +752,7 @@ test('clears active work once and can activate a later experience using the same
   expect(previous.dispose).toHaveBeenCalledOnce();
 });
 
-test('clearing cancels pending preparation and disposes its late result without activating it', async () => {
+test('removal cancels pending preparation and disposes its late result without activating it', async () => {
   const coordinator = new ExperienceCoordinator(createPreparationOptions());
   const pending = createPendingPreparation();
   const operation = coordinator.prepareAndActivateExperience(pending.prepare);
@@ -761,7 +761,7 @@ test('clearing cancels pending preparation and disposes its late result without 
   });
   await Promise.resolve();
 
-  coordinator.clearActiveExperience();
+  coordinator.removeActiveExperience();
   expect(pending.prepare.mock.calls[0]?.[0].signal.aborted).toBe(true);
   const next = createExperience();
   await coordinator.prepareAndActivateExperience(async () => next);
@@ -775,7 +775,7 @@ test('clearing cancels pending preparation and disposes its late result without 
   await coordinator.dispose();
 });
 
-test('clearing reports cleanup failure without retaining the broken experience', async () => {
+test('removal reports cleanup failure without retaining the broken experience', async () => {
   const coordinator = new ExperienceCoordinator(createPreparationOptions());
   const experience = createExperience();
   const cause = new Error('Grain resource cleanup failed.');
@@ -784,16 +784,16 @@ test('clearing reports cleanup failure without retaining the broken experience',
   });
   await coordinator.prepareAndActivateExperience(async () => experience);
 
-  expect(() => coordinator.clearActiveExperience()).toThrow(
+  expect(() => coordinator.removeActiveExperience()).toThrow(
     expect.objectContaining({
       code: EXPERIENCE_COORDINATOR_ERROR_CODES.ACTIVE_EXPERIENCE_DISPOSAL_FAILED,
       cause,
     })
   );
   coordinator.renderActiveExperience();
-  coordinator.clearActiveExperience();
+  coordinator.removeActiveExperience();
   expect(experience.render).not.toHaveBeenCalled();
   expect(experience.dispose).toHaveBeenCalledOnce();
   await coordinator.dispose();
-  coordinator.clearActiveExperience();
+  coordinator.removeActiveExperience();
 });
