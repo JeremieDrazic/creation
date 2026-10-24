@@ -13,15 +13,15 @@ commit 662624d13ba18301713612d9b637888ce1dab318. Work is organized into four sta
    independent status store and renderer-preserving selection; base feat/veil-shared-foundations;
    ready for review.
 3. [PR #6](https://github.com/JeremieDrazic/creation/pull/6), feat/celestial-veil — extracted data,
-   offline asset, static scene and application integration; base feat/persistent-experience-selection;
-   draft artistic/code review.
+   offline asset, static scene and application integration; base
+   feat/persistent-experience-selection; draft artistic/code review.
 4. [PR #7](https://github.com/JeremieDrazic/creation/pull/7), feat/data-gui — first numeric palette
    adapter; base feat/celestial-veil; draft owner study.
 
 This is the top branch, feat/data-gui. All four branches are pushed. Independent PR CI passed on
 each published implementation commit; this final documentation update reruns the top PR check.
-Review the stack in the order above. No merge or deployment is authorized. PR CI does not deploy;
-a future owner-approved merge into main triggers the existing deployment workflow.
+Review the stack in the order above. No merge or deployment is authorized. PR CI does not deploy; a
+future owner-approved merge into main triggers the existing deployment workflow.
 
 ## Current implementation
 
