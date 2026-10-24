@@ -18,10 +18,11 @@ commit 662624d13ba18301713612d9b637888ce1dab318. Work is organized into four sta
 4. [PR #7](https://github.com/JeremieDrazic/creation/pull/7), feat/data-gui — first numeric palette
    adapter; base feat/celestial-veil; draft owner study.
 
-This is the top branch, feat/data-gui. All four branches are pushed. Independent PR CI passed on
-each published implementation commit; this final documentation update reruns the top PR check.
-Review the stack in the order above. No merge or deployment is authorized. PR CI does not deploy; a
-future owner-approved merge into main triggers the existing deployment workflow.
+This is the top branch, feat/data-gui. All four branches are pushed. Initial publication CI passed
+on all four PRs. The lifecycle vocabulary refinement in PR #5 is also carried into #6 and #7;
+publishing these updates reruns their checks. Review the stack in the order above. No merge or
+deployment is authorized. PR CI does not deploy; a future owner-approved merge into main triggers
+the existing deployment workflow.
 
 ## Current implementation
 
@@ -32,11 +33,14 @@ The graphics layer is decorative and does not intercept input; interaction owner
 
 ApplicationRendering receives preparation as a prop and imports no experience/router. It owns the
 status-store instance, display-density reader, frame-delta cap and diagnostics. RenderingCanvas has
-separate lifetime and selection Effects. The attachment returns selectExperience/detach, keeps the
+separate lifetime and selection Effects. The attachment returns selectExperience/dispose, keeps the
 latest startup request and safely disposes late results. Runtime selection reuses the coordinator
 and renderer, retaining the current scene until replacement is ready. Null clears pixels/resources.
-Initial preparation still completes before applying newer startup requests; selecting the same
-failed callback again does not retry it. Startup status does not describe navigation progress.
+removeActiveExperience cancels preparation and releases the active scene while keeping its
+coordinator reusable; clear is reserved here for canvas pixels. Attachment dispose starts runtime
+cleanup and reports failures through onError; it remains synchronous. Initial preparation still
+completes before applying newer startup requests; selecting the same failed callback again does not
+retry it. Startup status does not describe navigation progress.
 
 stores/status-store exports generic createStatusStore with caller-owned shape/initial value,
 publication and read-only subscriptions. Snapshots are copied/shallow-frozen and deduplicated.
