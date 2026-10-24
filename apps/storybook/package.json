@@ -36,6 +36,7 @@
     "@vitest/runner": "catalog:",
     "vitest": "catalog:",
     "playwright": "catalog:",
-    "@storybook/react": "catalog:"
+    "@storybook/react": "catalog:",
+    "three": "catalog:"
   }
 }

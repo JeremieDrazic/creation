@@ -16,6 +16,8 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
+          // Keep short motion checks from competing with shader preparation in other files.
+          fileParallelism: false,
           browser: {
             enabled: true,
             headless: true,

@@ -5,9 +5,12 @@
   "exports": {
     "./async/request-tracker": "./src/async/request-tracker/request-tracker.ts",
     "./async/task-queue": "./src/async/task-queue/async-task-queue.ts",
+    "./color/assert-rgb-channels": "./src/color/assert-rgb-channels/assert-rgb-channels.ts",
+    "./color/srgb-channel-to-linear": "./src/color/srgb-channel-to-linear/srgb-channel-to-linear.ts",
     "./dom/get-element-window": "./src/dom/get-element-window/get-element-window.ts",
     "./dom/page-visibility": "./src/dom/page-visibility/page-visibility-observer.ts",
-    "./errors/coded-errors": "./src/errors/coded-errors/coded-error.ts"
+    "./errors/coded-errors": "./src/errors/coded-errors/coded-error.ts",
+    "./math/clamp-unit": "./src/math/clamp-unit/clamp-unit.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.dom.json",

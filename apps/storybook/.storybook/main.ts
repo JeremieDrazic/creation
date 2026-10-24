@@ -17,13 +17,25 @@ const config: StorybookConfig = {
   },
   core: { disableTelemetry: true },
   viteFinal(config, { configType }) {
+    const isComponentTest = process.env['VITEST'] === 'true';
     config.base = './';
     config.optimizeDeps = {
       ...config.optimizeDeps,
-      include: [...(config.optimizeDeps?.include ?? []), 'i18next', 'gsap', 'react-i18next'],
+      include: [
+        ...(config.optimizeDeps?.include ?? []),
+        'i18next',
+        'gsap',
+        'react-i18next',
+        'three/tsl',
+        'three/webgpu',
+        ...(isComponentTest ? ['@stylexjs/stylex/lib/stylex-inject'] : []),
+      ],
     };
     config.plugins = [
-      createStylexPlugin(configType === 'DEVELOPMENT' ? 'development' : 'production'),
+      createStylexPlugin(configType === 'DEVELOPMENT' ? 'development' : 'production', {
+        // Tests must not race the development server's asynchronous extracted-CSS refresh.
+        runtimeInjection: isComponentTest,
+      }),
       ...(config.plugins ?? []),
     ];
     return config;
