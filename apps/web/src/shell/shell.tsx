@@ -1,16 +1,29 @@
 import * as stylex from '@stylexjs/stylex';
-import { Link, Outlet } from '@tanstack/react-router';
+import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 // oxlint-disable-next-line no-restricted-imports -- Synchronizes the external document language with the active translation instance.
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_LANGUAGE } from '../utils/localization/i18n';
+import { ApplicationRendering } from './application-rendering/application-rendering';
+import { resolveRouteExperience } from './route-experiences/route-experiences';
 
 const styles = stylex.create({
   shell: {
     minHeight: '100svh',
     backgroundColor: '#03090e',
     color: '#f2eee4',
+    isolation: 'isolate',
+  },
+  graphics: {
+    position: 'fixed',
+    inset: 0,
+    zIndex: 0,
+    pointerEvents: 'none',
+  },
+  content: {
+    position: 'relative',
+    zIndex: 1,
   },
   fallback: {
     minHeight: '100svh',
@@ -31,9 +44,11 @@ const styles = stylex.create({
   },
 });
 
-/** Persistent page surface; each route owns its experience UI. */
+/** Persistent graphics surface behind route-owned UI; does not own rendering resources. */
 export function Shell() {
   const { i18n } = useTranslation();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const prepareExperience = resolveRouteExperience(pathname);
 
   useEffect(() => {
     document.documentElement.lang = i18n.resolvedLanguage ?? DEFAULT_LANGUAGE;
@@ -41,7 +56,12 @@ export function Shell() {
 
   return (
     <main {...stylex.props(styles.shell)}>
-      <Outlet />
+      <div aria-hidden="true" {...stylex.props(styles.graphics)}>
+        <ApplicationRendering prepareExperience={prepareExperience} />
+      </div>
+      <div {...stylex.props(styles.content)}>
+        <Outlet />
+      </div>
     </main>
   );
 }

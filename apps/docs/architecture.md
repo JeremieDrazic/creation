@@ -222,12 +222,41 @@ that cost. Single-scene fade sequences or a frozen outgoing image are fallback p
 reviewed for artistic impact rather than silently imposed. See
 [performance](performance-and-quality.md).
 
+### Application graphics composition — mounted for review
+
+Shell mounts ApplicationRendering directly in a fixed viewport-sized graphics layer behind Outlet.
+The graphics prop has been removed. Shell reads the router pathname and resolves the requested
+preparation through shell/route-experiences: / selects the lazy intro preparer, while the current
+UI-only Fireflies route and unknown routes select null. The canvas remains mounted across route
+changes. Each experience still owns its scene/camera; the renderer and schedule remain shared.
+
+ApplicationRendering receives prepareExperience and owns the status-store instance, display-density
+reader, delta-cap setting and diagnostic reporting. It imports no experience or router.
+RenderingCanvas separates canvas/runtime lifetime from live selection through two Effects and the
+attachment handle. A change in selection does not change startup dependencies or recreate the
+renderer. Initial startup is not yet cancelled by later selections; repeating an identical failed
+selection does not retry it.
+
+The intro's opaque CSS study backdrop is removed so the GPU scene is visible. Its orthographic
+camera now contains the reference frame uniformly across window aspects, avoiding stretching. This
+provisional policy leaves extra space along one axis; final artistic framing, perspective and
+parallax remain separate visual increments. The graphics layer is decorative, aria-hidden and
+ignores pointer hit testing; interaction input ownership remains to be implemented.
+
+### Observable status store
+
+stores/status-store owns `createStatusStore<Status>(initialStatus)`, independent of runtime and
+experience types. The caller supplies a flat status snapshot and its domain type; the store provides
+publication and read-only subscriptions with shallow deduplication and copied/frozen snapshots.
+ApplicationRendering chooses RenderingRuntimeStatus and its initial value. This keeps storage
+mechanics separate from the operations that publish status.
+
 ## Developer palette and utilities
 
-data-gui uses the selected lil-gui adapter and supports direct object/property tweak bindings,
-property/getter watches and bounded metrics. Values work without the palette. Avoid buffer rebuilds
-on every slider tick; costly settings may require explicit apply. Preset import/export/reset is
-proposed; defaults remain experience-owned.
+The agreed development-only data-gui package will wrap lil-gui. It is not included in this veil
+increment. Defaults and mutable settings remain experience-owned; numeric controls, watches and
+bounded metrics will be introduced separately. Avoid instance-buffer rebuilds on every slider tick.
+Preset import/export/reset remains proposed. Production bundles must exclude the palette.
 
 Metrics use bounded samples and slower UI refresh, with detachable adapters. Counters are not exact
 GPU-memory measurements; unavailable GPU timings must be labeled as such. Exclude data-gui from
@@ -264,6 +293,21 @@ suspension. Utils keeps its environment-independent TypeScript profile and adds 
 for DOM helpers; its typecheck script verifies both profiles without introducing browser globals
 into async/error modules.
 
+The owner approved math and color groups in utils during the veil walkthrough. Focused exports:
+@creation/utils/math/clamp-unit, @creation/utils/color/assert-rgb-channels and
+@creation/utils/color/srgb-channel-to-linear. Each has colocated unit tests. RGB validation accepts
+three finite channels in [0,255], including fractions, and rejects sparse entries. Conversion
+accepts one normalized sRGB channel in [0,1] and returns linear-light sRGB through the numeric
+transfer function. These utilities have no Three.js/browser dependency. They are now used by offline
+grain preparation rather than per-grain browser interpretation.
+
+The intro's annotated research data and production loading asset are separate. An explicit Node
+preparation command generates a compact versioned JSON asset; browser preparation only fetches and
+validates it before creating GPU resources. Keep source measurements/uncertainties in the moodboard
+and ready Float32-compatible values in the generated asset. The runtime loader is cancellable and
+the existing renderer/experience lifecycle owns activation, drawing and cleanup. Full-screen intro
+framing remains outside the current fixed-aspect preview increment.
+
 ## API scope
 
 No confirmed V1 feature needs a custom API. Words, procedural visuals and audio analysis run in the
@@ -273,27 +317,3 @@ signaling. Visitor music does not itself imply upload.
 References: [render targets](https://threejs.org/manual/pages/rendertargets.html),
 [color management](https://threejs.org/manual/pages/color-management.html),
 [Turborepo structure](https://turborepo.dev/docs/crafting-your-repository/structuring-a-repository).
-
-## Shared grain calculations
-
-packages/utils now provides math/clamp-unit, color/assert-rgb-channels and
-color/srgb-channel-to-linear as focused exports with colocated tests. clampUnit bounds values to [0,
-1]; RGB validation requires three finite channels in [0, 255], including explicit sparse-array
-rejection; normalized sRGB conversion uses the numeric W3C transfer function. These utilities have
-no Three.js/browser dependency and do not mutate caller data.
-
-## Persistent experience selection — implemented foundation
-
-RenderingRuntime.selectExperience accepts a preparation function or null without recreating the
-rendering session. The coordinator retains the current scene until replacement is ready; null clears
-pixels and active resources, cancels pending work and releases late results. Startup status remains
-distinct from later navigation progress.
-
-RenderingCanvas accepts prepareExperience and separates runtime lifetime from selection Effects. Its
-attachment owns asynchronous startup, latest-request retention and cleanup. Supersession is silent;
-genuine failures reach the caller's error handler. Route mapping and real-scene mounting remain
-separate integration work.
-
-stores/status-store exports createStatusStore with caller-owned shape/initial state, publication and
-read-only subscriptions. Snapshots are copied, shallow-frozen and shallow-deduplicated; this module
-imports no runtime or experience types.

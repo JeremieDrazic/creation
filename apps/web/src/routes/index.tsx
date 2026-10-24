@@ -8,8 +8,6 @@ const styles = stylex.create({
   intro: {
     height: '100svh',
     minHeight: '28rem',
-    // Temporary composition backdrop until the WebGL veil is implemented.
-    backgroundImage: 'radial-gradient(ellipse at 85% 35%, #173344 0%, #08141d 32%, #03090e 68%)',
   },
 });
 
