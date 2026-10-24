@@ -168,7 +168,7 @@ export async function createRenderingRuntime({
     if (prepareExperience === null) {
       // Clear before releasing resources: even a cleanup failure must not leave a stale image.
       renderer.clear();
-      coordinator.clearActiveExperience();
+      coordinator.removeActiveExperience();
       return;
     }
 

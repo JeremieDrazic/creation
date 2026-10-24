@@ -79,7 +79,7 @@ export function RenderingCanvas({
 
     return () => {
       attachmentRef.current = null;
-      attachment.detach();
+      attachment.dispose();
       canvas.remove();
     };
   }, [readPixelRatio, maxDeltaSeconds, publishStatus]);

@@ -77,8 +77,11 @@ export class ExperienceCoordinator implements ExperienceCoordinatorContract {
     this.isSuspended = false;
   }
 
-  /** Clears graphics ownership without disposing the coordinator or its borrowed renderer. */
-  clearActiveExperience(): void {
+  /**
+   * Removes and disposes the active experience, keeping the coordinator and borrowed renderer
+   * usable.
+   */
+  removeActiveExperience(): void {
     if (this.isDisposed) {
       return;
     }
