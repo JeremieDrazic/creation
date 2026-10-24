@@ -281,3 +281,19 @@ color/srgb-channel-to-linear as focused exports with colocated tests. clampUnit 
 1]; RGB validation requires three finite channels in [0, 255], including explicit sparse-array
 rejection; normalized sRGB conversion uses the numeric W3C transfer function. These utilities have
 no Three.js/browser dependency and do not mutate caller data.
+
+## Persistent experience selection — implemented foundation
+
+RenderingRuntime.selectExperience accepts a preparation function or null without recreating the
+rendering session. The coordinator retains the current scene until replacement is ready; null clears
+pixels and active resources, cancels pending work and releases late results. Startup status remains
+distinct from later navigation progress.
+
+RenderingCanvas accepts prepareExperience and separates runtime lifetime from selection Effects. Its
+attachment owns asynchronous startup, latest-request retention and cleanup. Supersession is silent;
+genuine failures reach the caller's error handler. Route mapping and real-scene mounting remain
+separate integration work.
+
+stores/status-store exports createStatusStore with caller-owned shape/initial state, publication and
+read-only subscriptions. Snapshots are copied, shallow-frozen and shallow-deduplicated; this module
+imports no runtime or experience types.

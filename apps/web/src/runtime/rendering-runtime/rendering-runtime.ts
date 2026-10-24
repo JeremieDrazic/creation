@@ -1,3 +1,5 @@
+import type { WebGPURenderer } from 'three/webgpu';
+
 import {
   createRenderingSession,
   type RenderingPreparationContext,
@@ -18,8 +20,8 @@ export type RenderingRuntimeOptions = Readonly<{
   /** React owns the canvas layout and DOM removal; the runtime owns its rendering resources. */
   canvas: HTMLCanvasElement;
 
-  /** Prepares the first experience after renderer initialization. */
-  prepareInitialExperience: PrepareCreationExperience;
+  /** Prepares the first experience after initialization; null starts with an empty canvas. */
+  prepareInitialExperience: PrepareCreationExperience | null;
 
   /** Reads the selected drawing resolution ratio; the runtime imposes no quality cap. */
   readPixelRatio: () => number;
@@ -87,14 +89,20 @@ export async function createRenderingRuntime({
   publishStatus({ status: 'preparing', progress: null });
 
   let coordinator: ExperienceCoordinator | undefined;
+  let renderer: WebGPURenderer | undefined;
+  let hasRenderingFailed = false;
   let session: RenderingSession;
 
   async function prepareInitialRenderingExperience(
     context: RenderingPreparationContext
   ): Promise<void> {
     coordinator = new ExperienceCoordinator(context);
-
-    await coordinator.prepareAndActivateExperience(prepareInitialExperience);
+    renderer = context.renderer;
+    if (prepareInitialExperience === null) {
+      renderer.clear();
+    } else {
+      await coordinator.prepareAndActivateExperience(prepareInitialExperience);
+    }
   }
 
   try {
@@ -118,6 +126,7 @@ export async function createRenderingRuntime({
         coordinator?.resumeActiveExperience();
       },
       onError: (error) => {
+        hasRenderingFailed = true;
         publishStatus({ status: 'failed', error });
         onError(error);
       },
@@ -144,6 +153,28 @@ export async function createRenderingRuntime({
 
   let disposalPromise: Promise<void> | undefined;
 
+  async function selectExperience(
+    prepareExperience: PrepareCreationExperience | null
+  ): Promise<void> {
+    if (
+      disposalPromise !== undefined ||
+      hasRenderingFailed ||
+      coordinator === undefined ||
+      renderer === undefined
+    ) {
+      throw new CodedError(RENDERING_RUNTIME_ERROR_CODES.UNAVAILABLE);
+    }
+
+    if (prepareExperience === null) {
+      // Clear before releasing resources: even a cleanup failure must not leave a stale image.
+      renderer.clear();
+      coordinator.removeActiveExperience();
+      return;
+    }
+
+    await coordinator.prepareAndActivateExperience(prepareExperience);
+  }
+
   function dispose(): Promise<void> {
     if (disposalPromise === undefined) {
       disposalPromise = disposeRuntimeResources(session, coordinator);
@@ -152,5 +183,5 @@ export async function createRenderingRuntime({
     return disposalPromise;
   }
 
-  return { dispose };
+  return { selectExperience, dispose };
 }

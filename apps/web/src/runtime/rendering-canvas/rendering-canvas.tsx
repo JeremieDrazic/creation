@@ -3,11 +3,14 @@ import * as stylex from '@stylexjs/stylex';
 import { useEffect, useEffectEvent, useRef } from 'react';
 
 import type { PrepareCreationExperience, RenderingRuntimeStatus } from '../../types';
-import { attachRenderingRuntime } from './attach-rendering-runtime';
+import {
+  attachRenderingRuntime,
+  type RenderingRuntimeAttachment,
+} from './attach-rendering-runtime';
 
 export type RenderingCanvasProps = Readonly<{
-  /** Stable preparation function; changing it recreates the runtime, not a navigation operation. */
-  prepareInitialExperience: PrepareCreationExperience;
+  /** Requested graphics; changes select an experience within the existing runtime. Null clears it. */
+  prepareExperience: PrepareCreationExperience | null;
   /** Stable resolution reader forwarded to the session. */
   readPixelRatio: () => number;
   /** Maximum accepted frame delta, in seconds; changing it recreates the runtime. */
@@ -32,16 +35,21 @@ const styles = stylex.create({
 
 /**
  * Owns one canvas/runtime per Effect setup. Keep above route-specific UI; experience navigation
- * must not replace this component or its startup inputs. The parent provides drawable dimensions.
+ * changes only prepareExperience. The parent provides drawable dimensions. Resolution-reader,
+ * frame-delta and status-publisher changes still restart the runtime.
  */
 export function RenderingCanvas({
-  prepareInitialExperience,
+  prepareExperience,
   readPixelRatio,
   maxDeltaSeconds,
   publishStatus,
   onError,
 }: RenderingCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const attachmentRef = useRef<RenderingRuntimeAttachment | null>(null);
+
+  // Startup reads the current choice; subsequent choices have their own reactive Effect below.
+  const readInitialExperience = useEffectEvent(() => prepareExperience);
 
   // Report to the latest handler without rebuilding the renderer when that handler changes.
   const reportLifecycleError = useEffectEvent((error: unknown) => {
@@ -59,20 +67,26 @@ export function RenderingCanvas({
     canvas.className = stylex.props(styles.canvas).className ?? '';
     container.append(canvas);
 
-    const detachRuntime = attachRenderingRuntime({
+    const attachment = attachRenderingRuntime({
       canvas,
-      prepareInitialExperience,
+      prepareInitialExperience: readInitialExperience(),
       readPixelRatio,
       maxDeltaSeconds,
       publishStatus,
       onError: reportLifecycleError,
     });
+    attachmentRef.current = attachment;
 
     return () => {
-      detachRuntime();
+      attachmentRef.current = null;
+      attachment.dispose();
       canvas.remove();
     };
-  }, [prepareInitialExperience, readPixelRatio, maxDeltaSeconds, publishStatus]);
+  }, [readPixelRatio, maxDeltaSeconds, publishStatus]);
+
+  useEffect(() => {
+    attachmentRef.current?.selectExperience(prepareExperience);
+  }, [prepareExperience]);
 
   return <div {...stylex.props(styles.container)} ref={containerRef} />;
 }
