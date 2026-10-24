@@ -7,6 +7,8 @@
     "playwright.config.ts",
     "apps/web/scripts/**/*.mts",
     "apps/web/src/**/*.test.ts",
+    "packages/data-gui/src/**/*.test.ts",
+    "packages/data-gui/vitest.config.ts",
     "packages/ui/src/**/*.test.ts",
     "apps/docs/.vitepress/**/*.test.ts",
     "packages/rendering/src/**/*.test.ts",

@@ -257,3 +257,10 @@ These captures validate a projection correction, not the final composition. Spac
 unconstrained axis is intentional for this working baseline. The owner wants the band to enter and
 leave through the top/bottom and appear more distant on compact screens; artistic placement,
 perspective/parallax and lighting remain separate reviews.
+
+## Numeric palette adapter probe
+
+The [temporary data-gui probe](07-data-gui-control-probe.png) validates the real numeric slider
+behind our adapter: direct property edits, live/finish callbacks, range clamping and cleanup. This
+is a technical fixture, not a palette mounted in the experience or a new veil composition. The intro
+framing controls will be connected in a separate reviewed increment.
