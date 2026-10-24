@@ -6,13 +6,20 @@ import {
   type RenderingSessionOptions,
 } from '@creation/rendering/rendering-session';
 
-import type { CreationExperience, CreationExperiencePreparationOptions } from '../../types';
-import { createRenderingRuntimeStore } from '../rendering-runtime-store/rendering-runtime-store';
+import { createStatusStore } from '../../stores/status-store/status-store';
+import type {
+  CreationExperience,
+  CreationExperiencePreparationOptions,
+  RenderingRuntimeStatus,
+} from '../../types';
+import { EXPERIENCE_COORDINATOR_ERROR_CODES } from '../experience-coordinator/experience-coordinator-errors';
 import { createRenderingRuntime } from './rendering-runtime';
+import { RENDERING_RUNTIME_ERROR_CODES } from './rendering-runtime-errors';
 
 vi.mock('@creation/rendering/rendering-session', () => ({ createRenderingSession: vi.fn() }));
 
-const renderer = {} as WebGPURenderer;
+const clearRenderer = vi.fn();
+const renderer = { clear: clearRenderer } as unknown as WebGPURenderer;
 const viewport = { widthCssPx: 800, heightCssPx: 600, pixelRatio: 1 };
 const disposeSession = vi.fn<() => Promise<void>>();
 let sessionOptions: RenderingSessionOptions;
@@ -219,7 +226,10 @@ test('cancels pending preparation and releases its late result', async () => {
 });
 
 test('keeps the store preparing until async experience preparation completes', async () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createStatusStore<RenderingRuntimeStatus>({
+    status: 'preparing',
+    progress: null,
+  });
   const preparation = Promise.withResolvers<CreationExperience>();
   const creation = createRenderingRuntime({
     ...createOptions(),
@@ -236,7 +246,10 @@ test('keeps the store preparing until async experience preparation completes', a
 });
 
 test('publishes failed with the startup rejection after releasing resources', async () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createStatusStore<RenderingRuntimeStatus>({
+    status: 'preparing',
+    progress: null,
+  });
   const error = new Error('Experience preparation failed.');
   const options = createOptions();
   options.prepareInitialExperience.mockRejectedValue(error);
@@ -249,7 +262,10 @@ test('publishes failed with the startup rejection after releasing resources', as
 });
 
 test('publishes later rendering failures before calling the diagnostic handler', async () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createStatusStore<RenderingRuntimeStatus>({
+    status: 'preparing',
+    progress: null,
+  });
   const error = new Error('Frame failed.');
   const onError = vi.fn(() => {
     expect(statusStore.getState()).toEqual({ status: 'failed', error });
@@ -279,7 +295,10 @@ test('publishes failed when cancellation also encounters a cleanup failure', asy
   });
   const preparation = Promise.withResolvers<CreationExperience>();
   const controller = new AbortController();
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createStatusStore<RenderingRuntimeStatus>({
+    status: 'preparing',
+    progress: null,
+  });
   const prepareInitialExperience = vi.fn(() => preparation.promise);
   const creation = createRenderingRuntime({
     ...createOptions(),
@@ -296,3 +315,89 @@ test('publishes failed when cancellation also encounters a cleanup failure', asy
   expect(error).toMatchObject({ code: 'EXPERIENCE_COORDINATOR_PREPARATION_AND_CLEANUP_FAILED' });
   expect(statusStore.getState()).toEqual({ status: 'failed', error });
 });
+
+test('selects another experience without recreating the renderer or rendering session', async () => {
+  const previous = createExperience();
+  const options = createOptions(previous);
+  const runtime = await createRenderingRuntime(options);
+  const next = createExperience();
+  const prepareNext = vi.fn(async (_options: CreationExperiencePreparationOptions) => next);
+  await runtime.selectExperience(prepareNext);
+
+  expect(createRenderingSession).toHaveBeenCalledOnce();
+  expect(prepareNext.mock.calls[0]?.[0].renderer).toBe(renderer);
+  expect(disposeSession).not.toHaveBeenCalled();
+  expect(previous.dispose).toHaveBeenCalledOnce();
+  sessionOptions.onFrame(renderer, { deltaSeconds: 0.016, elapsedSeconds: 1 });
+  expect(next.render).toHaveBeenCalledExactlyOnceWith(renderer);
+  expect(options.publishStatus).toHaveBeenCalledTimes(2);
+  await runtime.dispose();
+});
+
+test('can start empty, then select and clear an experience without releasing the renderer', async () => {
+  const runtime = await createRenderingRuntime({
+    ...createOptions(),
+    prepareInitialExperience: null,
+  });
+  expect(clearRenderer).toHaveBeenCalledOnce();
+  const experience = createExperience();
+  await runtime.selectExperience(async () => experience);
+  await runtime.selectExperience(null);
+  expect(clearRenderer).toHaveBeenCalledTimes(2);
+  expect(experience.dispose).toHaveBeenCalledOnce();
+  expect(disposeSession).not.toHaveBeenCalled();
+  sessionOptions.onFrame(renderer, { deltaSeconds: 0.016, elapsedSeconds: 1 });
+  expect(experience.render).not.toHaveBeenCalled();
+  await runtime.dispose();
+});
+
+test('a failed replacement leaves the current experience usable', async () => {
+  const current = createExperience();
+  const runtime = await createRenderingRuntime(createOptions(current));
+  const failure = new Error('Replacement failed.');
+  await expect(
+    runtime.selectExperience(async () => {
+      throw failure;
+    })
+  ).rejects.toBe(failure);
+  sessionOptions.onFrame(renderer, { deltaSeconds: 0.016, elapsedSeconds: 1 });
+  expect(current.render).toHaveBeenCalledOnce();
+  expect(current.dispose).not.toHaveBeenCalled();
+  await runtime.dispose();
+});
+
+test('clearing cancels pending selection and releases its late result', async () => {
+  const runtime = await createRenderingRuntime(createOptions());
+  const pending = Promise.withResolvers<CreationExperience>();
+  const selection = runtime.selectExperience(async () => pending.promise);
+  const rejection = expect(selection).rejects.toMatchObject({
+    code: EXPERIENCE_COORDINATOR_ERROR_CODES.PREPARATION_SUPERSEDED,
+  });
+  await Promise.resolve();
+  await runtime.selectExperience(null);
+  const late = createExperience();
+  pending.resolve(late);
+  await rejection;
+  expect(late.activate).not.toHaveBeenCalled();
+  expect(late.dispose).toHaveBeenCalledOnce();
+  await runtime.dispose();
+});
+
+test.each(['disposed', 'failed'] as const)(
+  'rejects selection when rendering is %s',
+  async (state) => {
+    const options = createOptions();
+    const runtime = await createRenderingRuntime(options);
+    if (state === 'disposed') {
+      await runtime.dispose();
+    } else {
+      sessionOptions.onError(new Error('Graphics device failed.'));
+    }
+    const prepare = vi.fn(async () => createExperience());
+    await expect(runtime.selectExperience(prepare)).rejects.toMatchObject({
+      code: RENDERING_RUNTIME_ERROR_CODES.UNAVAILABLE,
+    });
+    expect(prepare).not.toHaveBeenCalled();
+    await runtime.dispose();
+  }
+);

@@ -1,10 +1,19 @@
 import { expect, test, vi } from 'vitest';
 
-import { createRenderingRuntimeStore } from './rendering-runtime-store';
+import { createStatusStore } from './status-store';
 
-test('keeps runtime stores isolated and exposes only reads to consumers', () => {
-  const first = createRenderingRuntimeStore();
-  const second = createRenderingRuntimeStore();
+type TestStatus =
+  | { status: 'preparing'; progress: number | null }
+  | { status: 'ready' }
+  | { status: 'failed'; error: unknown };
+
+function createTestStatusStore() {
+  return createStatusStore<TestStatus>({ status: 'preparing', progress: null });
+}
+
+test('keeps stores isolated and exposes only reads to consumers', () => {
+  const first = createTestStatusStore();
+  const second = createTestStatusStore();
 
   first.publishStatus({ status: 'ready' });
 
@@ -14,7 +23,7 @@ test('keeps runtime stores isolated and exposes only reads to consumers', () => 
 });
 
 test('notifies only for changed values and supports unsubscribe', () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createTestStatusStore();
   const listener = vi.fn();
   const unsubscribe = statusStore.subscribe(listener);
   const initialSnapshot = statusStore.getState();
@@ -35,7 +44,7 @@ test('notifies only for changed values and supports unsubscribe', () => {
 });
 
 test('replaces status fields and preserves the original failure', () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createTestStatusStore();
   const error = new Error('Rendering failed.');
   const listener = vi.fn();
   statusStore.subscribe(listener);
@@ -50,7 +59,7 @@ test('replaces status fields and preserves the original failure', () => {
 });
 
 test('protects published snapshots from caller mutations', () => {
-  const { publishStatus, statusStore } = createRenderingRuntimeStore();
+  const { publishStatus, statusStore } = createTestStatusStore();
   const status = { status: 'preparing', progress: 0.4 } as const;
 
   publishStatus(status);
@@ -59,4 +68,19 @@ test('protects published snapshots from caller mutations', () => {
   expect(statusStore.getState()).toEqual({ status: 'preparing', progress: 0.4 });
   expect(Object.isFrozen(statusStore.getState())).toBe(true);
   expect(Object.isFrozen(statusStore.getInitialState())).toBe(true);
+});
+
+test('accepts a caller-owned status shape without rendering-specific fields', () => {
+  const { publishStatus, statusStore } = createStatusStore({ connected: false, attempts: 0 });
+  publishStatus({ connected: true, attempts: 1 });
+  expect(statusStore.getState()).toEqual({ connected: true, attempts: 1 });
+});
+
+test('copies the initial status without freezing or retaining the caller object', () => {
+  const initialStatus = { connected: false };
+  const { statusStore } = createStatusStore(initialStatus);
+  initialStatus.connected = true;
+  expect(Object.isFrozen(initialStatus)).toBe(false);
+  expect(statusStore.getInitialState()).toEqual({ connected: false });
+  expect(statusStore.getState()).toBe(statusStore.getInitialState());
 });

@@ -26,6 +26,14 @@ export type RenderingRuntimeStatus =
 
 /** Application-owned rendering session and experience resources attached to one canvas. */
 export interface RenderingRuntime {
+  /**
+   * Selects graphics without recreating the rendering session. Null clears active graphics;
+   * otherwise the coordinator keeps the current experience until its replacement is ready.
+   * Selection failures reject to the caller, including supersession. Does not publish navigation
+   * progress through the startup status. Rejects when the runtime is no longer available.
+   */
+  selectExperience(prepareExperience: PrepareCreationExperience | null): Promise<void>;
+
   /** Stops frames before releasing resources. Repeated calls share one promise. */
   dispose(): Promise<void>;
 }
@@ -100,6 +108,14 @@ export interface ExperienceCoordinator {
    * cancellation reason.
    */
   prepareAndActivateExperience(prepareExperience: PrepareCreationExperience): Promise<void>;
+
+  /**
+   * Cancels pending preparation and releases the active experience, leaving the coordinator
+   * reusable. Late preparation results are released by their existing cancellation path; this
+   * method does not wait for them. Does not clear canvas pixels or dispose the borrowed renderer.
+   * Repeated calls and calls after disposal do nothing when no experience remains.
+   */
+  clearActiveExperience(): void;
 
   /** Updates only the active instance. Call before renderActiveExperience in the session frame. */
   updateActiveExperience(frameTime: FrameTime): void;
