@@ -158,9 +158,10 @@ replace the previous status completely, and notify only when shallow field value
 values retain identity and must be treated as immutable. The store does not validate domain
 transitions or determine readiness.
 
-Rendering fixtures instantiate the generic store with RenderingRuntimeStatus and an initial
-preparing/unknown-progress snapshot, then pass publishStatus to the runtime. Application composition
-and route selection remain separate integration work.
+ApplicationRendering and rendering fixtures instantiate it with RenderingRuntimeStatus and the
+initial preparing/unknown-progress value, then pass publishStatus to the rendering runtime. The
+component lives under shell/application-rendering and receives preparation as a prop, importing no
+experience or route. Shell now mounts it behind Outlet and derives its input from the route mapping.
 
 Lifecycle vocabulary: clear erases canvas pixels; removeActiveExperience releases the selected
 experience while preserving its coordinator; dispose permanently closes its receiver and releases
@@ -172,7 +173,8 @@ instance without disposing the coordinator or renderer. It removes the active re
 cleanup, so a cleanup failure cannot leave a broken instance selected. Pending preparations retain
 their existing promise and cancellation cleanup; the method does not await late results. Repeated
 removal calls are safe. It does not erase canvas pixels; the rendering integration must handle the
-empty presentation. The empty-selection case uses this operation through runtime selection.
+empty presentation. The route-to-experience mapping's null case now uses this operation through
+runtime selection.
 
 RenderingRuntime.selectExperience(prepare | null) now exposes live selection through the existing
 coordinator and renderer. A preparation function replaces the current experience only when ready;
@@ -205,9 +207,9 @@ stable resolution-reader/frame-delta/publisher inputs. Requested experience chan
 separate selection Effect, preserving the renderer. Cleanup cancels startup and removes the canvas,
 releasing ready or late results. Status publication after attachment disposal is suppressed;
 expected cancellation is silent and real failures reach the latest non-throwing onError handler
-through useEffectEvent. Callers own status consumption and route composition; application mounting
-remains a separate increment. At the owner's request, async startup/cancellation/late-result
-handling is extracted into the adjacent attach-rendering-runtime.ts, not a generic utility or Hook.
+through useEffectEvent. ApplicationRendering owns status consumption; Shell mounts it persistently
+behind route UI. At the owner's request, async startup/cancellation/late-result handling is
+extracted into the adjacent attach-rendering-runtime.ts, not a generic utility or Hook.
 attachRenderingRuntime receives the runtime inputs without a signal, owns its AbortController and
 returns an attachment object with synchronous selectExperience and dispose commands. Disposal
 remains idempotent. Selection remembers the latest requested preparation during startup and forwards
@@ -229,8 +231,8 @@ probe, plus an intentionally failed preparation. Chromium Storybook tests pass w
 readiness, stable canvas across interface rerender and resize, resized buffer width, two clean
 unmount/remount cycles, failed status and original error reporting. This establishes browser
 component assembly, not pixel-level drawing approval, native WebGPU acceptance, continuous resize
-smoothness, memory or performance guarantees. Application mounting remains a separate increment; the
-original POC remains separate.
+smoothness, memory or performance guarantees. The application now mounts the component through
+Shell; the original POC remains separate.
 
 The owner reported a wide-to-narrow change when opening/reloading the static story. Its play
 function was automatically clicking resize and unmount/remount controls. StaticTriangle now only
@@ -239,9 +241,12 @@ PreparationFailure no longer automatically unmounts. All 5 Storybook tests pass.
 story reloaded to a visible triangle at 640 CSS/buffer pixels with the interface counter at zero. No
 production sizing/lifecycle change was needed for this issue.
 
-The earlier development triangle panel was removed before the intro UI merge. The current component
-stories validate preparation, live selection/clearing and renderer retention. Route-to-experience
-mapping and production canvas mounting remain a separate increment.
+The earlier development triangle panel was removed before the production intro UI merge. The current
+Shell integration mounts the actual intro scene via route selection, with an empty graphics
+selection for UI-only Fireflies and unknown routes. Production browser journeys verify persistent
+canvas identity, route/locale behavior and direct Fireflies entry without a veil data request. See
+[the intro reference](experiences/intro.md) for provisional full-screen framing and remaining
+effects.
 
 ## Readiness — confirmed
 

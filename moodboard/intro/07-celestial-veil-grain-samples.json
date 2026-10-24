@@ -1,0 +1,470 @@
+{
+  "source": "07-celestial-veil.png",
+  "coordinateDataset": "07-celestial-veil-points.json",
+  "status": "Representative examples for owner review. The full dataset is not classified.",
+  "frame": {
+    "widthPx": 1536,
+    "heightPx": 512,
+    "sourceOriginXPx": 0,
+    "sourceOriginYPx": 512
+  },
+  "method": {
+    "patchRadiusPx": 12,
+    "background": "Median mean-RGB signal in an annulus with radius 8 to 12 pixels",
+    "contrast": "Signal at the detected coordinate minus the local background",
+    "footprints": "8-connected region containing the coordinate, above background + fraction*contrast, clipped to the 25x25 patch",
+    "fractions": [0.2, 0.5, 0.8],
+    "equivalentDiameterPx": "Diameter of a circle with the same footprint area: 2*sqrt(area/pi); an image descriptor, not a recovered physical diameter",
+    "otherDetectedPeaks": "Other coordinate entries in that connected region; these may be duplicates on one spot",
+    "nearestDetectedPointDistancePx": "Distance to the closest other detected coordinate within the 25x25 patch; null means none in that patch",
+    "centerSrgb": "Original source RGB at the coordinate; saturated centers do not recover original particle color",
+    "proposals": "Manually proposed from these measurements and image crops; no full-dataset threshold classifier has been accepted"
+  },
+  "colorReview": {
+    "ownerObservation": "Clusters appear to contain more copper and blue grains than white grains.",
+    "status": "Qualitative owner interpretation; proportions and per-grain colors remain unmeasured.",
+    "sourcePixelExamples": [
+      {
+        "x": 1081,
+        "y": 202,
+        "centerSrgb": [229, 205, 192],
+        "appearance": "warm/copper-leaning"
+      },
+      {
+        "x": 1066,
+        "y": 191,
+        "centerSrgb": [63, 77, 83],
+        "appearance": "cool/blue-leaning"
+      },
+      {
+        "x": 1078,
+        "y": 198,
+        "centerSrgb": [255, 255, 255],
+        "appearance": "clipped white center; original hue unknown"
+      }
+    ],
+    "nextMethod": "Measure grain color separately from size and brightness, using unsaturated shoulders and local background; retain uncertainty in crowded areas.",
+    "diagnosticWarning": "The enhanced patches are grayscale and cannot be used to judge color proportions."
+  },
+  "limitations": [
+    "A local background estimate can be biased by neighboring dust or a light halo.",
+    "Small footprints are quantized in whole pixels and uncertain below the image resolution.",
+    "Several maxima can describe one physical-looking spot; isolated peaks are not proof of isolated physical particles.",
+    "No depth, physical size, alpha or inferred unsaturated source color is assigned.",
+    "Contrast-enhanced crops are diagnostic views, not source appearance or rendering targets."
+  ],
+  "samples": [
+    {
+      "id": "F1",
+      "proposedType": "fine-grain",
+      "displayType": "Fine grain",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "One-pixel half-height footprint; isolated contour.",
+      "x": 1034,
+      "y": 34,
+      "peakMeanRgb": 42.666666666666664,
+      "backgroundMeanRgb": 9,
+      "contrastMeanRgb": 33.666666666666664,
+      "centerSrgb": [33, 44, 51],
+      "nearestDetectedPointDistancePx": 10.77032961426901,
+      "footprint20": {
+        "areaPx": 3,
+        "equivalentDiameterPx": 1.9544100476116797,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 1,
+        "equivalentDiameterPx": 1.1283791670955126,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 1,
+        "equivalentDiameterPx": 1.1283791670955126,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "F2",
+      "proposedType": "fine-grain",
+      "displayType": "Fine grain",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Small compact footprint; separated from neighboring peaks.",
+      "x": 957,
+      "y": 36,
+      "peakMeanRgb": 66.33333333333333,
+      "backgroundMeanRgb": 9.333333333333334,
+      "contrastMeanRgb": 56.99999999999999,
+      "centerSrgb": [63, 69, 67],
+      "nearestDetectedPointDistancePx": 8.06225774829855,
+      "footprint20": {
+        "areaPx": 3,
+        "equivalentDiameterPx": 1.9544100476116797,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 2,
+        "equivalentDiameterPx": 1.5957691216057308,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 1,
+        "equivalentDiameterPx": 1.1283791670955126,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "F3",
+      "proposedType": "fine-grain",
+      "displayType": "Fine grain",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Bright but small: brightness alone does not determine type.",
+      "x": 1219,
+      "y": 51,
+      "peakMeanRgb": 210.66666666666666,
+      "backgroundMeanRgb": 21.333333333333332,
+      "contrastMeanRgb": 189.33333333333331,
+      "centerSrgb": [189, 217, 226],
+      "nearestDetectedPointDistancePx": 5.8309518948453,
+      "footprint20": {
+        "areaPx": 6,
+        "equivalentDiameterPx": 2.763953195770684,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 3,
+        "equivalentDiameterPx": 1.9544100476116797,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 2,
+        "equivalentDiameterPx": 1.5957691216057308,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "N1",
+      "proposedType": "sharp-bright-point",
+      "displayType": "Sharp bright point",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "High contrast, compact bright core, no other peak in its contour.",
+      "x": 1081,
+      "y": 454,
+      "peakMeanRgb": 252.33333333333334,
+      "backgroundMeanRgb": 21.333333333333332,
+      "contrastMeanRgb": 231,
+      "centerSrgb": [250, 253, 254],
+      "nearestDetectedPointDistancePx": null,
+      "footprint20": {
+        "areaPx": 29,
+        "equivalentDiameterPx": 6.076507779746499,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 22,
+        "equivalentDiameterPx": 5.292567428401227,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 16,
+        "equivalentDiameterPx": 4.51351666838205,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "N2",
+      "proposedType": "sharp-bright-point",
+      "displayType": "Sharp bright point",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "High contrast and a clearly bounded core.",
+      "x": 627,
+      "y": 429,
+      "peakMeanRgb": 253,
+      "backgroundMeanRgb": 23,
+      "contrastMeanRgb": 230,
+      "centerSrgb": [252, 253, 254],
+      "nearestDetectedPointDistancePx": 10.816653826391969,
+      "footprint20": {
+        "areaPx": 28,
+        "equivalentDiameterPx": 5.970821321441846,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 20,
+        "equivalentDiameterPx": 5.046265044040321,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 13,
+        "equivalentDiameterPx": 4.068428945128219,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "D1",
+      "proposedType": "diffuse-dust",
+      "displayType": "Diffuse dust",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Broader low-contrast patch with one detected peak.",
+      "x": 656,
+      "y": 486,
+      "peakMeanRgb": 39,
+      "backgroundMeanRgb": 25.333333333333332,
+      "contrastMeanRgb": 13.666666666666668,
+      "centerSrgb": [26, 40, 51],
+      "nearestDetectedPointDistancePx": 7.615773105863909,
+      "footprint20": {
+        "areaPx": 24,
+        "equivalentDiameterPx": 5.527906391541368,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 18,
+        "equivalentDiameterPx": 4.787307364817192,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 9,
+        "equivalentDiameterPx": 3.385137501286538,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "D2",
+      "proposedType": "diffuse-dust",
+      "displayType": "Diffuse dust",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Soft extended footprint, much wider than a fine grain.",
+      "x": 553,
+      "y": 494,
+      "peakMeanRgb": 26.666666666666668,
+      "backgroundMeanRgb": 18,
+      "contrastMeanRgb": 8.666666666666668,
+      "centerSrgb": [16, 28, 36],
+      "nearestDetectedPointDistancePx": 9.486832980505138,
+      "footprint20": {
+        "areaPx": 39,
+        "equivalentDiameterPx": 7.046725639945928,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 20,
+        "equivalentDiameterPx": 5.046265044040321,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 8,
+        "equivalentDiameterPx": 3.1915382432114616,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "D3",
+      "proposedType": "diffuse-dust",
+      "displayType": "Diffuse dust",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Low-contrast disk, isolated at the measured contour thresholds.",
+      "x": 770,
+      "y": 485,
+      "peakMeanRgb": 42,
+      "backgroundMeanRgb": 9.333333333333334,
+      "contrastMeanRgb": 32.666666666666664,
+      "centerSrgb": [34, 43, 49],
+      "nearestDetectedPointDistancePx": 13.892443989449806,
+      "footprint20": {
+        "areaPx": 15,
+        "equivalentDiameterPx": 4.370193722368317,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 12,
+        "equivalentDiameterPx": 3.9088200952233594,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 5,
+        "equivalentDiameterPx": 2.5231325220201604,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "U1",
+      "proposedType": "undetermined",
+      "displayType": "Undetermined: cluster",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Several detected peaks share the half-height connected region.",
+      "x": 1225,
+      "y": 87,
+      "peakMeanRgb": 115.66666666666667,
+      "backgroundMeanRgb": 46.666666666666664,
+      "contrastMeanRgb": 69,
+      "centerSrgb": [111, 122, 114],
+      "nearestDetectedPointDistancePx": 2.8284271247461903,
+      "footprint20": {
+        "areaPx": 93,
+        "equivalentDiameterPx": 10.881694613449236,
+        "otherDetectedPeaks": 10,
+        "touchesCrop": true
+      },
+      "footprint50": {
+        "areaPx": 36,
+        "equivalentDiameterPx": 6.770275002573076,
+        "otherDetectedPeaks": 6,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 1,
+        "equivalentDiameterPx": 1.1283791670955126,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "U2",
+      "proposedType": "bright-point",
+      "displayType": "Bright point (one grain)",
+      "status": "Owner-confirmed single visible bright grain",
+      "reason": "Owner confirmed one visible grain; its two detected maxima belong to that grain.",
+      "x": 1417,
+      "y": 305,
+      "peakMeanRgb": 253.33333333333334,
+      "backgroundMeanRgb": 17.333333333333332,
+      "contrastMeanRgb": 236,
+      "centerSrgb": [252, 254, 254],
+      "nearestDetectedPointDistancePx": 2.23606797749979,
+      "footprint20": {
+        "areaPx": 28,
+        "equivalentDiameterPx": 5.970821321441846,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 21,
+        "equivalentDiameterPx": 5.170882945826411,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 16,
+        "equivalentDiameterPx": 4.51351666838205,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "ownerReview": {
+        "visibleGrainCount": 1,
+        "memberCoordinates": [
+          {
+            "x": 1417,
+            "y": 305
+          },
+          {
+            "x": 1416,
+            "y": 307
+          }
+        ],
+        "scope": "These two reviewed spots only; not a general rule for merging connected maxima."
+      }
+    },
+    {
+      "id": "U3",
+      "proposedType": "undetermined",
+      "displayType": "Undetermined: weak signal",
+      "status": "Provisional visual-review proposal, not a validated classifier",
+      "reason": "Only 2/255 above the local median background; type is unstable.",
+      "x": 544,
+      "y": 488,
+      "peakMeanRgb": 17.333333333333332,
+      "backgroundMeanRgb": 15.333333333333334,
+      "contrastMeanRgb": 1.9999999999999982,
+      "centerSrgb": [10, 17, 25],
+      "nearestDetectedPointDistancePx": 9,
+      "footprint20": {
+        "areaPx": 8,
+        "equivalentDiameterPx": 3.1915382432114616,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 8,
+        "equivalentDiameterPx": 3.1915382432114616,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 3,
+        "equivalentDiameterPx": 1.9544100476116797,
+        "otherDetectedPeaks": 0,
+        "touchesCrop": false
+      }
+    },
+    {
+      "id": "U4",
+      "proposedType": "bright-point",
+      "displayType": "Bright point (one grain)",
+      "status": "Owner-confirmed single visible bright grain",
+      "reason": "Owner confirmed one very luminous grain; its secondary maximum belongs to the same grain.",
+      "x": 906,
+      "y": 262,
+      "peakMeanRgb": 254.66666666666666,
+      "backgroundMeanRgb": 89.16666666666666,
+      "contrastMeanRgb": 165.5,
+      "centerSrgb": [254, 255, 255],
+      "nearestDetectedPointDistancePx": 2.23606797749979,
+      "footprint20": {
+        "areaPx": 70,
+        "equivalentDiameterPx": 9.440697438826296,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "footprint50": {
+        "areaPx": 42,
+        "equivalentDiameterPx": 7.312732791431452,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "footprint80": {
+        "areaPx": 27,
+        "equivalentDiameterPx": 5.863230142835039,
+        "otherDetectedPeaks": 1,
+        "touchesCrop": false
+      },
+      "ownerReview": {
+        "visibleGrainCount": 1,
+        "memberCoordinates": [
+          {
+            "x": 906,
+            "y": 262
+          },
+          {
+            "x": 908,
+            "y": 263
+          }
+        ],
+        "scope": "These two reviewed spots only; not a general rule for merging connected maxima."
+      }
+    }
+  ]
+}

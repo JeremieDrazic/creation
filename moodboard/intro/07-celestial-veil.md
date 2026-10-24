@@ -2,6 +2,10 @@
 
 Status: approved specific visual target, not just loose inspiration.
 
+[Detected point coordinates](07-celestial-veil-analysis.md) document a lower-frame extraction and
+its full detection overlay for review. The image-derived tableau replaces the earlier procedural
+layout, removed at the owner’s request.
+
 ![Celestial veil](07-celestial-veil.png)
 
 Preserve the composition, colors, density, depth and illuminated-state balance. A faint layered dust

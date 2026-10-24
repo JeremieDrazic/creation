@@ -17,7 +17,8 @@
     "**/test-results/**",
     "**/playwright-report/**",
     "moodboard/branding/typeface-study/fonts/*",
-    "**/.vitepress/cache/**"
+    "**/.vitepress/cache/**",
+    "apps/web/src/experiences/intro/assets/celestial-veil/celestial-veil-data.json"
   ],
   "sortImports": {
     "internalPattern": ["@creation/"],
