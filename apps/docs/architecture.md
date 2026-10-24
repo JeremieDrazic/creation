@@ -253,10 +253,18 @@ mechanics separate from the operations that publish status.
 
 ## Developer palette and utilities
 
-The agreed development-only data-gui package will wrap lil-gui. It is not included in this veil
-increment. Defaults and mutable settings remain experience-owned; numeric controls, watches and
-bounded metrics will be introduced separately. Avoid instance-buffer rebuilds on every slider tick.
-Preset import/export/reset remains proposed. Production bundles must exclude the palette.
+packages/data-gui now implements the first adapter over lil-gui 0.21.0, exported as
+@creation/data-gui/create-data-gui. createDataGui receives a title and caller-owned HTML container;
+it owns the panel/controls and exposes addNumber plus idempotent dispose. Numeric controls bind only
+numeric properties, validate their initial value/bounds/step, and support separate onChange and
+onFinishChange callbacks. Caller-owned settings work without the palette; the adapter imports no
+React, renderer or experience code. It is not mounted in the application yet.
+
+Remaining agreed palette scope includes property/getter watches and bounded metrics. Avoid buffer
+rebuilds on every slider tick; use finish-change callbacks for costly settings. Preset
+import/export/reset is proposed; defaults remain experience-owned. Application imports must be
+dynamic behind a development guard, excluding the package from production output. That guard and the
+intro binding are the next reviewed integration, not implemented by the adapter itself.
 
 Metrics use bounded samples and slower UI refresh, with detachable adapters. Counters are not exact
 GPU-memory measurements; unavailable GPU timings must be labeled as such. Exclude data-gui from

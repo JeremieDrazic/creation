@@ -1,0 +1,22 @@
+{
+  "name": "@creation/data-gui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./create-data-gui": "./src/create-data-gui/create-data-gui.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "@creation/utils": "workspace:*",
+    "lil-gui": "catalog:"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@types/node": "catalog:"
+  }
+}

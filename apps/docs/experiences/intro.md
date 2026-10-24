@@ -56,9 +56,11 @@ composition before movement. Maintain depth-dependent displacement and quiet tex
 the entire application as a flat layer.
 
 The agreed developer palette is our development-only packages/data-gui adapter over lil-gui, not
-direct library usage in experience code. It remains a separate next increment. The owner wants to
-explore orientation, extent, placement and independent grain size in the application; no final
-composition settings or palette binding are implemented in this veil increment.
+direct lil-gui usage in experience code. Its first numeric-control adapter is implemented, with
+caller-owned settings/container and explicit disposal; it is not mounted in the intro yet. Next,
+review its small API and bind framing controls to experience-owned values through a development-only
+import. Angle, extent, placement and independent grain size remain the intended artistic review; no
+new composition values have been applied by the adapter step.
 
 ## Remaining decisions
 
