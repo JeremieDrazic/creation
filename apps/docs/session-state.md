@@ -17,8 +17,13 @@ explains that scope and review order.
 
 Commit/push/PR publication is authorized; merging/deployment is not requested. PR CI never deploys.
 The source and visual artifacts were backed up before publication. Preserve the deferred sound
-stash. The PR URL and final remote checks will be recorded after creation. Code and static framing
-remain working increments; publication does not accept final artwork.
+stash. PR #8 is open and ready for review: https://github.com/JeremieDrazic/creation/pull/8. Its
+base is main; the implementation was committed as 1cac7c4 and synchronized with main in 1676abf
+without source-tree changes. Initial GitHub CI passed all checks before browser journeys, where
+software-rendered canvas readbacks exceeded the first development journey’s time budget. That
+journey now allows 60 seconds, its image-change poll allows 15 seconds, and two redundant capture
+artifacts were removed; the pixel-change assertion remains. Final-head CI must pass before merge.
+Code and static framing remain working increments; publication does not accept final artwork.
 
 ## Current implementation
 
@@ -136,7 +141,9 @@ source grains remain; 8,000 synthetic grains extend/blend tails only in the stud
 asset is unchanged. Anchor candidates are bottom X=43%, top X=91%, center X=67%, with 1,000 world
 units visible vertically at baseline and grain multiplier 0.85. All eight proposed views contain
 particles near both top/bottom edges; appearance is not accepted. The temporary runner remains
-outside production source. This validates static composition feasibility, not animated bounded zoom.
+outside production source. Repeat captures verified the complete UI and produced byte-identical
+images; no artwork or source-data correction was needed. The study validates static composition
+feasibility, not animated bounded zoom.
 
 Next: after PR publication, resume analysis of the preserved framing images with the owner. Choose
 visual presence and anchors/zoom range before any new graphics implementation, then prepare an

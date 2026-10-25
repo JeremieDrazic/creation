@@ -6,11 +6,13 @@ async function captureVeil(page: Page) {
   await panel.evaluate((element: HTMLElement) => {
     element.style.visibility = 'hidden';
   });
-  const image = await page.locator('canvas').screenshot();
-  await panel.evaluate((element: HTMLElement) => {
-    element.style.visibility = '';
-  });
-  return image;
+  try {
+    return await page.locator('canvas').screenshot();
+  } finally {
+    await panel.evaluate((element: HTMLElement) => {
+      element.style.visibility = '';
+    });
+  }
 }
 
 async function choosePreset(page: Page, name: string) {
@@ -31,6 +33,8 @@ test.use({ locale: 'fr-FR', viewport: { width: 1024, height: 768 } });
 test('edits the active experience and retains one movable panel across navigation', async ({
   page,
 }) => {
+  // Software-rendered canvas readbacks are slow on CI, especially while tracing.
+  test.setTimeout(60_000);
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('http://127.0.0.1:4176/');
@@ -45,7 +49,9 @@ test('edits the active experience and retains one movable panel across navigatio
   await scale.fill('1.6');
   await scale.press('Enter');
   await expect(scale).toHaveValue('1.6');
-  await expect.poll(async () => (await captureVeil(page)).equals(beforeEdit)).toBe(false);
+  await expect
+    .poll(async () => (await captureVeil(page)).equals(beforeEdit), { timeout: 15_000 })
+    .toBe(false);
   await page.screenshot({ path: test.info().outputPath('atelier-live-edit.png') });
 
   const handle = panel.getByRole('button', { name: 'Déplacer le panneau', exact: true });
@@ -64,8 +70,6 @@ test('edits the active experience and retains one movable panel across navigatio
   await panel.getByRole('button', { name: 'Replier le panneau', exact: true }).click();
   await expect(scale).not.toBeVisible();
   expect((await panel.boundingBox())?.width).toBeLessThanOrEqual(96);
-  await page.screenshot({ path: test.info().outputPath('controls-collapsed.png') });
-  await panel.screenshot({ path: test.info().outputPath('controls-collapsed-panel.png') });
   await panel.getByRole('button', { name: 'Déplier le panneau', exact: true }).click();
   await expect(scale).toHaveValue('1.6');
 
