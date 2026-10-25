@@ -1,0 +1,42 @@
+{
+  "title": "Controls",
+  "move": "Move panel",
+  "moveHint": "Drag to move · Arrow keys · Shift for larger steps",
+  "collapse": "Collapse panel",
+  "expand": "Expand panel",
+  "footer": "",
+  "emptyTitle": "No experience to adjust",
+  "empty": "Controls for the active experience will appear here.",
+  "reset": "Reset",
+  "copy": "Copy settings",
+  "resetDone": "Default values restored.",
+  "copied": "Settings copied as JSON.",
+  "copyFailed": "Unable to copy. Check clipboard permission.",
+  "veil": {
+    "title": "Celestial veil",
+    "rotation": "Rotation · °",
+    "scale": "Veil scale",
+    "offsetX": "Horizontal placement",
+    "offsetY": "Vertical placement",
+    "grainScale": "Grain size"
+  },
+  "presets": {
+    "title": "Presets",
+    "select": "Choose a preset",
+    "name": "Preset name",
+    "defaults": "Default values",
+    "modified": "Modified",
+    "save": "Save",
+    "rename": "Rename",
+    "remove": "Delete",
+    "export": "Export",
+    "import": "Import",
+    "manage": "Manage presets",
+    "saved": "Preset saved in the project.",
+    "renamed": "Preset renamed.",
+    "removed": "Preset deleted.",
+    "imported": "Presets imported.",
+    "applied": "Preset applied.",
+    "failed": "Unable to load or save these presets. Check the name and values."
+  }
+}

@@ -264,3 +264,12 @@ The [temporary data-gui probe](07-data-gui-control-probe.png) validates the real
 behind our adapter: direct property edits, live/finish callbacks, range clamping and cleanup. This
 is a technical fixture, not a palette mounted in the experience or a new veil composition. The intro
 framing controls will be connected in a separate reviewed increment.
+
+## Extended-field framing comparison — exploratory
+
+The [four-screen study](07-framing-study/README.md) compares current containment with a larger
+synthetically extended field at baseline and 1.22× zoom. It retains all source grains and adds 8,000
+proposed tail grains only in the study; no new source-image detections or production asset changes
+are claimed. Full-resolution images and edge-crossing measurements are preserved for owner review.
+The [refined development panel](07-development-panel-refined.png) now provides i18n, reset and
+versioned JSON copy; its appearance and scope remain separate from the proposed field extension.

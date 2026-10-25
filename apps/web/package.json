@@ -26,6 +26,7 @@
     "@creation/design-tokens": "workspace:*"
   },
   "devDependencies": {
+    "@creation/data-gui": "workspace:*",
     "@storybook/react": "catalog:",
     "storybook": "catalog:",
     "@types/three": "catalog:",

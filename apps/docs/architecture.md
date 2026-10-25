@@ -253,18 +253,38 @@ mechanics separate from the operations that publish status.
 
 ## Developer palette and utilities
 
-packages/data-gui now implements the first adapter over lil-gui 0.21.0, exported as
-@creation/data-gui/create-data-gui. createDataGui receives a title and caller-owned HTML container;
-it owns the panel/controls and exposes addNumber plus idempotent dispose. Numeric controls bind only
-numeric properties, validate their initial value/bounds/step, and support separate onChange and
-onFinishChange callbacks. Caller-owned settings work without the palette; the adapter imports no
-React, renderer or experience code. It is not mounted in the application yet.
+packages/data-gui owns the reusable workbench, independent of React, application or experience code.
+createSettingsControls receives numeric defaults, translated field keys/bounds/steps and one
+application callback; it owns copied settings/defaults, validation, notifications and reset.
+createWorkbench owns control widgets, copy feedback, preset UI and the floating surface. Base UI
+Select owns the non-native popup/selection behavior, Collapsible the action disclosure, and its
+Input/Button primitives the remaining form controls. No custom dropdown interaction implementation
+is introduced. The isolated React presentation receives model snapshots and callbacks; application
+and experience integration APIs remain unchanged. The lower createDataGui/createFloatingPanel
+exports remain available separately. The panel minimizes to an 88px drag/expand handle with authored
+SVG strokes, retains keyboard/pointer movement, and reclamps on content/window resize. Labels,
+selected preset, values and position survive locale changes.
 
-Remaining agreed palette scope includes property/getter watches and bounded metrics. Avoid buffer
-rebuilds on every slider tick; use finish-change callbacks for costly settings. Preset
-import/export/reset is proposed; defaults remain experience-owned. Application imports must be
-dynamic behind a development guard, excluding the package from production output. That guard and the
-intro binding are the next reviewed integration, not implemented by the adapter itself.
+Preset collection validation, selection, modification state and save/rename/delete/import/export
+belong to data-gui, not experiences. Persistence uses an injected PresetStorage. The browser file
+adapter talks to a serve-only Vite plugin exported through a separate Node entry. The app configures
+a root development-presets directory, one human-readable JSON file per experience. This lets the
+owner and agent inspect the same snapshots directly. Atomic writes are serialized; schema/version,
+scope, duplicate names/IDs and numeric ranges are checked before writes/applications. Failed saves
+preserve previous snapshots. Build/preview has no file endpoint and does not serve authoring files.
+
+Shell lazily mounts DevelopmentPanel behind import.meta.env.DEV, outside the decorative graphics
+accessibility subtree. Its mount adapter only supplies translation/storage, selects the registered
+source and forwards language/disposal events. The source registry ignores stale releases. Intro
+activation lazily registers a createSettingsControls instance with five field declarations and a
+veil.setComposition binding; runtime/coordinator and lifecycle contracts know nothing about GUI. The
+experience contains no DOM, presets, copying or reset implementation. Preset selection updates
+shared geometry/transforms through that binding; it does not reload data or recreate the renderer.
+
+Watch/getter controls and bounded metrics remain later scope. The owner proposes a future production
+Easter egg; it is not implemented. Browser GUI imports remain development-guarded and absent from
+production assets. See packages/data-gui/README.md for public entry points and persistence
+contracts.
 
 Metrics use bounded samples and slower UI refresh, with detachable adapters. Counters are not exact
 GPU-memory measurements; unavailable GPU timings must be labeled as such. Exclude data-gui from

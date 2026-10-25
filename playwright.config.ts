@@ -4,6 +4,7 @@ export default defineConfig({
   testDir: '.',
   testMatch: [
     '**/apps/web/src/shell/shell.test.ts',
+    '**/apps/web/src/development/**/*.browser.test.ts',
     '**/packages/ui/src/**/*.test.ts',
     '**/apps/docs/.vitepress/**/*.test.ts',
   ],
@@ -12,6 +13,12 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   use: { browserName: 'chromium', trace: 'retain-on-failure' },
   webServer: [
+    {
+      command: 'pnpm --filter @creation/web exec vite --host 127.0.0.1 --port 4176 --strictPort',
+      url: 'http://127.0.0.1:4176',
+      env: { CREATION_GUI_TEST_PRESETS: '1' },
+      reuseExistingServer: false,
+    },
     {
       command: 'pnpm --filter @creation/docs preview',
       url: 'http://127.0.0.1:4174/docs/',

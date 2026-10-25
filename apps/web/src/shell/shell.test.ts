@@ -9,6 +9,7 @@ test('intro navigation and persisted language keep the shell usable', async ({ p
   await expect(page.getByRole('region', { name: 'Introduction à Creation' })).toBeVisible();
   await expect(page.getByRole('blockquote')).toContainText('Et la lumière fut.');
   await expect(page.getByRole('button', { name: 'Son', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('complementary', { name: 'Réglages', exact: true })).toHaveCount(0);
   await expect(
     page.getByRole('complementary', { name: 'Temporary rendering validation' })
   ).toHaveCount(0);

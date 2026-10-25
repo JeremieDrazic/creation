@@ -2,7 +2,12 @@ import { beforeEach, expect, test, vi } from 'vitest';
 
 import { createDataGui, DATA_GUI_ERROR_CODES } from './create-data-gui';
 
-const backend = vi.hoisted(() => ({ create: vi.fn(), add: vi.fn(), destroy: vi.fn() }));
+const backend = vi.hoisted(() => ({
+  create: vi.fn(),
+  add: vi.fn(),
+  destroy: vi.fn(),
+  controllers: vi.fn<() => { updateDisplay: () => void }[]>(() => []),
+}));
 
 vi.mock('lil-gui', () => ({
   default: class {
@@ -14,6 +19,9 @@ vi.mock('lil-gui', () => ({
     }
     destroy() {
       backend.destroy();
+    }
+    controllersRecursive() {
+      return backend.controllers();
     }
   },
 }));
@@ -97,4 +105,15 @@ test('disposes the panel once and rejects controls added after disposal', () => 
     })
   ).toThrow(DATA_GUI_ERROR_CODES.DISPOSED);
   expect(backend.add).not.toHaveBeenCalled();
+  expect(() => gui.refreshValues()).toThrow(DATA_GUI_ERROR_CODES.DISPOSED);
+});
+
+test('refreshes displayed values after an external reset without changing settings', () => {
+  const { gui, control } = fixture();
+  const updateDisplay = vi.fn();
+  backend.controllers.mockReturnValueOnce([{ updateDisplay }]);
+  gui.refreshValues();
+  expect(updateDisplay).toHaveBeenCalledOnce();
+  expect(control.onChange).not.toHaveBeenCalled();
+  gui.dispose();
 });

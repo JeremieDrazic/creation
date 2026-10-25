@@ -1,12 +1,16 @@
 import * as stylex from '@stylexjs/stylex';
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 // oxlint-disable-next-line no-restricted-imports -- Synchronizes the external document language with the active translation instance.
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DEFAULT_LANGUAGE } from '../utils/localization/i18n';
 import { ApplicationRendering } from './application-rendering/application-rendering';
 import { resolveRouteExperience } from './route-experiences/route-experiences';
+
+const DevelopmentPanel = import.meta.env.DEV
+  ? lazy(() => import('../development/development-panel'))
+  : null;
 
 const styles = stylex.create({
   shell: {
@@ -62,6 +66,11 @@ export function Shell() {
       <div {...stylex.props(styles.content)}>
         <Outlet />
       </div>
+      {DevelopmentPanel !== null && (
+        <Suspense fallback={null}>
+          <DevelopmentPanel />
+        </Suspense>
+      )}
     </main>
   );
 }

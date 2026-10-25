@@ -55,12 +55,50 @@ projection, framing and reduced-motion behavior remain to be reviewed. Establish
 composition before movement. Maintain depth-dependent displacement and quiet text/UI; do not move
 the entire application as a flat layer.
 
-The agreed developer palette is our development-only packages/data-gui adapter over lil-gui, not
-direct lil-gui usage in experience code. Its first numeric-control adapter is implemented, with
-caller-owned settings/container and explicit disposal; it is not mounted in the intro yet. Next,
-review its small API and bind framing controls to experience-owned values through a development-only
-import. Angle, extent, placement and independent grain size remain the intended artistic review; no
-new composition values have been applied by the adapter step.
+The shared Réglages/Controls panel appears automatically in development. It is draggable by its
+title, movable with arrow keys (Shift increases the step), collapsible and constrained to the
+viewport on resize. The restrained translucent ink/ivory surface uses the intro display font, fine
+slider tracks and quiet action links; its earlier heavier appearance was rejected. It is reusable
+through packages/data-gui/create-floating-panel, independently of React or rendering. Shell mounts
+one persistent panel; the active experience supplies its controls through a development-only
+registry. Fireflies currently shows an empty state. The owner explicitly delegates this GUI
+increment as a coherent implementation batch rather than a file-by-file lesson; experience graphics
+work keeps the normal learning boundary.
+
+The intro lazily registers rotation, uniform scale, X/Y placement and grain-size controls on
+activation, then releases them on disposal. The registration ignores late imports after disposal;
+cleanup of an old registration cannot clear a newer experience. Settings belong to each intro
+instance. Named presets are now saved in development-presets/intro.json through the package-owned
+workbench and development file endpoint. They survive reloads and are readable by the agent. The
+panel selects, saves/updates, renames, deletes and imports/exports snapshots for comparison. Unsaved
+edits remain instance-local and are marked Modified; choosing a preset is explicit after recreation.
+Reset restores the neutral defaults and updates controls; copy exports versioned JSON with the
+experience identifier and settings. Panel and control labels use a lazy development i18n namespace
+and follow FR/EN changes without losing values or position. The initial production and development
+composition stays neutral until edited. Production excludes panel, styling, bindings and lil-gui
+through development-guarded imports. A future production Easter egg is the owner's proposal, not
+implemented scope.
+
+celestial-veil-composition.ts now defines per-instance mutable settings for additional rotation,
+uniform scale, viewport-relative X/Y offsets and a separate grain diameter multiplier. Its factory
+returns neutral values. CelestialVeil.setComposition copies and applies these settings; the GUI
+binding forwards live edits through this method. Positive rotation is counterclockwise; positive
+offsets move right/up. Planar rotation and uniform scaling use the reference center; placement uses
+the visible camera dimensions and is reapplied on resize. Grain size edits update only the shared
+quad vertices and bounding spheres, without rewriting instance transforms or appearance attributes.
+Depth and transparent order remain unchanged. Invalid/nonpositive scales reject before scene
+mutation; updates after disposal are ignored. Default application rendering remains unchanged.
+
+Full pnpm check passes: 396 unit tests, 27 Storybook tests and 10 browser journeys. Preset coverage
+includes actual isolated authoring files, failed-write rollback and save/reload/A–B
+selection/rename/ delete/import/export without altering owner files. Browser checks verify actual
+canvas-image changes on edits, pointer and keyboard movement, collapse/expand, bounds after
+dragging/resizing, current-experience controls and retained panel/canvas identity across navigation.
+The production journey asserts no development panel; a built-asset scan finds no GUI library, panel
+or binding markers. The preserved screenshot is moodboard/intro/07-development-panel-presets.png,
+with minimized state in 07-development-panel-minimized.png. Earlier captures remain for comparison.
+These software-rendered checks do not accept final artistic framing, native WebGPU performance or
+touch-device behavior.
 
 ## Remaining decisions
 
@@ -82,6 +120,23 @@ records 5,676 detected lower-frame peak positions and an overlay. The owner subs
 full annotation and approximate staging depth; the enriched JSON and diagnostic maps are linked from
 that analysis. Depth is a low-confidence authoring hypothesis, with unresolved entries explicitly
 marked. The annotation is the working source for offline preparation below.
+
+### Extended field and responsive crop — exploratory proposal
+
+The owner proposes a larger veil with more stars beyond the upper/lower reference limits, selecting
+an interesting portion per screen and allowing gentle, bounded zoom while the veil always crosses
+top and bottom. The temporary moodboard/intro/07-framing-study comparison tests this at 1024×768,
+1440×900, 2560×1080 and 3440×1440, with baseline and 1.22× zoom beside current containment. It
+retains all 5,674 source grains and adds 8,000 synthetic tail grains sampled from source profiles;
+those additions are a visual hypothesis and do not alter the prepared production data.
+
+The experiment anchors the band at bottom X=43% and top X=91%, adapting rotation to aspect ratio;
+baseline vertical world extent is 1,000 units, keeping presence relative to screen height. Every
+proposed view has grain centers near both horizontal edges. This does not accept edge density,
+framing, synthesis or zoom limits. Prefer explicit author-directed anchors and text-clear space over
+an unspecified automatic aesthetic detector. A production extension would be prepared offline;
+animated zoom, interpolation, bounds and input remain separate design/code increments. Study the
+images with the owner before implementing this policy in the experience.
 
 ### Grain material — awaiting owner code review
 

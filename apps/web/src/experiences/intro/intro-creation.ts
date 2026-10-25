@@ -14,6 +14,7 @@ import { loadCelestialVeilData } from './celestial-veil/data/load-celestial-veil
 export class IntroCreation implements CreationExperience {
   private readonly veil: CelestialVeil;
   private isDisposed = false;
+  private disposeDevelopmentControls: (() => void) | undefined;
 
   private constructor(veil: CelestialVeil) {
     this.veil = veil;
@@ -42,7 +43,16 @@ export class IntroCreation implements CreationExperience {
   }
 
   activate(): void {
-    // No input handlers or autonomous work exist in the static tableau.
+    if (import.meta.env.DEV) {
+      void import('./intro-development-controls')
+        .then(({ attachIntroDevelopmentControls }) => {
+          if (!this.isDisposed) {
+            this.disposeDevelopmentControls?.();
+            this.disposeDevelopmentControls = attachIntroDevelopmentControls(this.veil);
+          }
+        })
+        .catch((error: unknown) => console.error('INTRO_DEVELOPMENT_CONTROLS_FAILED', error));
+    }
   }
 
   update(_frameTime: FrameTime): void {
@@ -72,6 +82,8 @@ export class IntroCreation implements CreationExperience {
       return;
     }
     this.isDisposed = true;
+    this.disposeDevelopmentControls?.();
+    this.disposeDevelopmentControls = undefined;
     this.veil.dispose();
   }
 }

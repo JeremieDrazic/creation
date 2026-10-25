@@ -1,0 +1,97 @@
+{
+  "status": "temporary visual study, not production",
+  "source": {
+    "sourceCount": 5674,
+    "syntheticCount": 8000,
+    "sourceCenter": {
+      "x": 1045.4933081720583,
+      "y": 290.7055376566817
+    },
+    "sourceAngleDegrees": 26.44334858566754,
+    "seed": 707
+  },
+  "views": [
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1,
+      "pixelsPerWorldUnit": 0.768,
+      "rotationDegrees": 30.93740834313965,
+      "topCount": 18,
+      "bottomCount": 21,
+      "visibleCount": 2072
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "zoom": 1.22,
+      "pixelsPerWorldUnit": 0.93696,
+      "rotationDegrees": 30.93740834313965,
+      "topCount": 13,
+      "bottomCount": 30,
+      "visibleCount": 1985
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "zoom": 1,
+      "pixelsPerWorldUnit": 0.9,
+      "rotationDegrees": 26.03238879988069,
+      "topCount": 19,
+      "bottomCount": 28,
+      "visibleCount": 2105
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "zoom": 1.22,
+      "pixelsPerWorldUnit": 1.098,
+      "rotationDegrees": 26.03238879988069,
+      "topCount": 10,
+      "bottomCount": 23,
+      "visibleCount": 2007
+    },
+    {
+      "width": 2560,
+      "height": 1080,
+      "zoom": 1,
+      "pixelsPerWorldUnit": 1.08,
+      "rotationDegrees": 14.869092034401456,
+      "topCount": 24,
+      "bottomCount": 35,
+      "visibleCount": 2220
+    },
+    {
+      "width": 2560,
+      "height": 1080,
+      "zoom": 1.22,
+      "pixelsPerWorldUnit": 1.3176,
+      "rotationDegrees": 14.869092034401456,
+      "topCount": 18,
+      "bottomCount": 27,
+      "visibleCount": 2093
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "zoom": 1,
+      "pixelsPerWorldUnit": 1.44,
+      "rotationDegrees": 14.648107119873012,
+      "topCount": 26,
+      "bottomCount": 36,
+      "visibleCount": 2221
+    },
+    {
+      "width": 3440,
+      "height": 1440,
+      "zoom": 1.22,
+      "pixelsPerWorldUnit": 1.7568,
+      "rotationDegrees": 14.648107119873012,
+      "topCount": 17,
+      "bottomCount": 27,
+      "visibleCount": 2096
+    }
+  ],
+  "extension": "8,000 synthetic grains sampled from source color/size profiles; original 5,674 retained",
+  "policy": "baseline world height 1000 units; bottom 43% and top 91% horizontal edge anchors; grain multiplier 0.85; zoom 1 to 1.22"
+}

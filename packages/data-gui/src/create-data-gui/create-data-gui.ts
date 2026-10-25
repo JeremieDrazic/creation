@@ -2,7 +2,7 @@ import GUI from 'lil-gui';
 
 import { CodedError } from '@creation/utils/errors/coded-errors';
 
-type NumericProperty<Target> = {
+export type NumericProperty<Target> = {
   [Key in keyof Target]-?: Target[Key] extends number ? Key : never;
 }[keyof Target] &
   string;
@@ -24,6 +24,8 @@ export type DataGui = Readonly<{
     property: NumericProperty<Target>,
     options: NumberControlOptions
   ) => void;
+  /** Re-reads bound values after an external reset, without triggering change callbacks. */
+  refreshValues: () => void;
   dispose: () => void;
 }>;
 
@@ -93,5 +95,16 @@ export function createDataGui(
     gui.destroy();
   }
 
-  return { addNumber, dispose };
+  return {
+    addNumber,
+    refreshValues() {
+      if (isDisposed) {
+        throw new CodedError(DATA_GUI_ERROR_CODES.DISPOSED);
+      }
+      for (const control of gui.controllersRecursive()) {
+        control.updateDisplay();
+      }
+    },
+    dispose,
+  };
 }

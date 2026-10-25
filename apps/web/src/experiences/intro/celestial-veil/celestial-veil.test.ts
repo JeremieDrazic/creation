@@ -9,6 +9,7 @@ import {
 import { expect, test, vi } from 'vitest';
 
 import { createCelestialVeil, type CelestialVeil } from './celestial-veil';
+import { createCelestialVeilComposition } from './celestial-veil-composition';
 import { CELESTIAL_VEIL_GRAIN_ATTRIBUTES } from './material/celestial-veil-material';
 import {
   prepareCelestialVeilData,
@@ -170,4 +171,116 @@ test('releases all owned resources once and detaches the grain mesh', () => {
   expect(disposeGeometry).toHaveBeenCalledOnce();
   expect(disposeMaterial).toHaveBeenCalledOnce();
   expect(veil.scene.children).toHaveLength(0);
+});
+
+test('rotates and scales around the reference center without changing authored instances or depth', () => {
+  const veil = createCelestialVeil(
+    prepareCelestialVeilData({ frame: FRAME, points: [referencePoint(100, 100, 0.5)] })
+  );
+  const { mesh } = readResources(veil);
+  const originalInstances = mesh.instanceMatrix.array.slice();
+  const originalVersion = mesh.instanceMatrix.version;
+  veil.setComposition({ ...createCelestialVeilComposition(), rotationDegrees: 90, scale: 2 });
+
+  const center = new Vector3(768, 256, 50).applyMatrix4(mesh.matrixWorld);
+  const right = new Vector3(778, 256, 50).applyMatrix4(mesh.matrixWorld);
+  expect(center.x).toBeCloseTo(768);
+  expect(center.y).toBeCloseTo(256);
+  expect(center.z).toBe(50);
+  expect(right.x).toBeCloseTo(768);
+  expect(right.y).toBeCloseTo(276);
+  expect(right.z).toBe(50);
+  expect(mesh.instanceMatrix.array).toEqual(originalInstances);
+  expect(mesh.instanceMatrix.version).toBe(originalVersion);
+  veil.dispose();
+});
+
+test('keeps viewport-relative placement on resize and owns a copy of the submitted settings', () => {
+  const veil = createCelestialVeil(
+    prepareCelestialVeilData({ frame: FRAME, points: [referencePoint(100, 100, 0.5)] })
+  );
+  const { mesh } = readResources(veil);
+  const composition = {
+    ...createCelestialVeilComposition(),
+    offsetXViewportRatio: 0.2,
+    offsetYViewportRatio: -0.1,
+  };
+  veil.setComposition(composition);
+  composition.offsetXViewportRatio = 0.8;
+
+  for (const viewport of [
+    { widthCssPx: 1024, heightCssPx: 768, pixelRatio: 1 },
+    { widthCssPx: 2560, heightCssPx: 1080, pixelRatio: 2 },
+  ]) {
+    veil.resize(viewport);
+    const center = new Vector3(768, 256, 50).applyMatrix4(mesh.matrixWorld).project(veil.camera);
+    // Projected coordinates run from -1 to 1, so viewport fractions are doubled here.
+    expect(center.x).toBeCloseTo(0.4);
+    expect(center.y).toBeCloseTo(-0.2);
+  }
+  veil.dispose();
+});
+
+test('adjusts grain diameter reversibly without moving centers or changing instance buffers', () => {
+  const data = prepareCelestialVeilData({
+    frame: FRAME,
+    points: [referencePoint(100, 100, 0.5), referencePoint(300, 200, 0.8)],
+  });
+  const veil = createCelestialVeil(data);
+  const { mesh, geometry, material } = readResources(veil);
+  const positions = geometry.getAttribute('position');
+  const originalVertices = positions.array.slice();
+  const originalInstances = mesh.instanceMatrix.array.slice();
+  const originalVersion = mesh.instanceMatrix.version;
+  const center = new Vector3(100, 100, 50).applyMatrix4(mesh.matrixWorld);
+  const originalBoundsRadius = mesh.boundingSphere?.radius;
+
+  veil.setComposition({ ...createCelestialVeilComposition(), grainScale: 4 });
+  expect(positions.getX(0)).toBe(-2);
+  expect(positions.getY(0)).toBe(2);
+  expect(mesh.boundingSphere?.radius).toBeGreaterThan(originalBoundsRadius ?? 0);
+  expect(new Vector3(100, 100, 50).applyMatrix4(mesh.matrixWorld)).toEqual(center);
+  expect(mesh.instanceMatrix.array).toEqual(originalInstances);
+  expect(mesh.instanceMatrix.version).toBe(originalVersion);
+  expect(mesh.geometry).toBe(geometry);
+  expect(mesh.material).toBe(material);
+
+  veil.setComposition(createCelestialVeilComposition());
+  expect(positions.array).toEqual(originalVertices);
+  expect(mesh.matrixWorld.equals(new Matrix4())).toBe(true);
+  veil.dispose();
+});
+
+test.each([
+  { rotationDegrees: Number.NaN },
+  { offsetXViewportRatio: Number.POSITIVE_INFINITY },
+  { offsetYViewportRatio: Number.NaN },
+  { scale: 0 },
+  { scale: -1 },
+  { grainScale: 0 },
+  { grainScale: Number.POSITIVE_INFINITY },
+])('rejects invalid composition %j before changing the scene', (invalid) => {
+  const veil = createCelestialVeil(
+    prepareCelestialVeilData({ frame: FRAME, points: [referencePoint(100, 100, 0.5)] })
+  );
+  const { mesh, geometry } = readResources(veil);
+  const before = geometry.getAttribute('position').array.slice();
+  expect(() => veil.setComposition({ ...createCelestialVeilComposition(), ...invalid })).toThrow(
+    RangeError
+  );
+  expect(mesh.matrixWorld.equals(new Matrix4())).toBe(true);
+  expect(geometry.getAttribute('position').array).toEqual(before);
+  veil.dispose();
+});
+
+test('ignores composition updates after disposal', () => {
+  const veil = createCelestialVeil(
+    prepareCelestialVeilData({ frame: FRAME, points: [referencePoint(100, 100, 0.5)] })
+  );
+  const { mesh, geometry } = readResources(veil);
+  const before = geometry.getAttribute('position').array.slice();
+  veil.dispose();
+  veil.setComposition({ ...createCelestialVeilComposition(), scale: 2, grainScale: 2 });
+  expect(mesh.matrixWorld.equals(new Matrix4())).toBe(true);
+  expect(geometry.getAttribute('position').array).toEqual(before);
 });
