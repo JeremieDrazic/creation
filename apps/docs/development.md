@@ -155,12 +155,12 @@ play functions in their existing stories; do not duplicate these in isolated Rea
 Playwright .test.ts checks retain integration responsibility, including extracted CSS across builds.
 The addon automatically provides preview annotations; no redundant global setup is needed.
 
-Storybook browser test files run sequentially. Under Vitest only, the shared StyleX compiler uses
-runtime style injection so assertions do not race asynchronous extracted-CSS refresh; its injector
-is explicitly preoptimized. Normal development and production builds keep extracted CSS, checked by
-production Playwright journeys. Short-motion tests start observing before awaiting the triggering
-interaction and wait for initial styles when needed. Three.js is explicitly declared in Storybook at
-the existing catalog version for shader-module preoptimization.
+The Storybook browser project runs files sequentially. Under Vitest only, createStylexPlugin uses
+runtime style injection so assertions do not race asynchronous extracted-CSS refresh; the injector
+is explicitly preoptimized to avoid test reloads. Normal app/Storybook development and production
+builds retain extracted CSS. Production Playwright checks remain responsible for that extraction
+path. Short-motion tests must start observing before awaiting the triggering interaction and wait
+for initial styles instead of assuming immediate development stylesheet readiness.
 
 RenderingCanvas has two browsable stories under Runtime/RenderingCanvas: StaticTriangle uses the
 temporary static probe with the actual runtime/store, and PreparationFailure rejects preparation
@@ -199,18 +199,39 @@ subpaths, not DNS, TLS or live Traefik configuration. See [delivery](delivery.md
 | i18next / react-i18next                 | 26.4.2 / 17.0.16           |
 | GSAP                                    | 3.15.0                     |
 | Zustand                                 | 5.0.15                     |
+| lil-gui                                 | 0.21.0                     |
+| Base UI                                 | 1.9.0                      |
 
 The catalog is authoritative. Three.js is installed for the rendering host and POC. Zustand powers
 runtime status; sound persistence is deferred to a dedicated PR. GSAP 3.15.0 was checked against npm
 and installed for the intro link animation, with the workspace's release-age policy unchanged. Web
 declares it at runtime; Storybook declares it for previews and prebundles it before tests. Its
-bundled types are used. lil-gui remains selected for a future increment; no unused dependency or
-placeholder test is needed.
+bundled types are used. lil-gui 0.21.0 now backs the first numeric-control adapter in
+packages/data-gui. The version/integrity and October 12, 2025 publication were verified against npm;
+the release-age policy remains unchanged. Installation added that dependency only and reused
+existing workspace versions. The package has colocated unit tests and was exercised in a temporary
+browser probe. The application now lazy-loads the floating control workbench in development and
+binds the active intro composition controls. E2E starts an isolated Vite development server on port
+4176 for its colocated development-panel browser tests; production previews retain ports
+4173/4174/4175. The web workspace declares data-gui as a development dependency. No library versions
+changed. data-gui additionally declares the already catalog-pinned Vite as a devDependency for its
+separate Node-only preset-file plugin. Its browser and Node typechecks remain separate. Development
+presets live at the repository root; E2E supplies CREATION_GUI_TEST_PRESETS=1 and uses an isolated
+per-server cache directory instead of owner files.
 
 Vitest and browser adapters use 5.0.3, supported by Storybook 10.6.1. The addon’s declared
 @vitest/runner peer uses published 4.1.11 types; its range permits this. Vitest 5 no longer declares
 runner as a runtime dependency. Browser execution, typechecks and strict peer resolution are
 verified.
+
+Base UI 1.9.0 is explicitly selected by the owner for the developer preset controls. npm metadata
+was verified October 25: published October 9, React/React DOM peer ranges include 19, and date-fns
+peers are optional. The exact version is catalog-pinned with the existing release-age policy. The
+package declares the existing catalog React/React DOM versions as peers/devDependencies and adds
+Base UI's seven previously absent dependency packages; no existing versions were upgraded. Browser
+imports remain inside the development-only panel graph. Official guidance:
+[Select](https://base-ui.com/react/components/select),
+[setup and portal isolation](https://base-ui.com/react/overview/quick-start).
 
 ## Review and evidence
 

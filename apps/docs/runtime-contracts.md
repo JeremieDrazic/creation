@@ -150,14 +150,39 @@ separately. Do not invent percentages for unmeasurable operations. Localized vis
 including any ready phrase, belong to UI. This contract does not describe later experience
 navigation.
 
-createRenderingRuntimeStore in apps/web/src/runtime/rendering-runtime-store creates one isolated
-vanilla Zustand store, initially preparing with unknown progress. Runtime owners receive
-publishStatus; UI consumers receive only getState/getInitialState/subscribe through statusStore.
-Published snapshots are copied and shallow-frozen, replace the previous status completely, and
-notify subscribers only when status field values change. The store projects facts; it does not
-validate runtime transitions or determine readiness. Create the store before starting the runtime so
-preparation is observable, and pass its publishStatus function to createRenderingRuntime. React
-wiring is not yet implemented.
+`createStatusStore<Status>(initialStatus)` in apps/web/src/stores/status-store creates an isolated
+vanilla Zustand store with a caller-owned shape and initial value. It imports no runtime or
+experience types. Publishers receive publishStatus; consumers receive only getState, getInitialState
+and subscribe through statusStore. Initial and published snapshots are copied and shallow-frozen,
+replace the previous status completely, and notify only when shallow field values change. Nested
+values retain identity and must be treated as immutable. The store does not validate domain
+transitions or determine readiness.
+
+ApplicationRendering and rendering fixtures instantiate it with RenderingRuntimeStatus and the
+initial preparing/unknown-progress value, then pass publishStatus to the rendering runtime. The
+component lives under shell/application-rendering and receives preparation as a prop, importing no
+experience or route. Shell now mounts it behind Outlet and derives its input from the route mapping.
+
+Lifecycle vocabulary: clear erases canvas pixels; removeActiveExperience releases the selected
+experience while preserving its coordinator; dispose permanently closes its receiver and releases
+the resources it owns. Attachment disposal synchronously cancels startup and initiates asynchronous
+runtime cleanup; errors reach onError. It does not return the runtime cleanup promise.
+
+ExperienceCoordinator.removeActiveExperience cancels the pending preparation and releases the active
+instance without disposing the coordinator or renderer. It removes the active reference before
+cleanup, so a cleanup failure cannot leave a broken instance selected. Pending preparations retain
+their existing promise and cancellation cleanup; the method does not await late results. Repeated
+removal calls are safe. It does not erase canvas pixels; the rendering integration must handle the
+empty presentation. The route-to-experience mapping's null case now uses this operation through
+runtime selection.
+
+RenderingRuntime.selectExperience(prepare | null) now exposes live selection through the existing
+coordinator and renderer. A preparation function replaces the current experience only when ready;
+null clears the canvas then removes and disposes the active experience. Initial preparation can also
+be null. The operation rejects after disposal or terminal rendering failure with
+RENDERING_RUNTIME_UNAVAILABLE. Selection errors, including supersession, reject to the caller;
+startup status remains separate from later navigation progress. React attachment and route-selection
+props are now connected.
 
 createRenderingRuntime in apps/web/src/runtime/rendering-runtime connects the production session and
 coordinator with caller-supplied initial preparation, resolution and frame-delta settings.
@@ -177,28 +202,37 @@ does. No measured progress source has been connected yet. Disposal errors reject
 publishing a new rendering status.
 
 RenderingCanvas in apps/web/src/runtime/rendering-canvas owns a full-parent-size container and a
-fresh canvas/runtime per Effect setup. The parent must establish drawable dimensions and keep
-startup functions/publisher identities stable; changing preparation, resolution reader, frame-delta
-limit or publisher recreates the runtime. Navigation must not change these startup inputs. Its
-Effect cancels startup and removes the canvas at cleanup, disposing a ready runtime or any late
-successful result. It suppresses status publication after cancellation so old cleanup cannot
-overwrite a new runtime's status. Expected cancellation is silent; other startup/cleanup errors
-reach onError. useEffectEvent forwards errors to the latest handler without renderer recreation. The
-callback must not throw. Status consumption and mounting above the route outlet remain subsequent
-increments in the production app. At the owner's request, async startup/cancellation/late-result
-handling is extracted into the adjacent attach-rendering-runtime.ts, not a generic utility or Hook.
+fresh canvas/runtime per lifetime Effect setup. The parent establishes drawable dimensions and
+stable resolution-reader/frame-delta/publisher inputs. Requested experience changes are handled by a
+separate selection Effect, preserving the renderer. Cleanup cancels startup and removes the canvas,
+releasing ready or late results. Status publication after attachment disposal is suppressed;
+expected cancellation is silent and real failures reach the latest non-throwing onError handler
+through useEffectEvent. ApplicationRendering owns status consumption; Shell mounts it persistently
+behind route UI. At the owner's request, async startup/cancellation/late-result handling is
+extracted into the adjacent attach-rendering-runtime.ts, not a generic utility or Hook.
 attachRenderingRuntime receives the runtime inputs without a signal, owns its AbortController and
-returns an idempotent synchronous detachRuntime function. RenderingCanvas's Effect retains canvas
-creation/removal and attachment only. Nine unit tests verify the extracted lifecycle with a
-simulated runtime boundary; they do not validate React mounting or real GPU behavior.
+returns an attachment object with synchronous selectExperience and dispose commands. Disposal
+remains idempotent. Selection remembers the latest requested preparation during startup and forwards
+it when the runtime is ready, only if it differs from the initial preparation. Initial startup is
+not cancelled/restarted for route changes. Repeated selection of the same function is ignored. Later
+selections use runtime.selectExperience; expected supersession and attachment-disposal cancellations
+are silent, while genuine failures (including late cleanup failures) reach onError. A disposed
+attachment ignores new selections and disposes late runtime results without applying queued
+requests. RenderingCanvas now accepts prepareExperience (a preparation function or null). Its
+lifetime Effect creates/attaches the canvas and cleans it up; its selection Effect forwards
+prepareExperience changes through the retained attachment. A useEffectEvent reads the current
+initial selection without making route choices lifetime dependencies. readPixelRatio,
+maxDeltaSeconds and publishStatus remain lifetime settings; changing them restarts the runtime.
+Initial startup and later selections retain the attachment's queue/cancellation semantics. Unit
+tests cover these cases at the simulated runtime boundary, not real GPU behavior.
 
 The colocated RenderingCanvas stories now mount the component with the actual runtime and static
 probe, plus an intentionally failed preparation. Chromium Storybook tests pass with root StrictMode:
 readiness, stable canvas across interface rerender and resize, resized buffer width, two clean
 unmount/remount cycles, failed status and original error reporting. This establishes browser
 component assembly, not pixel-level drawing approval, native WebGPU acceptance, continuous resize
-smoothness, memory or performance guarantees. Neither production routes nor the original POC page
-has been changed to use this component.
+smoothness, memory or performance guarantees. The application now mounts the component through
+Shell; the original POC remains separate.
 
 The owner reported a wide-to-narrow change when opening/reloading the static story. Its play
 function was automatically clicking resize and unmount/remount controls. StaticTriangle now only
@@ -207,17 +241,12 @@ PreparationFailure no longer automatically unmounts. All 5 Storybook tests pass.
 story reloaded to a visible triangle at 640 CSS/buffer pixels with the interface counter at zero. No
 production sizing/lifecycle change was needed for this issue.
 
-The next owner-authorized increment mounts a temporary validation frame in Shell, above Outlet.
-Shell owns one status store and stable startup inputs, so route/locale changes should preserve the
-canvas. The development-only frame lazy-loads RenderingCanvas and the static probe; production
-builds exclude both modules and all triangle markup. Its 40svh layout and pixel/time caps are test
-settings, not intro design or production quality choices. After an initial stale Vite dependency
-error and the owner's report that it works, Chrome verification succeeded: Home → Fireflies → Home
-and French → English → French retained the exact original canvas DOM node, with one connected canvas
-and ready status. Captured warning/error logs were empty; the triangle remained visible. The
-diagnostic remote-object reference was released and French restored. This verifies persistent
-attachment, not experience replacement: both routes still display the same temporary triangle. The
-assistant did not start/stop the owner's server or modify viewport/focus settings.
+The earlier development triangle panel was removed before the production intro UI merge. The current
+Shell integration mounts the actual intro scene via route selection, with an empty graphics
+selection for UI-only Fireflies and unknown routes. Production browser journeys verify persistent
+canvas identity, route/locale behavior and direct Fireflies entry without a veil data request. See
+[the intro reference](experiences/intro.md) for provisional full-screen framing and remaining
+effects.
 
 ## Readiness — confirmed
 

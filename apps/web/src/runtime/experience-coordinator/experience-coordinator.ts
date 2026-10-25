@@ -77,6 +77,33 @@ export class ExperienceCoordinator implements ExperienceCoordinatorContract {
     this.isSuspended = false;
   }
 
+  /**
+   * Removes and disposes the active experience, keeping the coordinator and borrowed renderer
+   * usable.
+   */
+  removeActiveExperience(): void {
+    if (this.isDisposed) {
+      return;
+    }
+
+    const preparationAbortController = this.preparationAbortController;
+    const experience = this.activeExperience;
+    this.preparationAbortController = undefined;
+    this.activeExperience = undefined;
+
+    preparationAbortController?.abort(
+      new CodedError(EXPERIENCE_COORDINATOR_ERROR_CODES.PREPARATION_SUPERSEDED)
+    );
+
+    try {
+      experience?.dispose();
+    } catch (cause) {
+      throw new CodedError(EXPERIENCE_COORDINATOR_ERROR_CODES.ACTIVE_EXPERIENCE_DISPOSAL_FAILED, {
+        cause,
+      });
+    }
+  }
+
   async prepareAndActivateExperience(prepareExperience: PrepareCreationExperience): Promise<void> {
     if (this.isDisposed) {
       throw new CodedError(EXPERIENCE_COORDINATOR_ERROR_CODES.DISPOSED);

@@ -1,0 +1,42 @@
+{
+  "title": "Réglages",
+  "move": "Déplacer le panneau",
+  "moveHint": "Glisser pour déplacer · Flèches au clavier · Maj pour accélérer",
+  "collapse": "Replier le panneau",
+  "expand": "Déplier le panneau",
+  "footer": "",
+  "emptyTitle": "Aucune expérience à régler",
+  "empty": "Les contrôles apparaîtront ici pour l’expérience active.",
+  "reset": "Réinitialiser",
+  "copy": "Copier les réglages",
+  "resetDone": "Valeurs par défaut rétablies.",
+  "copied": "Réglages copiés en JSON.",
+  "copyFailed": "Copie impossible. Vérifiez l’autorisation du presse-papiers.",
+  "veil": {
+    "title": "Voile céleste",
+    "rotation": "Rotation · °",
+    "scale": "Échelle du voile",
+    "offsetX": "Placement horizontal",
+    "offsetY": "Placement vertical",
+    "grainScale": "Taille des grains"
+  },
+  "presets": {
+    "title": "Presets",
+    "select": "Choisir un preset",
+    "name": "Nom du preset",
+    "defaults": "Valeurs par défaut",
+    "modified": "Modifié",
+    "save": "Enregistrer",
+    "rename": "Renommer",
+    "remove": "Supprimer",
+    "export": "Exporter",
+    "import": "Importer",
+    "manage": "Gérer les presets",
+    "saved": "Preset enregistré dans le projet.",
+    "renamed": "Preset renommé.",
+    "removed": "Preset supprimé.",
+    "imported": "Presets importés.",
+    "applied": "Preset appliqué.",
+    "failed": "Impossible de charger ou sauvegarder ces presets. Vérifiez le nom et les valeurs."
+  }
+}

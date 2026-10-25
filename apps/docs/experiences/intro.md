@@ -39,16 +39,222 @@ without input. Keep Fireflies accessible without a mandatory intro duration. The
 transition may withdraw the veil while the nocturnal scene/input arrives; no literal star-to-insect
 morph is required.
 
+The asset loader reports operational failures through CodedError with
+CELESTIAL_VEIL_DATA_LOAD_FAILED and the original cause (network, HTTP status, JSON or schema).
+Cancellation keeps the caller's reason and is not reclassified as an asset failure.
+
+## Application integration direction — owner review
+
+The owner requests continuing in the application, in small file-by-file learning increments. Explain
+each file's role and choices, implement a bounded change, then study it together before advancing.
+Recent offline-data/lifecycle files still need this walkthrough; implementation does not establish
+owner understanding or code acceptance.
+
+A subtle camera parallax is desired. Pointer-driven, damped motion is proposed; amplitude,
+projection, framing and reduced-motion behavior remain to be reviewed. Establish responsive
+composition before movement. Maintain depth-dependent displacement and quiet text/UI; do not move
+the entire application as a flat layer.
+
+The shared Réglages/Controls panel appears automatically in development. It is draggable by its
+title, movable with arrow keys (Shift increases the step), collapsible and constrained to the
+viewport on resize. The restrained translucent ink/ivory surface uses the intro display font, fine
+slider tracks and quiet action links; its earlier heavier appearance was rejected. It is reusable
+through packages/data-gui/create-floating-panel, independently of React or rendering. Shell mounts
+one persistent panel; the active experience supplies its controls through a development-only
+registry. Fireflies currently shows an empty state. The owner explicitly delegates this GUI
+increment as a coherent implementation batch rather than a file-by-file lesson; experience graphics
+work keeps the normal learning boundary.
+
+The intro lazily registers rotation, uniform scale, X/Y placement and grain-size controls on
+activation, then releases them on disposal. The registration ignores late imports after disposal;
+cleanup of an old registration cannot clear a newer experience. Settings belong to each intro
+instance. Named presets are now saved in development-presets/intro.json through the package-owned
+workbench and development file endpoint. They survive reloads and are readable by the agent. The
+panel selects, saves/updates, renames, deletes and imports/exports snapshots for comparison. Unsaved
+edits remain instance-local and are marked Modified; choosing a preset is explicit after recreation.
+Reset restores the neutral defaults and updates controls; copy exports versioned JSON with the
+experience identifier and settings. Panel and control labels use a lazy development i18n namespace
+and follow FR/EN changes without losing values or position. The initial production and development
+composition stays neutral until edited. Production excludes panel, styling, bindings and lil-gui
+through development-guarded imports. A future production Easter egg is the owner's proposal, not
+implemented scope.
+
+celestial-veil-composition.ts now defines per-instance mutable settings for additional rotation,
+uniform scale, viewport-relative X/Y offsets and a separate grain diameter multiplier. Its factory
+returns neutral values. CelestialVeil.setComposition copies and applies these settings; the GUI
+binding forwards live edits through this method. Positive rotation is counterclockwise; positive
+offsets move right/up. Planar rotation and uniform scaling use the reference center; placement uses
+the visible camera dimensions and is reapplied on resize. Grain size edits update only the shared
+quad vertices and bounding spheres, without rewriting instance transforms or appearance attributes.
+Depth and transparent order remain unchanged. Invalid/nonpositive scales reject before scene
+mutation; updates after disposal are ignored. Default application rendering remains unchanged.
+
+Full pnpm check passes: 396 unit tests, 27 Storybook tests and 10 browser journeys. Preset coverage
+includes actual isolated authoring files, failed-write rollback and save/reload/A–B
+selection/rename/ delete/import/export without altering owner files. Browser checks verify actual
+canvas-image changes on edits, pointer and keyboard movement, collapse/expand, bounds after
+dragging/resizing, current-experience controls and retained panel/canvas identity across navigation.
+The production journey asserts no development panel; a built-asset scan finds no GUI library, panel
+or binding markers. The preserved screenshot is moodboard/intro/07-development-panel-presets.png,
+with minimized state in 07-development-panel-minimized.png. Earlier captures remain for comparison.
+These software-rendered checks do not accept final artistic framing, native WebGPU performance or
+touch-device behavior.
+
 ## Remaining decisions
+
+### Static veil — image-derived working composition
+
+The owner resumed the veil with a static composition first, guided by reference 07, without audio.
+Start at a fixed reference framing; resize policy and any future camera motion follow later review.
+Screen positions and apparent sizes can be inferred from the image; depth is authored, not
+recovered.
+
+The owner accepted the overall shape of the image-derived tableau as a good working basis and
+requested removing the earlier procedural layout. That unused comparison module is now removed; all
+image-analysis data and plates remain preserved.
+
+The owner clarified that image analysis must produce coordinates for as many detectable points as
+possible, rather than a few landmarks. The
+[extraction analysis](https://github.com/JeremieDrazic/creation/blob/main/moodboard/intro/07-celestial-veil-analysis.md)
+records 5,676 detected lower-frame peak positions and an overlay. The owner subsequently authorized
+full annotation and approximate staging depth; the enriched JSON and diagnostic maps are linked from
+that analysis. Depth is a low-confidence authoring hypothesis, with unresolved entries explicitly
+marked. The annotation is the working source for offline preparation below.
+
+### Extended field and responsive crop — exploratory proposal
+
+The owner proposes a larger veil with more stars beyond the upper/lower reference limits, selecting
+an interesting portion per screen and allowing gentle, bounded zoom while the veil always crosses
+top and bottom. The temporary moodboard/intro/07-framing-study comparison tests this at 1024×768,
+1440×900, 2560×1080 and 3440×1440, with baseline and 1.22× zoom beside current containment. It
+retains all 5,674 source grains and adds 8,000 synthetic tail grains sampled from source profiles;
+those additions are a visual hypothesis and do not alter the prepared production data.
+
+The experiment anchors the band at bottom X=43% and top X=91%, adapting rotation to aspect ratio;
+baseline vertical world extent is 1,000 units, keeping presence relative to screen height. Every
+proposed view has grain centers near both horizontal edges. This does not accept edge density,
+framing, synthesis or zoom limits. Prefer explicit author-directed anchors and text-clear space over
+an unspecified automatic aesthetic detector. A production extension would be prepared offline;
+animated zoom, interpolation, bounds and input remain separate design/code increments. Study the
+images with the owner before implementing this policy in the experience.
+
+### Grain material — awaiting owner code review
+
+The first rendering module is intro/celestial-veil/material/celestial-veil-material.ts. It creates
+one shared MeshBasicNodeMaterial with TSL radial coverage on camera-facing UV-mapped squares.
+Geometry owns diameter and placement; the material owns appearance. Required attributes are
+grainColorLinear (linear working-space vec3), grainOpacity (authored float 0–1) and
+grainEdgeSoftness (float 0–1). Offline preparation converts image sRGB and interprets measured
+brightness; the annotated JSON is not copied directly into these attributes.
+
+Softness zero retains a compact disk with a derivative-smoothed edge; softness one fades across the
+radius. The material uses normal alpha blending, disables depth writes and tone mapping, and has no
+bloom, lights, textures or motion. The scene must orient and order transparent grains and dispose
+the material. Scene assembly and runtime preparation are described below; the scene is now mounted
+in the application for integration review.
+
+Targeted typed lint, web TypeScript and formatting pass. A temporary two-instance scene compiled and
+drew the actual shader through WebGPURenderer's forced WebGL2 backend in headless
+Chromium/SwiftShader. Pixel checks verified transparent corners, distinct softness and independent
+live color/opacity attribute updates. This does not validate native WebGPU, subpixel fidelity,
+artistic resemblance, large-particle-count performance or transparent ordering. The exploratory
+script is /private/tmp/creation-veil-material-smoke.mjs. Its sharp/soft screenshot is preserved as
+moodboard/intro/07-celestial-veil-material-probe.png for review and the possible future case study.
+
+### Offline data and static runtime — awaiting owner study
+
+The research annotation remains in moodboard/intro with all diagnostic plates. It is not downloaded
+by the experience. Run pnpm --filter @creation/web prepare:veil to regenerate the compact rendering
+asset from that source. The tool is apps/web/scripts/prepare-celestial-veil-asset.mts; it runs on
+Node 24 with native TypeScript stripping and no new loader dependency. Explicit .ts imports are
+allowed by the shared no-emit TypeScript profile. The generated minified JSON has a focused Oxfmt
+ignore; source code and research JSON remain formatted normally.
+
+prepare-celestial-veil-grain.ts owns the grain-specific interpretation and validation. Pure numeric
+utilities live in @creation/utils: clampUnit, assertRgbChannels and srgbChannelToLinear. The offline
+tool selects representatives, converts pixel centers/depth, estimates size/softness/color/opacity,
+rounds to GPU Float32 precision and sorts far to near. Color conversion follows the normalized sRGB
+transfer function, independently of Three.js. Source staging assumptions remain provisional.
+
+The generated asset is src/experiences/intro/assets/celestial-veil/celestial-veil-data.json: 5,674
+rows, schema/version, frame/depth span and an explicit column list. Each row contains x, y, z,
+diameter, three linear RGB channels, opacity and softness. It measures 622,771 bytes versus
+8,542,343 for the annotation; local gzip produces 155,532 bytes, not a measured production transfer.
+A source hash records provenance. A unit check compares the complete prepared source with the
+committed asset to catch stale generation.
+
+celestial-veil-data.ts validates the version, layout, dimensions, finite values/ranges and draw
+order. load-celestial-veil-data.ts fetches a separate Vite URL asset with the preparation signal;
+HTTP errors, malformed data and cancellation reject. The scene consumes ready rows and creates one
+geometry, material and InstancedMesh. It performs no per-grain image interpretation or color
+conversion and does not import the research data or offline preparer.
+
+IntroCreation implements the shared lifecycle. Static prepare loads the asset, constructs the veil,
+applies the initial viewport and compiles shaders with the borrowed renderer. Failure/cancellation
+releases the scene; render/dispose never replace or destroy the shared renderer/schedule. Resize now
+delegates to the scene's camera adjustment before subsequent draws.
+
+celestial-veil/camera/celestial-veil-camera.ts owns the orthographic camera and framing. Its pure
+getCelestialVeilCameraBounds computes uniform containment of the reference frame, centered with
+additional space along the unconstrained axis. resizeCelestialVeilCamera applies those bounds and
+updates the projection matrix; createCelestialVeilCamera owns the original depth/near/far setup. The
+reference 3:1 projection is preserved exactly. Other aspects retain equal X/Y world-to-screen scale,
+keeping circular grains round without changing source positions, diameters or GPU buffers.
+
+This is a working projection correction, not final artistic framing. Smaller/narrower windows show a
+more compact veil with space above/below; the requested top-to-bottom passage, text-aware placement,
+perspective and parallax remain pending. Orthographic camera distance was not changed.
+
+Storybook Experiences/Intro/CelestialVeil / Default is a temporary fixed-frame technical review
+fixture using RenderingCanvas and the real runtime. It is not final application layout/loading UI.
+The build emits the JSON as a separate hashed asset. Storybook directly declares the same
+catalog-pinned Three.js version for predictable shader preoptimization; no dependency versions were
+upgraded. The grain structure remains drier/sharper than reference 07 without bloom/inter-grain
+diffuse light. The original first tableau and all analysis plates are preserved for the possible
+case study.
+
+The celestial-veil folder groups data validation/loading under data, offline calculations under
+preparation and the shader under material; scene assembly stays at its root. Tests are colocated.
+The story stays directly under experiences/intro because it exercises IntroCreation preparation. It
+remains a useful comparison fixture, not a commitment to retain it permanently.
+
+Current softness comes from authored radial coverage and derivative antialiasing. Both the app and
+preview follow display density. The preserved ratio-1/ratio-2 comparison and live Retina inspection
+confirmed the density setting; it does not remove authored softness. No postprocessing blur, bloom
+or depth of field exists.
+
+A temporary Douceur des contours range control in the same story scales authored softness from 0
+(sharp contours) through 0.5 (intermediate) to 1 (original appearance), in 0.05 steps. The preview
+fixture copies rows and changes only the softness field, preserving relative differences between
+grains and retaining derivative antialiasing. Positions, depth, diameter, color and opacity are
+unchanged. At 1 the preview uses IntroCreation directly; other values use a temporary static
+lifecycle adapter with the same scene/material/shared runtime. Production APIs and generated assets
+are unchanged. Sharper coverage can increase visible brightness; this is not an energy-normalized
+study or a final appearance decision.
+
+The homepage GPU scene is mounted for integration review. Audio, bloom, camera motion and
+perspective remain unimplemented. The owner proposes softness scale 0.8 in the Storybook comparison;
+the application still uses the prepared asset unchanged, without that preview-only multiplier.
+Native WebGPU, subpixel fidelity and performance targets remain unaccepted. Continue the
+function-by-function walkthrough and visual review before extending the experience.
 
 ### Application integration — implemented for review
 
-The owner authorized replacing the old shell presentation with the reviewed intro. Route / now
-mounts IntroUi full-screen on the illuminated CSS study backdrop; this remains temporary until the
-WebGL veil is built. Shell owns the page surface and document language, while routes own their
-content. The old shared header/navigation and triangle validation panel were removed. The triangle
-remains available through rendering-probe.html and RenderingCanvas stories; no production GPU
-experience is mounted yet.
+Route / now shows IntroUi over the GPU veil. Shell mounts a persistent ApplicationRendering behind
+Outlet and resolves its preparation from the current pathname. The earlier graphics prop and opaque
+CSS study backdrop are removed. Fireflies and unknown routes select null, keeping an empty renderer
+available. Direct entry to Fireflies does not request the veil asset. The intro loads its code and
+compact data on demand when selected. Navigation retains the canvas.
+
+Web TypeScript, targeted typed lint, web build and both production shell browser journeys pass. The
+journeys check canvas identity across navigation, direct UI-only entry without a veil download,
+language persistence and unknown-route recovery. The preserved application screenshot is
+moodboard/intro/07-celestial-veil-application-integration.png. The earlier integration capture
+preserves the stretched projection before correction. New 07-celestial-veil-framing-1024x768.png,
+-1440x900.png and -2560x1080.png captures preserve corrected uniform containment. Projection tests
+span six aspect ratios; three production browser journeys pass, including live resize/canvas
+retention. This validates aspect preservation and integration, not final artistic composition,
+illumination, transitions or native WebGPU performance. Owner dev servers were untouched.
 
 IntroUi accepts optional native click handlers for the identity and Fireflies invitation. The home
 route uses TanStack navigate for ordinary clicks, preserving modified-click native behavior.

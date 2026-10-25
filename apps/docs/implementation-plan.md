@@ -55,15 +55,21 @@ for current verification and limitations.
 The owner requested and merged [PR #2](https://github.com/JeremieDrazic/creation/pull/2) before
 intro implementation. Main CI and the configured automatic deployment succeeded on October 20.
 
-The reviewed intro UI now mounts on / with its temporary illuminated CSS backdrop. Old shell
-controls/triangle validation have been replaced; Fireflies remains a placeholder. Language and
+The reviewed intro UI now mounts on / over the GPU veil; its temporary CSS backdrop is removed. Old
+shell controls/triangle validation have been replaced; Fireflies remains a placeholder. Language and
 client-side navigation are connected. The owner deferred application sound integration to a separate
-PR; the control remains in stories and is currently omitted from the application. Review this
-integration and the dedicated ProjectResourceLink story, then agree the first visible celestial veil
-increment before coding. Implement the experience through IntroCreation with small reviewed
-additions; then develop motion and interactions. Future real scenes must establish artistic
-handover, residency, GPU recovery, audio behavior and measured quality budgets. Do not extend a
-generic runtime speculatively before a concrete need.
+PR; the control remains in stories and is currently omitted from the application. The owner merged
+this UI integration in PR #3. Subsequent local work mounts a persistent GPU canvas in Shell,
+selecting lazy experience preparation through a route mapping. Intro uses its compact offline asset;
+Fireflies remains UI-only with no active graphics. Browser checks verify navigation retains the
+canvas and direct Fireflies entry does not request veil data. Next: study the Shell connection with
+the owner and agree responsive framing/camera before further appearance or interaction work. The
+camera now preserves proportions through uniform reference containment. Final top-to-bottom
+composition, text-aware placement and perspective remain open; containment is a working baseline.
+Quiet state, local illumination, parallax and halos follow in bounded increments, with our own
+development-only data-gui adapter over lil-gui. Future scenes must establish artistic handover,
+residency, GPU recovery, audio behavior and measured quality budgets. Do not extend a generic
+runtime speculatively before a concrete need.
 
 Continuous native-window resize flashing/left-edge latency remains deferred by owner agreement.
 Functional resize tests do not prove smooth presented frames. Native WebGPU/device-matrix support,

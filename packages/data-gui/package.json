@@ -1,0 +1,37 @@
+{
+  "name": "@creation/data-gui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./create-data-gui": "./src/create-data-gui/create-data-gui.ts",
+    "./create-floating-panel": "./src/create-floating-panel/create-floating-panel.ts",
+    "./create-settings-controls": "./src/create-settings-controls/create-settings-controls.ts",
+    "./create-workbench": "./src/create-workbench/create-workbench.ts",
+    "./presets": "./src/presets/create-file-preset-storage.ts",
+    "./vite/preset-files": "./src/vite/preset-files.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "@creation/utils": "workspace:*",
+    "lil-gui": "catalog:",
+    "@base-ui/react": "catalog:"
+  },
+  "devDependencies": {
+    "@creation/config": "workspace:*",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@types/node": "catalog:",
+    "vite": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

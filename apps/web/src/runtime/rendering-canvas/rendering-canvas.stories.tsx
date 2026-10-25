@@ -7,8 +7,8 @@ import { useStore } from 'zustand';
 import { CodedError } from '@creation/utils/errors/coded-errors';
 
 import { RenderingProbeCreation } from '../../rendering-probe/rendering-probe-creation';
-import type { PrepareCreationExperience } from '../../types';
-import { createRenderingRuntimeStore } from '../rendering-runtime-store/rendering-runtime-store';
+import { createStatusStore } from '../../stores/status-store/status-store';
+import type { PrepareCreationExperience, RenderingRuntimeStatus } from '../../types';
 import { RenderingCanvas, type RenderingCanvasProps } from './rendering-canvas';
 
 const STORY_PREPARATION_ERROR = new CodedError('STORY_RENDERING_PREPARATION_FAILED');
@@ -25,22 +25,35 @@ function readStoryPixelRatio(): number {
   return 1;
 }
 
-const prepareStaticTriangle: PrepareCreationExperience = (options) =>
-  RenderingProbeCreation.prepare(options);
+const prepareStaticTriangle = fn<PrepareCreationExperience>((options) =>
+  RenderingProbeCreation.prepare(options)
+);
+const prepareAlternateTriangle = fn<PrepareCreationExperience>((options) =>
+  RenderingProbeCreation.prepare(options)
+);
 
-const rejectPreparation: PrepareCreationExperience = async () => {
+const rejectPreparation = fn<PrepareCreationExperience>(async () => {
   throw STORY_PREPARATION_ERROR;
-};
+});
 
-type RenderingCanvasStoryProps = Pick<RenderingCanvasProps, 'prepareInitialExperience' | 'onError'>;
+type RenderingCanvasStoryProps = Pick<RenderingCanvasProps, 'prepareExperience' | 'onError'>;
 
 /** Temporary technical fixture using the real runtime; not intro artwork or production controls. */
-function RenderingCanvasStory({ prepareInitialExperience, onError }: RenderingCanvasStoryProps) {
-  const [store] = useState(createRenderingRuntimeStore);
+function RenderingCanvasStory({ prepareExperience, onError }: RenderingCanvasStoryProps) {
+  const [store] = useState(() =>
+    createStatusStore<RenderingRuntimeStatus>({ status: 'preparing', progress: null })
+  );
   const status = useStore(store.statusStore);
   const [isMounted, setIsMounted] = useState(true);
   const [isNarrow, setIsNarrow] = useState(false);
   const [renderCount, setRenderCount] = useState(0);
+  const [selection, setSelection] = useState<'initial' | 'alternate' | 'empty'>('initial');
+  const selectedPreparation =
+    selection === 'empty'
+      ? null
+      : selection === 'alternate'
+        ? prepareAlternateTriangle
+        : prepareExperience;
 
   return (
     <section {...stylex.props(styles.fixture)}>
@@ -57,12 +70,21 @@ function RenderingCanvasStory({ prepareInitialExperience, onError }: RenderingCa
         <button type="button" onClick={() => setRenderCount((count) => count + 1)}>
           Rerender interface ({renderCount})
         </button>
+        <button type="button" onClick={() => setSelection('initial')}>
+          Show initial experience
+        </button>
+        <button type="button" onClick={() => setSelection('alternate')}>
+          Show alternate experience
+        </button>
+        <button type="button" onClick={() => setSelection('empty')}>
+          Clear experience
+        </button>
       </div>
       <output aria-label="Rendering status">{status.status}</output>
       <div {...stylex.props(styles.viewport, isNarrow && styles.narrowViewport)}>
         {isMounted && (
           <RenderingCanvas
-            prepareInitialExperience={prepareInitialExperience}
+            prepareExperience={selectedPreparation}
             readPixelRatio={readStoryPixelRatio}
             maxDeltaSeconds={STORY_MAX_FRAME_DELTA_SECONDS}
             publishStatus={store.publishStatus}
@@ -77,7 +99,7 @@ function RenderingCanvasStory({ prepareInitialExperience, onError }: RenderingCa
 const meta = {
   title: 'Runtime/RenderingCanvas',
   component: RenderingCanvasStory,
-  args: { prepareInitialExperience: prepareStaticTriangle, onError: fn() },
+  args: { prepareExperience: prepareStaticTriangle, onError: fn() },
 } satisfies Meta<typeof RenderingCanvasStory>;
 
 export default meta;
@@ -125,11 +147,40 @@ export const LifecycleChecks: Story = {
 };
 
 export const PreparationFailure: Story = {
-  args: { prepareInitialExperience: rejectPreparation },
+  args: { prepareExperience: rejectPreparation },
   play: async ({ canvas, args }) => {
     await waitFor(() =>
       expect(canvas.getByRole('status', { name: 'Rendering status' })).toHaveTextContent('failed')
     );
     await waitFor(() => expect(args.onError).toHaveBeenCalledWith(STORY_PREPARATION_ERROR));
+  },
+};
+
+/** Temporary switching check; both probe instances use identical artwork intentionally. */
+export const ExperienceSelectionChecks: Story = {
+  tags: ['!dev', '!autodocs'],
+  play: async ({ canvas, canvasElement, userEvent, args }) => {
+    await waitFor(() =>
+      expect(canvas.getByRole('status', { name: 'Rendering status' })).toHaveTextContent('ready')
+    );
+    const drawingCanvas = canvasElement.querySelector('canvas');
+    const initialRenderer = prepareStaticTriangle.mock.lastCall?.[0].renderer;
+    const initialCount = prepareStaticTriangle.mock.calls.length;
+    await expect(drawingCanvas).not.toBeNull();
+    await expect(initialRenderer).toBeDefined();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear experience' }));
+    await expect(canvasElement.querySelector('canvas')).toBe(drawingCanvas);
+    await userEvent.click(canvas.getByRole('button', { name: 'Show alternate experience' }));
+    await waitFor(() => expect(prepareAlternateTriangle).toHaveBeenCalled());
+    await expect(prepareAlternateTriangle.mock.lastCall?.[0].renderer).toBe(initialRenderer);
+    await expect(canvasElement.querySelector('canvas')).toBe(drawingCanvas);
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Show initial experience' }));
+    await waitFor(() => expect(prepareStaticTriangle.mock.calls.length).toBe(initialCount + 1));
+    await expect(prepareStaticTriangle.mock.lastCall?.[0].renderer).toBe(initialRenderer);
+    await expect(canvasElement.querySelectorAll('canvas')).toHaveLength(1);
+    await expect(canvasElement.querySelector('canvas')).toBe(drawingCanvas);
+    await expect(args.onError).not.toHaveBeenCalled();
   },
 };

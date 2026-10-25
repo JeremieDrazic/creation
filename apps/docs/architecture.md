@@ -222,12 +222,69 @@ that cost. Single-scene fade sequences or a frozen outgoing image are fallback p
 reviewed for artistic impact rather than silently imposed. See
 [performance](performance-and-quality.md).
 
+### Application graphics composition — mounted for review
+
+Shell mounts ApplicationRendering directly in a fixed viewport-sized graphics layer behind Outlet.
+The graphics prop has been removed. Shell reads the router pathname and resolves the requested
+preparation through shell/route-experiences: / selects the lazy intro preparer, while the current
+UI-only Fireflies route and unknown routes select null. The canvas remains mounted across route
+changes. Each experience still owns its scene/camera; the renderer and schedule remain shared.
+
+ApplicationRendering receives prepareExperience and owns the status-store instance, display-density
+reader, delta-cap setting and diagnostic reporting. It imports no experience or router.
+RenderingCanvas separates canvas/runtime lifetime from live selection through two Effects and the
+attachment handle. A change in selection does not change startup dependencies or recreate the
+renderer. Initial startup is not yet cancelled by later selections; repeating an identical failed
+selection does not retry it.
+
+The intro's opaque CSS study backdrop is removed so the GPU scene is visible. Its orthographic
+camera now contains the reference frame uniformly across window aspects, avoiding stretching. This
+provisional policy leaves extra space along one axis; final artistic framing, perspective and
+parallax remain separate visual increments. The graphics layer is decorative, aria-hidden and
+ignores pointer hit testing; interaction input ownership remains to be implemented.
+
+### Observable status store
+
+stores/status-store owns `createStatusStore<Status>(initialStatus)`, independent of runtime and
+experience types. The caller supplies a flat status snapshot and its domain type; the store provides
+publication and read-only subscriptions with shallow deduplication and copied/frozen snapshots.
+ApplicationRendering chooses RenderingRuntimeStatus and its initial value. This keeps storage
+mechanics separate from the operations that publish status.
+
 ## Developer palette and utilities
 
-data-gui uses the selected lil-gui adapter and supports direct object/property tweak bindings,
-property/getter watches and bounded metrics. Values work without the palette. Avoid buffer rebuilds
-on every slider tick; costly settings may require explicit apply. Preset import/export/reset is
-proposed; defaults remain experience-owned.
+packages/data-gui owns the reusable workbench, independent of React, application or experience code.
+createSettingsControls receives numeric defaults, translated field keys/bounds/steps and one
+application callback; it owns copied settings/defaults, validation, notifications and reset.
+createWorkbench owns control widgets, copy feedback, preset UI and the floating surface. Base UI
+Select owns the non-native popup/selection behavior, Collapsible the action disclosure, and its
+Input/Button primitives the remaining form controls. No custom dropdown interaction implementation
+is introduced. The isolated React presentation receives model snapshots and callbacks; application
+and experience integration APIs remain unchanged. The lower createDataGui/createFloatingPanel
+exports remain available separately. The panel minimizes to an 88px drag/expand handle with authored
+SVG strokes, retains keyboard/pointer movement, and reclamps on content/window resize. Labels,
+selected preset, values and position survive locale changes.
+
+Preset collection validation, selection, modification state and save/rename/delete/import/export
+belong to data-gui, not experiences. Persistence uses an injected PresetStorage. The browser file
+adapter talks to a serve-only Vite plugin exported through a separate Node entry. The app configures
+a root development-presets directory, one human-readable JSON file per experience. This lets the
+owner and agent inspect the same snapshots directly. Atomic writes are serialized; schema/version,
+scope, duplicate names/IDs and numeric ranges are checked before writes/applications. Failed saves
+preserve previous snapshots. Build/preview has no file endpoint and does not serve authoring files.
+
+Shell lazily mounts DevelopmentPanel behind import.meta.env.DEV, outside the decorative graphics
+accessibility subtree. Its mount adapter only supplies translation/storage, selects the registered
+source and forwards language/disposal events. The source registry ignores stale releases. Intro
+activation lazily registers a createSettingsControls instance with five field declarations and a
+veil.setComposition binding; runtime/coordinator and lifecycle contracts know nothing about GUI. The
+experience contains no DOM, presets, copying or reset implementation. Preset selection updates
+shared geometry/transforms through that binding; it does not reload data or recreate the renderer.
+
+Watch/getter controls and bounded metrics remain later scope. The owner proposes a future production
+Easter egg; it is not implemented. Browser GUI imports remain development-guarded and absent from
+production assets. See packages/data-gui/README.md for public entry points and persistence
+contracts.
 
 Metrics use bounded samples and slower UI refresh, with detachable adapters. Counters are not exact
 GPU-memory measurements; unavailable GPU timings must be labeled as such. Exclude data-gui from
@@ -264,6 +321,21 @@ suspension. Utils keeps its environment-independent TypeScript profile and adds 
 for DOM helpers; its typecheck script verifies both profiles without introducing browser globals
 into async/error modules.
 
+The owner approved math and color groups in utils during the veil walkthrough. Focused exports:
+@creation/utils/math/clamp-unit, @creation/utils/color/assert-rgb-channels and
+@creation/utils/color/srgb-channel-to-linear. Each has colocated unit tests. RGB validation accepts
+three finite channels in [0,255], including fractions, and rejects sparse entries. Conversion
+accepts one normalized sRGB channel in [0,1] and returns linear-light sRGB through the numeric
+transfer function. These utilities have no Three.js/browser dependency. They are now used by offline
+grain preparation rather than per-grain browser interpretation.
+
+The intro's annotated research data and production loading asset are separate. An explicit Node
+preparation command generates a compact versioned JSON asset; browser preparation only fetches and
+validates it before creating GPU resources. Keep source measurements/uncertainties in the moodboard
+and ready Float32-compatible values in the generated asset. The runtime loader is cancellable and
+the existing renderer/experience lifecycle owns activation, drawing and cleanup. Full-screen intro
+framing remains outside the current fixed-aspect preview increment.
+
 ## API scope
 
 No confirmed V1 feature needs a custom API. Words, procedural visuals and audio analysis run in the
@@ -273,11 +345,3 @@ signaling. Visitor music does not itself imply upload.
 References: [render targets](https://threejs.org/manual/pages/rendertargets.html),
 [color management](https://threejs.org/manual/pages/color-management.html),
 [Turborepo structure](https://turborepo.dev/docs/crafting-your-repository/structuring-a-repository).
-
-## Shared grain calculations
-
-packages/utils now provides math/clamp-unit, color/assert-rgb-channels and
-color/srgb-channel-to-linear as focused exports with colocated tests. clampUnit bounds values to [0,
-1]; RGB validation requires three finite channels in [0, 255], including explicit sparse-array
-rejection; normalized sRGB conversion uses the numeric W3C transfer function. These utilities have
-no Three.js/browser dependency and do not mutate caller data.

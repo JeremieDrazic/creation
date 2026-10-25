@@ -3,6 +3,8 @@ packages:
   - packages/*
 
 catalog:
+  '@base-ui/react': '1.9.0'
+  'lil-gui': '0.21.0'
   '@playwright/test': '1.63.0'
   '@storybook/addon-a11y': '10.6.1'
   '@storybook/addon-vitest': '10.6.1'

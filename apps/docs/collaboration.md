@@ -51,6 +51,19 @@ The owner also requests the reviewed intro UI PR: commit/publish the intro compo
 localization, interaction stories/utilities and related docs. Keep sound persistence/application
 integration for a separate PR. This authorizes the branch and PR, not merging or deployment.
 
+On October 24, the owner requests committing and opening pull requests for the current celestial
+veil work and developer palette. This authorizes publishing the shared utilities/browser-test
+foundations, persistent selection/status store, image-derived static veil and research assets, and
+the first data-gui adapter as coherent review increments. The veil and GUI remain draft review work
+where indicated; opening PRs does not accept final artwork, authorize merging or deploy them.
+Deferred sound work stays outside this publication.
+
+On October 25, the owner requests the PR for the composition controls and reusable preset workbench,
+including Base UI presentation, local preset persistence, tests and preserved visual studies, then
+resuming image analysis. Commit/push/PR publication is authorized. Because #5–#7 were merged into
+intermediate feature branches rather than main, this PR also consolidates that previously reviewed
+work directly against main. No merge or deployment is requested; deferred sound remains separate.
+
 ## Continuity
 
 ### Bounded sessions
